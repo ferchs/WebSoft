@@ -5,6 +5,9 @@
  */
 package websoft;
 
+import modelo.entidades.Personas;
+
+
 /**
  *
  * @author ferchs
@@ -16,6 +19,8 @@ public class WebSoft {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Personas p = new Personas(,"","");
+        
     }
     
 }
