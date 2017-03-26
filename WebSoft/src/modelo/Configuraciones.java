@@ -17,6 +17,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -68,11 +69,38 @@ public class Configuraciones {
           return propiedades;
      }
      
-     public String obtenerConfiguracionXML(String nombreNodoConfiguracion,String nombreAtributo, String nombreConfiguracion){
+     public String obtenerConfiguracionXML(String nombreNodoConfiguracion, String nombreAtributoClave, String valorClave, String nombreAtributoValor){
          Document documento=cargarXML();
-         Node nodoConfiguracion=encontarNodoConValorAtributo(documento,nombreNodoConfiguracion,nombreAtributo,nombreConfiguracion);
-         
-         return null;
+         Node nodoConfiguracion=encontarNodoConValorAtributo(documento,nombreNodoConfiguracion,nombreAtributoClave,valorClave);
+         NamedNodeMap configuraciones = nodoConfiguracion.getAttributes();
+         String configuracion=configuraciones.getNamedItem(nombreAtributoValor).getTextContent();
+         return configuracion;
+     }
+     
+     
+     public void escribirConfiguracionXML(String nombreNodoConfiguracion, String nombreAtributoClave, String valorClave, String nombreAtributoValor, String valor){
+         Document documento=cargarXML();
+         Node nodoConfiguracion=encontarNodoConValorAtributo(documento,nombreNodoConfiguracion,nombreAtributoClave,valorClave);
+         NamedNodeMap configuraciones = nodoConfiguracion.getAttributes();
+         Node nodeAttr = configuraciones.getNamedItem(nombreAtributoValor);
+         nodeAttr.setTextContent(valor);
+         GuardarCambioXML(documento);
+     }
+     
+     private Document cargarXML(){
+         try {
+             String filepath = rutaArchivoConfiguracion;
+             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+             Document doc = docBuilder.parse(filepath);
+             return doc;
+         } catch (SAXException ex) {
+             return null;
+         } catch (IOException ex) {
+             return null;
+         } catch (ParserConfigurationException ex) {
+             return null;
+         }
      }
      
      private  Node encontarNodoConValorAtributo (Document documento, String nombreNodo, String idAtributo, String valorAtributo){
@@ -90,19 +118,17 @@ public class Configuraciones {
          return null;
      }
      
-     public Document cargarXML(){
+     private void GuardarCambioXML(Document documento){
          try {
-             String filepath = rutaArchivoConfiguracion;
-             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-             Document doc = docBuilder.parse(filepath);
-             return doc;
-         } catch (SAXException ex) {
-             return null;
-         } catch (IOException ex) {
-             return null;
-         } catch (ParserConfigurationException ex) {
-             return null;
+             TransformerFactory transformerFactory = TransformerFactory.newInstance();
+             Transformer transformer = transformerFactory.newTransformer();
+             DOMSource source = new DOMSource(documento);
+             StreamResult result = new StreamResult(new File(rutaArchivoConfiguracion));
+             transformer.transform(source, result);
+         } catch (TransformerConfigurationException ex) {
+             Logger.getLogger(Configuraciones.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (TransformerException ex) {
+             Logger.getLogger(Configuraciones.class.getName()).log(Level.SEVERE, null, ex);
          }
      }
 }
