@@ -30,17 +30,17 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Profesores.findAll", query = "SELECT p FROM Profesores p")
-    , @NamedQuery(name = "Profesores.findByPersona", query = "SELECT p FROM Profesores p WHERE p.persona = :persona")})
+    , @NamedQuery(name = "Profesores.findByPersonasnumeroidentificacion", query = "SELECT p FROM Profesores p WHERE p.personasnumeroidentificacion = :personasnumeroidentificacion")})
 public class Profesores implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "Persona")
-    private Integer persona;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
+    @Column(name = "Personas_numero_identificacion")
+    private String personasnumeroidentificacion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "director")
     private Collection<Cursos> cursosCollection;
-    @JoinColumn(name = "Persona", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
+    @JoinColumn(name = "Personas_numero_identificacion", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
@@ -49,16 +49,16 @@ public class Profesores implements Serializable {
     public Profesores() {
     }
 
-    public Profesores(Integer persona) {
-        this.persona = persona;
+    public Profesores(String personasnumeroidentificacion) {
+        this.personasnumeroidentificacion = personasnumeroidentificacion;
     }
 
-    public Integer getPersona() {
-        return persona;
+    public String getPersonasnumeroidentificacion() {
+        return personasnumeroidentificacion;
     }
 
-    public void setPersona(Integer persona) {
-        this.persona = persona;
+    public void setPersonasnumeroidentificacion(String personasnumeroidentificacion) {
+        this.personasnumeroidentificacion = personasnumeroidentificacion;
     }
 
     @XmlTransient
@@ -90,7 +90,7 @@ public class Profesores implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (persona != null ? persona.hashCode() : 0);
+        hash += (personasnumeroidentificacion != null ? personasnumeroidentificacion.hashCode() : 0);
         return hash;
     }
 
@@ -101,7 +101,7 @@ public class Profesores implements Serializable {
             return false;
         }
         Profesores other = (Profesores) object;
-        if ((this.persona == null && other.persona != null) || (this.persona != null && !this.persona.equals(other.persona))) {
+        if ((this.personasnumeroidentificacion == null && other.personasnumeroidentificacion != null) || (this.personasnumeroidentificacion != null && !this.personasnumeroidentificacion.equals(other.personasnumeroidentificacion))) {
             return false;
         }
         return true;
@@ -109,7 +109,7 @@ public class Profesores implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.Profesores[ persona=" + persona + " ]";
+        return "modelo.entidades.Profesores[ personasnumeroidentificacion=" + personasnumeroidentificacion + " ]";
     }
     
 }

@@ -53,7 +53,7 @@ public class MateriaEnCurso implements Serializable {
     @JoinColumn(name = "Materia", referencedColumnName = "codigo_materia", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Materias materias;
-    @JoinColumn(name = "Profesor", referencedColumnName = "Persona")
+    @JoinColumn(name = "Profesor", referencedColumnName = "Personas_numero_identificacion")
     @ManyToOne(optional = false)
     private Profesores profesor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "materiaEnCurso")

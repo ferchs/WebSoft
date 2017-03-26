@@ -38,12 +38,12 @@ public class MatriculasPK implements Serializable {
     private int salon;
     @Basic(optional = false)
     @Column(name = "Estudiante")
-    private int estudiante;
+    private String estudiante;
 
     public MatriculasPK() {
     }
 
-    public MatriculasPK(Date fechaMateriaEnCurso, int institucion, int sede, int jornada, int salon, int estudiante) {
+    public MatriculasPK(Date fechaMateriaEnCurso, int institucion, int sede, int jornada, int salon, String estudiante) {
         this.fechaMateriaEnCurso = fechaMateriaEnCurso;
         this.institucion = institucion;
         this.sede = sede;
@@ -92,11 +92,11 @@ public class MatriculasPK implements Serializable {
         this.salon = salon;
     }
 
-    public int getEstudiante() {
+    public String getEstudiante() {
         return estudiante;
     }
 
-    public void setEstudiante(int estudiante) {
+    public void setEstudiante(String estudiante) {
         this.estudiante = estudiante;
     }
 
@@ -108,7 +108,7 @@ public class MatriculasPK implements Serializable {
         hash += (int) sede;
         hash += (int) jornada;
         hash += (int) salon;
-        hash += (int) estudiante;
+        hash += (estudiante != null ? estudiante.hashCode() : 0);
         return hash;
     }
 
@@ -134,7 +134,7 @@ public class MatriculasPK implements Serializable {
         if (this.salon != other.salon) {
             return false;
         }
-        if (this.estudiante != other.estudiante) {
+        if ((this.estudiante == null && other.estudiante != null) || (this.estudiante != null && !this.estudiante.equals(other.estudiante))) {
             return false;
         }
         return true;

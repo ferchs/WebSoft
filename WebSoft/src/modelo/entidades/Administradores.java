@@ -27,7 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Administradores.findAll", query = "SELECT a FROM Administradores a")
     , @NamedQuery(name = "Administradores.findByUsuario", query = "SELECT a FROM Administradores a WHERE a.usuario = :usuario")
-    , @NamedQuery(name = "Administradores.findByContrase\u00f1a", query = "SELECT a FROM Administradores a WHERE a.contrase\u00f1a = :contrase\u00f1a")})
+    , @NamedQuery(name = "Administradores.findByContrase\u00f1a", query = "SELECT a FROM Administradores a WHERE a.contrase\u00f1a = :contrase\u00f1a")
+    , @NamedQuery(name = "Administradores.findByEmail", query = "SELECT a FROM Administradores a WHERE a.email = :email")})
 public class Administradores implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,6 +39,9 @@ public class Administradores implements Serializable {
     @Basic(optional = false)
     @Column(name = "contrase\u00f1a")
     private String contraseña;
+    @Basic(optional = false)
+    @Column(name = "email")
+    private String email;
     @JoinColumn(name = "Persona", referencedColumnName = "numero_identificacion")
     @ManyToOne(optional = false)
     private Personas persona;
@@ -49,9 +53,10 @@ public class Administradores implements Serializable {
         this.usuario = usuario;
     }
 
-    public Administradores(String usuario, String contraseña) {
+    public Administradores(String usuario, String contraseña, String email) {
         this.usuario = usuario;
         this.contraseña = contraseña;
+        this.email = email;
     }
 
     public String getUsuario() {
@@ -68,6 +73,14 @@ public class Administradores implements Serializable {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Personas getPersona() {

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DocumentoIdentidad.findAll", query = "SELECT d FROM DocumentoIdentidad d")
-    , @NamedQuery(name = "DocumentoIdentidad.findByPersona", query = "SELECT d FROM DocumentoIdentidad d WHERE d.persona = :persona")
+    , @NamedQuery(name = "DocumentoIdentidad.findByPersonasId", query = "SELECT d FROM DocumentoIdentidad d WHERE d.personasId = :personasId")
     , @NamedQuery(name = "DocumentoIdentidad.findByTipo", query = "SELECT d FROM DocumentoIdentidad d WHERE d.tipo = :tipo")
     , @NamedQuery(name = "DocumentoIdentidad.findByFechaNacimiento", query = "SELECT d FROM DocumentoIdentidad d WHERE d.fechaNacimiento = :fechaNacimiento")
     , @NamedQuery(name = "DocumentoIdentidad.findByLugarNacimiento", query = "SELECT d FROM DocumentoIdentidad d WHERE d.lugarNacimiento = :lugarNacimiento")
@@ -40,8 +40,8 @@ public class DocumentoIdentidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "Persona")
-    private Integer persona;
+    @Column(name = "Personas_Id")
+    private String personasId;
     @Column(name = "tipo")
     private String tipo;
     @Column(name = "fecha_nacimiento")
@@ -53,23 +53,23 @@ public class DocumentoIdentidad implements Serializable {
     private String paisNacimiento;
     @Column(name = "rh")
     private String rh;
-    @JoinColumn(name = "Persona", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
+    @JoinColumn(name = "Personas_Id", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
 
     public DocumentoIdentidad() {
     }
 
-    public DocumentoIdentidad(Integer persona) {
-        this.persona = persona;
+    public DocumentoIdentidad(String personasId) {
+        this.personasId = personasId;
     }
 
-    public Integer getPersona() {
-        return persona;
+    public String getPersonasId() {
+        return personasId;
     }
 
-    public void setPersona(Integer persona) {
-        this.persona = persona;
+    public void setPersonasId(String personasId) {
+        this.personasId = personasId;
     }
 
     public String getTipo() {
@@ -123,7 +123,7 @@ public class DocumentoIdentidad implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (persona != null ? persona.hashCode() : 0);
+        hash += (personasId != null ? personasId.hashCode() : 0);
         return hash;
     }
 
@@ -134,7 +134,7 @@ public class DocumentoIdentidad implements Serializable {
             return false;
         }
         DocumentoIdentidad other = (DocumentoIdentidad) object;
-        if ((this.persona == null && other.persona != null) || (this.persona != null && !this.persona.equals(other.persona))) {
+        if ((this.personasId == null && other.personasId != null) || (this.personasId != null && !this.personasId.equals(other.personasId))) {
             return false;
         }
         return true;
@@ -142,7 +142,7 @@ public class DocumentoIdentidad implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.DocumentoIdentidad[ persona=" + persona + " ]";
+        return "modelo.entidades.DocumentoIdentidad[ personasId=" + personasId + " ]";
     }
     
 }

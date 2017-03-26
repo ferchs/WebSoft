@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "InformacionMedica.findAll", query = "SELECT i FROM InformacionMedica i")
-    , @NamedQuery(name = "InformacionMedica.findByPersona", query = "SELECT i FROM InformacionMedica i WHERE i.persona = :persona")
+    , @NamedQuery(name = "InformacionMedica.findByPersonasId", query = "SELECT i FROM InformacionMedica i WHERE i.personasId = :personasId")
     , @NamedQuery(name = "InformacionMedica.findByNombreEps", query = "SELECT i FROM InformacionMedica i WHERE i.nombreEps = :nombreEps")
     , @NamedQuery(name = "InformacionMedica.findBySisben", query = "SELECT i FROM InformacionMedica i WHERE i.sisben = :sisben")
     , @NamedQuery(name = "InformacionMedica.findByNivel", query = "SELECT i FROM InformacionMedica i WHERE i.nivel = :nivel")})
@@ -35,31 +35,31 @@ public class InformacionMedica implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "Persona")
-    private Integer persona;
+    @Column(name = "Personas_Id")
+    private String personasId;
     @Column(name = "nombre_eps")
     private String nombreEps;
     @Column(name = "sisben")
     private String sisben;
     @Column(name = "nivel")
     private String nivel;
-    @JoinColumn(name = "Persona", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
+    @JoinColumn(name = "Personas_Id", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
 
     public InformacionMedica() {
     }
 
-    public InformacionMedica(Integer persona) {
-        this.persona = persona;
+    public InformacionMedica(String personasId) {
+        this.personasId = personasId;
     }
 
-    public Integer getPersona() {
-        return persona;
+    public String getPersonasId() {
+        return personasId;
     }
 
-    public void setPersona(Integer persona) {
-        this.persona = persona;
+    public void setPersonasId(String personasId) {
+        this.personasId = personasId;
     }
 
     public String getNombreEps() {
@@ -97,7 +97,7 @@ public class InformacionMedica implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (persona != null ? persona.hashCode() : 0);
+        hash += (personasId != null ? personasId.hashCode() : 0);
         return hash;
     }
 
@@ -108,7 +108,7 @@ public class InformacionMedica implements Serializable {
             return false;
         }
         InformacionMedica other = (InformacionMedica) object;
-        if ((this.persona == null && other.persona != null) || (this.persona != null && !this.persona.equals(other.persona))) {
+        if ((this.personasId == null && other.personasId != null) || (this.personasId != null && !this.personasId.equals(other.personasId))) {
             return false;
         }
         return true;
@@ -116,7 +116,7 @@ public class InformacionMedica implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.InformacionMedica[ persona=" + persona + " ]";
+        return "modelo.entidades.InformacionMedica[ personasId=" + personasId + " ]";
     }
     
 }

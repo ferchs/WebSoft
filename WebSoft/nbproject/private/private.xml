@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/ferchs/Documents/WebSoft/WebSoft/src/websoft/WebSoft.java</file>
-            <file>file:/Users/ferchs/Documents/WebSoft/WebSoft/src/modelo/entidades/Personas.java</file>
-            <file>file:/Users/ferchs/Documents/WebSoft/WebSoft/src/modelo/Administrador.java</file>
-            <file>file:/Users/ferchs/Documents/WebSoft/WebSoft/src/modelo/AbstractFacade.java</file>
+            <file>file:/Users/ferchs/Documents/WebSoft/WebSoft/src/modelo/Configuraciones.java</file>
+            <file>file:/Users/ferchs/Documents/WebSoft/WebSoft/src/modelo/EnvioCorreo.java</file>
+            <file>file:/Users/ferchs/Documents/WebSoft/WebSoft/src/META-INF/persistence.xml</file>
         </group>
     </open-files>
 </project-private>

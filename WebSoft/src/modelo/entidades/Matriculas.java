@@ -53,7 +53,7 @@ public class Matriculas implements Serializable {
         , @JoinColumn(name = "Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private MateriaEnCurso materiaEnCurso;
-    @JoinColumn(name = "Estudiante", referencedColumnName = "Persona", insertable = false, updatable = false)
+    @JoinColumn(name = "Estudiante", referencedColumnName = "Personas_numero_identificacion", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Estudiantes estudiantes;
 
@@ -64,7 +64,7 @@ public class Matriculas implements Serializable {
         this.matriculasPK = matriculasPK;
     }
 
-    public Matriculas(Date fechaMateriaEnCurso, int institucion, int sede, int jornada, int salon, int estudiante) {
+    public Matriculas(Date fechaMateriaEnCurso, int institucion, int sede, int jornada, int salon, String estudiante) {
         this.matriculasPK = new MatriculasPK(fechaMateriaEnCurso, institucion, sede, jornada, salon, estudiante);
     }
 

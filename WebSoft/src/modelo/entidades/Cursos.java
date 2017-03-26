@@ -50,9 +50,9 @@ public class Cursos implements Serializable {
     @JoinColumn(name = "Jornada", referencedColumnName = "id_jornada", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Jornadas jornadas;
-    @JoinColumn(name = "Profesor", referencedColumnName = "Persona")
+    @JoinColumn(name = "Director", referencedColumnName = "Personas_numero_identificacion")
     @ManyToOne(optional = false)
-    private Profesores profesor;
+    private Profesores director;
     @JoinColumn(name = "Salon", referencedColumnName = "id_salon", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Salones salones;
@@ -113,12 +113,12 @@ public class Cursos implements Serializable {
         this.jornadas = jornadas;
     }
 
-    public Profesores getProfesor() {
-        return profesor;
+    public Profesores getDirector() {
+        return director;
     }
 
-    public void setProfesor(Profesores profesor) {
-        this.profesor = profesor;
+    public void setDirector(Profesores director) {
+        this.director = director;
     }
 
     public Salones getSalones() {

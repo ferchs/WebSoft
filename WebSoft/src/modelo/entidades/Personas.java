@@ -40,7 +40,7 @@ public class Personas implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "numero_identificacion")
-    private Integer numeroIdentificacion;
+    private String numeroIdentificacion;
     @Basic(optional = false)
     @Column(name = "primer_nombre")
     private String primerNombre;
@@ -53,14 +53,14 @@ public class Personas implements Serializable {
     private String segundoApellido;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private Collection<Administradores> administradoresCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personas")
+    private Collection<RolResponsable> rolResponsableCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personas")
     private InformacionContacto informacionContacto;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personas")
     private Estudiantes estudiantes;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personas")
     private Profesores profesores;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personas")
-    private Collection<Responsables> responsablesCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personas")
     private DocumentoIdentidad documentoIdentidad;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "personas")
@@ -69,21 +69,21 @@ public class Personas implements Serializable {
     public Personas() {
     }
 
-    public Personas(Integer numeroIdentificacion) {
+    public Personas(String numeroIdentificacion) {
         this.numeroIdentificacion = numeroIdentificacion;
     }
 
-    public Personas(Integer numeroIdentificacion, String primerNombre, String primerApellido) {
+    public Personas(String numeroIdentificacion, String primerNombre, String primerApellido) {
         this.numeroIdentificacion = numeroIdentificacion;
         this.primerNombre = primerNombre;
         this.primerApellido = primerApellido;
     }
 
-    public Integer getNumeroIdentificacion() {
+    public String getNumeroIdentificacion() {
         return numeroIdentificacion;
     }
 
-    public void setNumeroIdentificacion(Integer numeroIdentificacion) {
+    public void setNumeroIdentificacion(String numeroIdentificacion) {
         this.numeroIdentificacion = numeroIdentificacion;
     }
 
@@ -128,6 +128,15 @@ public class Personas implements Serializable {
         this.administradoresCollection = administradoresCollection;
     }
 
+    @XmlTransient
+    public Collection<RolResponsable> getRolResponsableCollection() {
+        return rolResponsableCollection;
+    }
+
+    public void setRolResponsableCollection(Collection<RolResponsable> rolResponsableCollection) {
+        this.rolResponsableCollection = rolResponsableCollection;
+    }
+
     public InformacionContacto getInformacionContacto() {
         return informacionContacto;
     }
@@ -150,15 +159,6 @@ public class Personas implements Serializable {
 
     public void setProfesores(Profesores profesores) {
         this.profesores = profesores;
-    }
-
-    @XmlTransient
-    public Collection<Responsables> getResponsablesCollection() {
-        return responsablesCollection;
-    }
-
-    public void setResponsablesCollection(Collection<Responsables> responsablesCollection) {
-        this.responsablesCollection = responsablesCollection;
     }
 
     public DocumentoIdentidad getDocumentoIdentidad() {

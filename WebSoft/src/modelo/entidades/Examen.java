@@ -29,7 +29,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Examen.findAll", query = "SELECT e FROM Examen e")
     , @NamedQuery(name = "Examen.findByFecha", query = "SELECT e FROM Examen e WHERE e.examenPK.fecha = :fecha")
-    , @NamedQuery(name = "Examen.findByEstudiante", query = "SELECT e FROM Examen e WHERE e.examenPK.estudiante = :estudiante")
     , @NamedQuery(name = "Examen.findByConsecutivoEvaluacion", query = "SELECT e FROM Examen e WHERE e.examenPK.consecutivoEvaluacion = :consecutivoEvaluacion")
     , @NamedQuery(name = "Examen.findByFechaEvaluacion", query = "SELECT e FROM Examen e WHERE e.examenPK.fechaEvaluacion = :fechaEvaluacion")
     , @NamedQuery(name = "Examen.findByInstitucion", query = "SELECT e FROM Examen e WHERE e.examenPK.institucion = :institucion")
@@ -37,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Examen.findBySalon", query = "SELECT e FROM Examen e WHERE e.examenPK.salon = :salon")
     , @NamedQuery(name = "Examen.findByJornada", query = "SELECT e FROM Examen e WHERE e.examenPK.jornada = :jornada")
     , @NamedQuery(name = "Examen.findByMateria", query = "SELECT e FROM Examen e WHERE e.examenPK.materia = :materia")
+    , @NamedQuery(name = "Examen.findByEstudiante", query = "SELECT e FROM Examen e WHERE e.examenPK.estudiante = :estudiante")
     , @NamedQuery(name = "Examen.findByNota", query = "SELECT e FROM Examen e WHERE e.nota = :nota")})
 public class Examen implements Serializable {
 
@@ -46,7 +46,7 @@ public class Examen implements Serializable {
     @Basic(optional = false)
     @Column(name = "nota")
     private double nota;
-    @JoinColumn(name = "Estudiante", referencedColumnName = "Persona", insertable = false, updatable = false)
+    @JoinColumn(name = "Estudiante", referencedColumnName = "Personas_numero_identificacion", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Estudiantes estudiantes;
     @JoinColumns({
@@ -72,8 +72,8 @@ public class Examen implements Serializable {
         this.nota = nota;
     }
 
-    public Examen(Date fecha, int estudiante, int consecutivoEvaluacion, Date fechaEvaluacion, int institucion, int sede, int salon, int jornada, int materia) {
-        this.examenPK = new ExamenPK(fecha, estudiante, consecutivoEvaluacion, fechaEvaluacion, institucion, sede, salon, jornada, materia);
+    public Examen(Date fecha, int consecutivoEvaluacion, Date fechaEvaluacion, int institucion, int sede, int salon, int jornada, int materia, String estudiante) {
+        this.examenPK = new ExamenPK(fecha, consecutivoEvaluacion, fechaEvaluacion, institucion, sede, salon, jornada, materia, estudiante);
     }
 
     public ExamenPK getExamenPK() {

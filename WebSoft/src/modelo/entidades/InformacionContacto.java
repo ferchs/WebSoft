@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "InformacionContacto.findAll", query = "SELECT i FROM InformacionContacto i")
-    , @NamedQuery(name = "InformacionContacto.findByPersona", query = "SELECT i FROM InformacionContacto i WHERE i.persona = :persona")
+    , @NamedQuery(name = "InformacionContacto.findByPersonasId", query = "SELECT i FROM InformacionContacto i WHERE i.personasId = :personasId")
     , @NamedQuery(name = "InformacionContacto.findByDireccion", query = "SELECT i FROM InformacionContacto i WHERE i.direccion = :direccion")
     , @NamedQuery(name = "InformacionContacto.findByTelefono", query = "SELECT i FROM InformacionContacto i WHERE i.telefono = :telefono")
     , @NamedQuery(name = "InformacionContacto.findByCelular", query = "SELECT i FROM InformacionContacto i WHERE i.celular = :celular")
@@ -38,8 +38,8 @@ public class InformacionContacto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "Persona")
-    private Integer persona;
+    @Column(name = "Personas_Id")
+    private String personasId;
     @Column(name = "direccion")
     private String direccion;
     @Column(name = "telefono")
@@ -52,23 +52,23 @@ public class InformacionContacto implements Serializable {
     private String barrio;
     @Column(name = "estrato")
     private String estrato;
-    @JoinColumn(name = "Persona", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
+    @JoinColumn(name = "Personas_Id", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
 
     public InformacionContacto() {
     }
 
-    public InformacionContacto(Integer persona) {
-        this.persona = persona;
+    public InformacionContacto(String personasId) {
+        this.personasId = personasId;
     }
 
-    public Integer getPersona() {
-        return persona;
+    public String getPersonasId() {
+        return personasId;
     }
 
-    public void setPersona(Integer persona) {
-        this.persona = persona;
+    public void setPersonasId(String personasId) {
+        this.personasId = personasId;
     }
 
     public String getDireccion() {
@@ -130,7 +130,7 @@ public class InformacionContacto implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (persona != null ? persona.hashCode() : 0);
+        hash += (personasId != null ? personasId.hashCode() : 0);
         return hash;
     }
 
@@ -141,7 +141,7 @@ public class InformacionContacto implements Serializable {
             return false;
         }
         InformacionContacto other = (InformacionContacto) object;
-        if ((this.persona == null && other.persona != null) || (this.persona != null && !this.persona.equals(other.persona))) {
+        if ((this.personasId == null && other.personasId != null) || (this.personasId != null && !this.personasId.equals(other.personasId))) {
             return false;
         }
         return true;
@@ -149,7 +149,7 @@ public class InformacionContacto implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.InformacionContacto[ persona=" + persona + " ]";
+        return "modelo.entidades.InformacionContacto[ personasId=" + personasId + " ]";
     }
     
 }

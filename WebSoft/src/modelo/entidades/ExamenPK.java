@@ -25,9 +25,6 @@ public class ExamenPK implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Basic(optional = false)
-    @Column(name = "Estudiante")
-    private int estudiante;
-    @Basic(optional = false)
     @Column(name = "Consecutivo_Evaluacion")
     private int consecutivoEvaluacion;
     @Basic(optional = false)
@@ -49,13 +46,15 @@ public class ExamenPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "Materia")
     private int materia;
+    @Basic(optional = false)
+    @Column(name = "Estudiante")
+    private String estudiante;
 
     public ExamenPK() {
     }
 
-    public ExamenPK(Date fecha, int estudiante, int consecutivoEvaluacion, Date fechaEvaluacion, int institucion, int sede, int salon, int jornada, int materia) {
+    public ExamenPK(Date fecha, int consecutivoEvaluacion, Date fechaEvaluacion, int institucion, int sede, int salon, int jornada, int materia, String estudiante) {
         this.fecha = fecha;
-        this.estudiante = estudiante;
         this.consecutivoEvaluacion = consecutivoEvaluacion;
         this.fechaEvaluacion = fechaEvaluacion;
         this.institucion = institucion;
@@ -63,6 +62,7 @@ public class ExamenPK implements Serializable {
         this.salon = salon;
         this.jornada = jornada;
         this.materia = materia;
+        this.estudiante = estudiante;
     }
 
     public Date getFecha() {
@@ -71,14 +71,6 @@ public class ExamenPK implements Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public int getEstudiante() {
-        return estudiante;
-    }
-
-    public void setEstudiante(int estudiante) {
-        this.estudiante = estudiante;
     }
 
     public int getConsecutivoEvaluacion() {
@@ -137,11 +129,18 @@ public class ExamenPK implements Serializable {
         this.materia = materia;
     }
 
+    public String getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(String estudiante) {
+        this.estudiante = estudiante;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (fecha != null ? fecha.hashCode() : 0);
-        hash += (int) estudiante;
         hash += (int) consecutivoEvaluacion;
         hash += (fechaEvaluacion != null ? fechaEvaluacion.hashCode() : 0);
         hash += (int) institucion;
@@ -149,6 +148,7 @@ public class ExamenPK implements Serializable {
         hash += (int) salon;
         hash += (int) jornada;
         hash += (int) materia;
+        hash += (estudiante != null ? estudiante.hashCode() : 0);
         return hash;
     }
 
@@ -160,9 +160,6 @@ public class ExamenPK implements Serializable {
         }
         ExamenPK other = (ExamenPK) object;
         if ((this.fecha == null && other.fecha != null) || (this.fecha != null && !this.fecha.equals(other.fecha))) {
-            return false;
-        }
-        if (this.estudiante != other.estudiante) {
             return false;
         }
         if (this.consecutivoEvaluacion != other.consecutivoEvaluacion) {
@@ -186,12 +183,15 @@ public class ExamenPK implements Serializable {
         if (this.materia != other.materia) {
             return false;
         }
+        if ((this.estudiante == null && other.estudiante != null) || (this.estudiante != null && !this.estudiante.equals(other.estudiante))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "modelo.entidades.ExamenPK[ fecha=" + fecha + ", estudiante=" + estudiante + ", consecutivoEvaluacion=" + consecutivoEvaluacion + ", fechaEvaluacion=" + fechaEvaluacion + ", institucion=" + institucion + ", sede=" + sede + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + " ]";
+        return "modelo.entidades.ExamenPK[ fecha=" + fecha + ", consecutivoEvaluacion=" + consecutivoEvaluacion + ", fechaEvaluacion=" + fechaEvaluacion + ", institucion=" + institucion + ", sede=" + sede + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + ", estudiante=" + estudiante + " ]";
     }
     
 }

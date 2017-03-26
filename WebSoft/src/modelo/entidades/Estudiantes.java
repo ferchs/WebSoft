@@ -30,37 +30,46 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estudiantes.findAll", query = "SELECT e FROM Estudiantes e")
-    , @NamedQuery(name = "Estudiantes.findByPersona", query = "SELECT e FROM Estudiantes e WHERE e.persona = :persona")})
+    , @NamedQuery(name = "Estudiantes.findByPersonasnumeroidentificacion", query = "SELECT e FROM Estudiantes e WHERE e.personasnumeroidentificacion = :personasnumeroidentificacion")})
 public class Estudiantes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "Persona")
-    private Integer persona;
+    @Column(name = "Personas_numero_identificacion")
+    private String personasnumeroidentificacion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiantes")
+    private Collection<RolResponsable> rolResponsableCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiantes")
     private Collection<Examen> examenCollection;
-    @JoinColumn(name = "Persona", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
+    @JoinColumn(name = "Personas_numero_identificacion", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiantes")
-    private Collection<Responsables> responsablesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiantes")
     private Collection<Matriculas> matriculasCollection;
 
     public Estudiantes() {
     }
 
-    public Estudiantes(Integer persona) {
-        this.persona = persona;
+    public Estudiantes(String personasnumeroidentificacion) {
+        this.personasnumeroidentificacion = personasnumeroidentificacion;
     }
 
-    public Integer getPersona() {
-        return persona;
+    public String getPersonasnumeroidentificacion() {
+        return personasnumeroidentificacion;
     }
 
-    public void setPersona(Integer persona) {
-        this.persona = persona;
+    public void setPersonasnumeroidentificacion(String personasnumeroidentificacion) {
+        this.personasnumeroidentificacion = personasnumeroidentificacion;
+    }
+
+    @XmlTransient
+    public Collection<RolResponsable> getRolResponsableCollection() {
+        return rolResponsableCollection;
+    }
+
+    public void setRolResponsableCollection(Collection<RolResponsable> rolResponsableCollection) {
+        this.rolResponsableCollection = rolResponsableCollection;
     }
 
     @XmlTransient
@@ -81,15 +90,6 @@ public class Estudiantes implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Responsables> getResponsablesCollection() {
-        return responsablesCollection;
-    }
-
-    public void setResponsablesCollection(Collection<Responsables> responsablesCollection) {
-        this.responsablesCollection = responsablesCollection;
-    }
-
-    @XmlTransient
     public Collection<Matriculas> getMatriculasCollection() {
         return matriculasCollection;
     }
@@ -101,7 +101,7 @@ public class Estudiantes implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (persona != null ? persona.hashCode() : 0);
+        hash += (personasnumeroidentificacion != null ? personasnumeroidentificacion.hashCode() : 0);
         return hash;
     }
 
@@ -112,7 +112,7 @@ public class Estudiantes implements Serializable {
             return false;
         }
         Estudiantes other = (Estudiantes) object;
-        if ((this.persona == null && other.persona != null) || (this.persona != null && !this.persona.equals(other.persona))) {
+        if ((this.personasnumeroidentificacion == null && other.personasnumeroidentificacion != null) || (this.personasnumeroidentificacion != null && !this.personasnumeroidentificacion.equals(other.personasnumeroidentificacion))) {
             return false;
         }
         return true;
@@ -120,7 +120,7 @@ public class Estudiantes implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.Estudiantes[ persona=" + persona + " ]";
+        return "modelo.entidades.Estudiantes[ personasnumeroidentificacion=" + personasnumeroidentificacion + " ]";
     }
     
 }

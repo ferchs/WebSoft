@@ -21,19 +21,19 @@ public class RolResponsablePK implements Serializable {
     @Column(name = "Rol_id_rol")
     private int rolidrol;
     @Basic(optional = false)
-    @Column(name = "Responsable_Estudiantes")
-    private int responsableEstudiantes;
+    @Column(name = "Personas_Id")
+    private String personasId;
     @Basic(optional = false)
-    @Column(name = "Responsable_Personas")
-    private int responsablePersonas;
+    @Column(name = "Estudiante")
+    private String estudiante;
 
     public RolResponsablePK() {
     }
 
-    public RolResponsablePK(int rolidrol, int responsableEstudiantes, int responsablePersonas) {
+    public RolResponsablePK(int rolidrol, String personasId, String estudiante) {
         this.rolidrol = rolidrol;
-        this.responsableEstudiantes = responsableEstudiantes;
-        this.responsablePersonas = responsablePersonas;
+        this.personasId = personasId;
+        this.estudiante = estudiante;
     }
 
     public int getRolidrol() {
@@ -44,28 +44,28 @@ public class RolResponsablePK implements Serializable {
         this.rolidrol = rolidrol;
     }
 
-    public int getResponsableEstudiantes() {
-        return responsableEstudiantes;
+    public String getPersonasId() {
+        return personasId;
     }
 
-    public void setResponsableEstudiantes(int responsableEstudiantes) {
-        this.responsableEstudiantes = responsableEstudiantes;
+    public void setPersonasId(String personasId) {
+        this.personasId = personasId;
     }
 
-    public int getResponsablePersonas() {
-        return responsablePersonas;
+    public String getEstudiante() {
+        return estudiante;
     }
 
-    public void setResponsablePersonas(int responsablePersonas) {
-        this.responsablePersonas = responsablePersonas;
+    public void setEstudiante(String estudiante) {
+        this.estudiante = estudiante;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) rolidrol;
-        hash += (int) responsableEstudiantes;
-        hash += (int) responsablePersonas;
+        hash += (personasId != null ? personasId.hashCode() : 0);
+        hash += (estudiante != null ? estudiante.hashCode() : 0);
         return hash;
     }
 
@@ -79,10 +79,10 @@ public class RolResponsablePK implements Serializable {
         if (this.rolidrol != other.rolidrol) {
             return false;
         }
-        if (this.responsableEstudiantes != other.responsableEstudiantes) {
+        if ((this.personasId == null && other.personasId != null) || (this.personasId != null && !this.personasId.equals(other.personasId))) {
             return false;
         }
-        if (this.responsablePersonas != other.responsablePersonas) {
+        if ((this.estudiante == null && other.estudiante != null) || (this.estudiante != null && !this.estudiante.equals(other.estudiante))) {
             return false;
         }
         return true;
@@ -90,7 +90,7 @@ public class RolResponsablePK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.RolResponsablePK[ rolidrol=" + rolidrol + ", responsableEstudiantes=" + responsableEstudiantes + ", responsablePersonas=" + responsablePersonas + " ]";
+        return "modelo.entidades.RolResponsablePK[ rolidrol=" + rolidrol + ", personasId=" + personasId + ", estudiante=" + estudiante + " ]";
     }
     
 }

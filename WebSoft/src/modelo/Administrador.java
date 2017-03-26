@@ -17,6 +17,7 @@ public class Administrador extends AbstractFacade{
     private EntityManager em;
      
      private Persona persona;
+     private Criptografia criptografia;
      
     public Administrador() {
         super(Administradores.class);
@@ -27,19 +28,28 @@ public class Administrador extends AbstractFacade{
         return em;
     }
     
-    public void CrearAdministrador(Personas persona, String usuario, String contraseña){
+    public void CrearAdministrador(Personas persona, String usuario, String contraseña, String email){
         this.persona.create(persona);
-        Administradores admin= new Administradores(usuario,contraseña);
+        Administradores admin= new Administradores(usuario,contraseña,email);
         admin.setPersona(persona);
+        super.create(admin);
     }
     
-    public void EliminarAdministrador (String usuario, String contraseña ){
-        
-        super.find(em);
+    public boolean EliminarAdministrador (String cedula, String usuario, String contraseña ){
+        boolean fueEliminado=false;
+          Administradores admin= BuscarAdministrador(usuario);
+          if(admin!=null){
+              String documentoIdentidad=admin.getPersona().getNumeroIdentificacion();
+                if(admin.getContraseña().equals(contraseña) && documentoIdentidad.equals(cedula)){
+                    super.remove(admin);
+                    fueEliminado=true;
+                } 
+          }
+          return fueEliminado;
     }
     
-    public Administradores BuscarAdministrador(){
-        super.find();
+    public Administradores BuscarAdministrador(String usuario){
+        return (Administradores) super.find(usuario);
     }
     
 }

@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -27,8 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "RolResponsable.findAll", query = "SELECT r FROM RolResponsable r")
     , @NamedQuery(name = "RolResponsable.findByRolidrol", query = "SELECT r FROM RolResponsable r WHERE r.rolResponsablePK.rolidrol = :rolidrol")
-    , @NamedQuery(name = "RolResponsable.findByResponsableEstudiantes", query = "SELECT r FROM RolResponsable r WHERE r.rolResponsablePK.responsableEstudiantes = :responsableEstudiantes")
-    , @NamedQuery(name = "RolResponsable.findByResponsablePersonas", query = "SELECT r FROM RolResponsable r WHERE r.rolResponsablePK.responsablePersonas = :responsablePersonas")
+    , @NamedQuery(name = "RolResponsable.findByPersonasId", query = "SELECT r FROM RolResponsable r WHERE r.rolResponsablePK.personasId = :personasId")
+    , @NamedQuery(name = "RolResponsable.findByEstudiante", query = "SELECT r FROM RolResponsable r WHERE r.rolResponsablePK.estudiante = :estudiante")
     , @NamedQuery(name = "RolResponsable.findByProfesion", query = "SELECT r FROM RolResponsable r WHERE r.profesion = :profesion")
     , @NamedQuery(name = "RolResponsable.findByEmpresa", query = "SELECT r FROM RolResponsable r WHERE r.empresa = :empresa")})
 public class RolResponsable implements Serializable {
@@ -40,11 +39,12 @@ public class RolResponsable implements Serializable {
     private String profesion;
     @Column(name = "empresa")
     private String empresa;
-    @JoinColumns({
-        @JoinColumn(name = "Responsable_Estudiantes", referencedColumnName = "Estudiante", insertable = false, updatable = false)
-        , @JoinColumn(name = "Responsable_Personas", referencedColumnName = "Persona", insertable = false, updatable = false)})
+    @JoinColumn(name = "Estudiante", referencedColumnName = "Personas_numero_identificacion", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Responsables responsables;
+    private Estudiantes estudiantes;
+    @JoinColumn(name = "Personas_Id", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Personas personas;
     @JoinColumn(name = "Rol_id_rol", referencedColumnName = "id_rol", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Rol rol;
@@ -56,8 +56,8 @@ public class RolResponsable implements Serializable {
         this.rolResponsablePK = rolResponsablePK;
     }
 
-    public RolResponsable(int rolidrol, int responsableEstudiantes, int responsablePersonas) {
-        this.rolResponsablePK = new RolResponsablePK(rolidrol, responsableEstudiantes, responsablePersonas);
+    public RolResponsable(int rolidrol, String personasId, String estudiante) {
+        this.rolResponsablePK = new RolResponsablePK(rolidrol, personasId, estudiante);
     }
 
     public RolResponsablePK getRolResponsablePK() {
@@ -84,12 +84,20 @@ public class RolResponsable implements Serializable {
         this.empresa = empresa;
     }
 
-    public Responsables getResponsables() {
-        return responsables;
+    public Estudiantes getEstudiantes() {
+        return estudiantes;
     }
 
-    public void setResponsables(Responsables responsables) {
-        this.responsables = responsables;
+    public void setEstudiantes(Estudiantes estudiantes) {
+        this.estudiantes = estudiantes;
+    }
+
+    public Personas getPersonas() {
+        return personas;
+    }
+
+    public void setPersonas(Personas personas) {
+        this.personas = personas;
     }
 
     public Rol getRol() {
