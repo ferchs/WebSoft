@@ -21,75 +21,39 @@ import javax.persistence.TemporalType;
 public class MatriculasPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "Fecha_Materia_En_Curso")
-    @Temporal(TemporalType.DATE)
-    private Date fechaMateriaEnCurso;
-    @Basic(optional = false)
-    @Column(name = "Institucion")
-    private int institucion;
-    @Basic(optional = false)
-    @Column(name = "Sede")
-    private int sede;
-    @Basic(optional = false)
-    @Column(name = "Jornada")
-    private int jornada;
-    @Basic(optional = false)
-    @Column(name = "Salon")
-    private int salon;
-    @Basic(optional = false)
     @Column(name = "Estudiante")
     private String estudiante;
+    @Basic(optional = false)
+    @Column(name = "Materia_En_Curso_fecha")
+    @Temporal(TemporalType.DATE)
+    private Date materiaEnCursofecha;
+    @Basic(optional = false)
+    @Column(name = "Materia_En_Curso_Salon")
+    private int materiaEnCursoSalon;
+    @Basic(optional = false)
+    @Column(name = "Materia_En_Curso_Institucion")
+    private int materiaEnCursoInstitucion;
+    @Basic(optional = false)
+    @Column(name = "Materia_En_Curso_Sedes")
+    private int materiaEnCursoSedes;
+    @Basic(optional = false)
+    @Column(name = "Materia_En_Curso_Jornada")
+    private int materiaEnCursoJornada;
+    @Basic(optional = false)
+    @Column(name = "Materia_En_Curso_Materia")
+    private int materiaEnCursoMateria;
 
     public MatriculasPK() {
     }
 
-    public MatriculasPK(Date fechaMateriaEnCurso, int institucion, int sede, int jornada, int salon, String estudiante) {
-        this.fechaMateriaEnCurso = fechaMateriaEnCurso;
-        this.institucion = institucion;
-        this.sede = sede;
-        this.jornada = jornada;
-        this.salon = salon;
+    public MatriculasPK(String estudiante, Date materiaEnCursofecha, int materiaEnCursoSalon, int materiaEnCursoInstitucion, int materiaEnCursoSedes, int materiaEnCursoJornada, int materiaEnCursoMateria) {
         this.estudiante = estudiante;
-    }
-
-    public Date getFechaMateriaEnCurso() {
-        return fechaMateriaEnCurso;
-    }
-
-    public void setFechaMateriaEnCurso(Date fechaMateriaEnCurso) {
-        this.fechaMateriaEnCurso = fechaMateriaEnCurso;
-    }
-
-    public int getInstitucion() {
-        return institucion;
-    }
-
-    public void setInstitucion(int institucion) {
-        this.institucion = institucion;
-    }
-
-    public int getSede() {
-        return sede;
-    }
-
-    public void setSede(int sede) {
-        this.sede = sede;
-    }
-
-    public int getJornada() {
-        return jornada;
-    }
-
-    public void setJornada(int jornada) {
-        this.jornada = jornada;
-    }
-
-    public int getSalon() {
-        return salon;
-    }
-
-    public void setSalon(int salon) {
-        this.salon = salon;
+        this.materiaEnCursofecha = materiaEnCursofecha;
+        this.materiaEnCursoSalon = materiaEnCursoSalon;
+        this.materiaEnCursoInstitucion = materiaEnCursoInstitucion;
+        this.materiaEnCursoSedes = materiaEnCursoSedes;
+        this.materiaEnCursoJornada = materiaEnCursoJornada;
+        this.materiaEnCursoMateria = materiaEnCursoMateria;
     }
 
     public String getEstudiante() {
@@ -100,15 +64,64 @@ public class MatriculasPK implements Serializable {
         this.estudiante = estudiante;
     }
 
+    public Date getMateriaEnCursofecha() {
+        return materiaEnCursofecha;
+    }
+
+    public void setMateriaEnCursofecha(Date materiaEnCursofecha) {
+        this.materiaEnCursofecha = materiaEnCursofecha;
+    }
+
+    public int getMateriaEnCursoSalon() {
+        return materiaEnCursoSalon;
+    }
+
+    public void setMateriaEnCursoSalon(int materiaEnCursoSalon) {
+        this.materiaEnCursoSalon = materiaEnCursoSalon;
+    }
+
+    public int getMateriaEnCursoInstitucion() {
+        return materiaEnCursoInstitucion;
+    }
+
+    public void setMateriaEnCursoInstitucion(int materiaEnCursoInstitucion) {
+        this.materiaEnCursoInstitucion = materiaEnCursoInstitucion;
+    }
+
+    public int getMateriaEnCursoSedes() {
+        return materiaEnCursoSedes;
+    }
+
+    public void setMateriaEnCursoSedes(int materiaEnCursoSedes) {
+        this.materiaEnCursoSedes = materiaEnCursoSedes;
+    }
+
+    public int getMateriaEnCursoJornada() {
+        return materiaEnCursoJornada;
+    }
+
+    public void setMateriaEnCursoJornada(int materiaEnCursoJornada) {
+        this.materiaEnCursoJornada = materiaEnCursoJornada;
+    }
+
+    public int getMateriaEnCursoMateria() {
+        return materiaEnCursoMateria;
+    }
+
+    public void setMateriaEnCursoMateria(int materiaEnCursoMateria) {
+        this.materiaEnCursoMateria = materiaEnCursoMateria;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (fechaMateriaEnCurso != null ? fechaMateriaEnCurso.hashCode() : 0);
-        hash += (int) institucion;
-        hash += (int) sede;
-        hash += (int) jornada;
-        hash += (int) salon;
         hash += (estudiante != null ? estudiante.hashCode() : 0);
+        hash += (materiaEnCursofecha != null ? materiaEnCursofecha.hashCode() : 0);
+        hash += (int) materiaEnCursoSalon;
+        hash += (int) materiaEnCursoInstitucion;
+        hash += (int) materiaEnCursoSedes;
+        hash += (int) materiaEnCursoJornada;
+        hash += (int) materiaEnCursoMateria;
         return hash;
     }
 
@@ -119,22 +132,25 @@ public class MatriculasPK implements Serializable {
             return false;
         }
         MatriculasPK other = (MatriculasPK) object;
-        if ((this.fechaMateriaEnCurso == null && other.fechaMateriaEnCurso != null) || (this.fechaMateriaEnCurso != null && !this.fechaMateriaEnCurso.equals(other.fechaMateriaEnCurso))) {
-            return false;
-        }
-        if (this.institucion != other.institucion) {
-            return false;
-        }
-        if (this.sede != other.sede) {
-            return false;
-        }
-        if (this.jornada != other.jornada) {
-            return false;
-        }
-        if (this.salon != other.salon) {
-            return false;
-        }
         if ((this.estudiante == null && other.estudiante != null) || (this.estudiante != null && !this.estudiante.equals(other.estudiante))) {
+            return false;
+        }
+        if ((this.materiaEnCursofecha == null && other.materiaEnCursofecha != null) || (this.materiaEnCursofecha != null && !this.materiaEnCursofecha.equals(other.materiaEnCursofecha))) {
+            return false;
+        }
+        if (this.materiaEnCursoSalon != other.materiaEnCursoSalon) {
+            return false;
+        }
+        if (this.materiaEnCursoInstitucion != other.materiaEnCursoInstitucion) {
+            return false;
+        }
+        if (this.materiaEnCursoSedes != other.materiaEnCursoSedes) {
+            return false;
+        }
+        if (this.materiaEnCursoJornada != other.materiaEnCursoJornada) {
+            return false;
+        }
+        if (this.materiaEnCursoMateria != other.materiaEnCursoMateria) {
             return false;
         }
         return true;
@@ -142,7 +158,7 @@ public class MatriculasPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.MatriculasPK[ fechaMateriaEnCurso=" + fechaMateriaEnCurso + ", institucion=" + institucion + ", sede=" + sede + ", jornada=" + jornada + ", salon=" + salon + ", estudiante=" + estudiante + " ]";
+        return "modelo.entidades.MatriculasPK[ estudiante=" + estudiante + ", materiaEnCursofecha=" + materiaEnCursofecha + ", materiaEnCursoSalon=" + materiaEnCursoSalon + ", materiaEnCursoInstitucion=" + materiaEnCursoInstitucion + ", materiaEnCursoSedes=" + materiaEnCursoSedes + ", materiaEnCursoJornada=" + materiaEnCursoJornada + ", materiaEnCursoMateria=" + materiaEnCursoMateria + " ]";
     }
     
 }

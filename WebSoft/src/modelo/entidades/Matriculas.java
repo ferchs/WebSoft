@@ -15,6 +15,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,12 +28,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Matriculas.findAll", query = "SELECT m FROM Matriculas m")
-    , @NamedQuery(name = "Matriculas.findByFechaMateriaEnCurso", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.fechaMateriaEnCurso = :fechaMateriaEnCurso")
-    , @NamedQuery(name = "Matriculas.findByInstitucion", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.institucion = :institucion")
-    , @NamedQuery(name = "Matriculas.findBySede", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.sede = :sede")
-    , @NamedQuery(name = "Matriculas.findByJornada", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.jornada = :jornada")
-    , @NamedQuery(name = "Matriculas.findBySalon", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.salon = :salon")
     , @NamedQuery(name = "Matriculas.findByEstudiante", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.estudiante = :estudiante")
+    , @NamedQuery(name = "Matriculas.findByMateriaEnCursofecha", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursofecha = :materiaEnCursofecha")
+    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoSalon", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoSalon = :materiaEnCursoSalon")
+    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoInstitucion", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoInstitucion = :materiaEnCursoInstitucion")
+    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoSedes", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoSedes = :materiaEnCursoSedes")
+    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoJornada", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoJornada = :materiaEnCursoJornada")
+    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoMateria", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoMateria = :materiaEnCursoMateria")
     , @NamedQuery(name = "Matriculas.findByNotaDefinitiva", query = "SELECT m FROM Matriculas m WHERE m.notaDefinitiva = :notaDefinitiva")
     , @NamedQuery(name = "Matriculas.findByTotalInasistencias", query = "SELECT m FROM Matriculas m WHERE m.totalInasistencias = :totalInasistencias")})
 public class Matriculas implements Serializable {
@@ -45,17 +47,18 @@ public class Matriculas implements Serializable {
     private Double notaDefinitiva;
     @Column(name = "total_inasistencias")
     private Integer totalInasistencias;
+    @JoinColumn(name = "Estudiante", referencedColumnName = "Personas_numero_identificacion", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Estudiantes estudiantes;
     @JoinColumns({
-        @JoinColumn(name = "Fecha_Materia_En_Curso", referencedColumnName = "fecha", insertable = false, updatable = false)
-        , @JoinColumn(name = "Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
-        , @JoinColumn(name = "Sede", referencedColumnName = "Sedes", insertable = false, updatable = false)
-        , @JoinColumn(name = "Salon", referencedColumnName = "Salon", insertable = false, updatable = false)
-        , @JoinColumn(name = "Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)})
+        @JoinColumn(name = "Materia_En_Curso_fecha", referencedColumnName = "fecha", insertable = false, updatable = false)
+        , @JoinColumn(name = "Materia_En_Curso_Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
+        , @JoinColumn(name = "Materia_En_Curso_Sedes", referencedColumnName = "Sedes", insertable = false, updatable = false)
+        , @JoinColumn(name = "Materia_En_Curso_Salon", referencedColumnName = "Salon", insertable = false, updatable = false)
+        , @JoinColumn(name = "Materia_En_Curso_Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)
+        , @JoinColumn(name = "Materia_En_Curso_Materia", referencedColumnName = "Materia", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private MateriaEnCurso materiaEnCurso;
-    @JoinColumn(name = "Estudiante", referencedColumnName = "Personas_numero_identificacion", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Estudiantes estudiantes;
 
     public Matriculas() {
     }
@@ -64,8 +67,8 @@ public class Matriculas implements Serializable {
         this.matriculasPK = matriculasPK;
     }
 
-    public Matriculas(Date fechaMateriaEnCurso, int institucion, int sede, int jornada, int salon, String estudiante) {
-        this.matriculasPK = new MatriculasPK(fechaMateriaEnCurso, institucion, sede, jornada, salon, estudiante);
+    public Matriculas(String estudiante, Date materiaEnCursofecha, int materiaEnCursoSalon, int materiaEnCursoInstitucion, int materiaEnCursoSedes, int materiaEnCursoJornada, int materiaEnCursoMateria) {
+        this.matriculasPK = new MatriculasPK(estudiante, materiaEnCursofecha, materiaEnCursoSalon, materiaEnCursoInstitucion, materiaEnCursoSedes, materiaEnCursoJornada, materiaEnCursoMateria);
     }
 
     public MatriculasPK getMatriculasPK() {
@@ -92,20 +95,20 @@ public class Matriculas implements Serializable {
         this.totalInasistencias = totalInasistencias;
     }
 
-    public MateriaEnCurso getMateriaEnCurso() {
-        return materiaEnCurso;
-    }
-
-    public void setMateriaEnCurso(MateriaEnCurso materiaEnCurso) {
-        this.materiaEnCurso = materiaEnCurso;
-    }
-
     public Estudiantes getEstudiantes() {
         return estudiantes;
     }
 
     public void setEstudiantes(Estudiantes estudiantes) {
         this.estudiantes = estudiantes;
+    }
+
+    public MateriaEnCurso getMateriaEnCurso() {
+        return materiaEnCurso;
+    }
+
+    public void setMateriaEnCurso(MateriaEnCurso materiaEnCurso) {
+        this.materiaEnCurso = materiaEnCurso;
     }
 
     @Override

@@ -17,12 +17,7 @@ import org.w3c.dom.Document;
  */
 public class EnvioCorreo {
 
-    public static void main(String [] args) throws IOException {   
         
-       Configuraciones conf = new Configuraciones("/Users/ferchs/Desktop/persistence.xml");
-       String c=conf.obtenerConfiguracionXML("property", "name", "javax.persistence.jdbc.url","value");
-       System.out.println(c);
-       conf.escribirConfiguracionXML("property", "name", "javax.persistence.jdbc.url", "value", "cambiado");
        /*
        //String valor =conf.obtenerConfiguracion("propiedad");
        //System.out.println(conf.obtenerConfiguracion("otra"));
@@ -87,5 +82,4 @@ public class EnvioCorreo {
   }
   System.out.println("Correo enviado");
 */
-   }
 }

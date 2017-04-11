@@ -5,7 +5,6 @@
  */
 package modelo;
 
-import websoft.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -23,7 +22,10 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
-        getEntityManager().persist(entity);
+        EntityManager em=getEntityManager();
+        em.getTransaction().begin();
+        em.persist(entity);
+        em.getTransaction().commit();
     }
 
     public void edit(T entity) {
@@ -50,7 +52,7 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
-        return q.getResultList();
+        return (List<T>) q.getResultList();
     }
 
     public int count() {

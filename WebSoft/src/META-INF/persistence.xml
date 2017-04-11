@@ -2,26 +2,25 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="WebSoftPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>modelo.entidades.Examen</class>
-    <class>modelo.entidades.Materias</class>
-    <class>modelo.entidades.Profesores</class>
-    <class>modelo.entidades.InformacionContacto</class>
-    <class>modelo.entidades.MateriaEnCurso</class>
-    <class>modelo.entidades.Evaluaciones</class>
-    <class>modelo.entidades.Rol</class>
-    <class>modelo.entidades.Cursos</class>
-    <class>modelo.entidades.Sedes</class>
-    <class>modelo.entidades.Responsables</class>
-    <class>modelo.entidades.Instituciones</class>
-    <class>modelo.entidades.Jornadas</class>
-    <class>modelo.entidades.Matriculas</class>
     <class>modelo.entidades.RolResponsable</class>
-    <class>modelo.entidades.InformacionMedica</class>
-    <class>modelo.entidades.Estudiantes</class>
+    <class>modelo.entidades.Instituciones</class>
+    <class>modelo.entidades.Rol</class>
+    <class>modelo.entidades.Evaluaciones</class>
+    <class>modelo.entidades.Matriculas</class>
+    <class>modelo.entidades.Sedes</class>
+    <class>modelo.entidades.MateriaEnCurso</class>
     <class>modelo.entidades.Salones</class>
-    <class>modelo.entidades.DocumentoIdentidad</class>
+    <class>modelo.entidades.Cursos</class>
     <class>modelo.entidades.Personas</class>
+    <class>modelo.entidades.Profesores</class>
     <class>modelo.entidades.Administradores</class>
+    <class>modelo.entidades.Materias</class>
+    <class>modelo.entidades.Examen</class>
+    <class>modelo.entidades.InformacionContacto</class>
+    <class>modelo.entidades.Jornadas</class>
+    <class>modelo.entidades.Estudiantes</class>
+    <class>modelo.entidades.DocumentoIdentidad</class>
+    <class>modelo.entidades.InformacionMedica</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/WebSoftSchema?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

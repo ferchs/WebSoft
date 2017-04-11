@@ -6,6 +6,8 @@
 package modelo;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import modelo.entidades.Administradores;
 import modelo.entidades.Personas;
 
@@ -15,9 +17,8 @@ import modelo.entidades.Personas;
  */
 public class Administrador extends AbstractFacade{
     private EntityManager em;
-     
-     private Persona persona;
-     private Criptografia criptografia;
+    private Criptografia criptografia;
+    private Administradores admin;
      
     public Administrador() {
         super(Administradores.class);
@@ -25,12 +26,16 @@ public class Administrador extends AbstractFacade{
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+        EntityManagerFactory factory=Persistence.createEntityManagerFactory("WebSoftPU");
+        return em=factory.createEntityManager();
     }
     
     public void CrearAdministrador(Personas persona, String usuario, String contraseña, String email){
-        this.persona.create(persona);
-        Administradores admin= new Administradores(usuario,contraseña,email);
+        
+        admin= new Administradores();
+        admin.setUsuario(usuario);
+        admin.setContraseña(contraseña);
+        admin.setEmail(email);
         admin.setPersona(persona);
         super.create(admin);
     }
@@ -50,6 +55,10 @@ public class Administrador extends AbstractFacade{
     
     public Administradores BuscarAdministrador(String usuario){
         return (Administradores) super.find(usuario);
+    }
+    
+    public boolean existenAdministradores(){
+        return !super.findAll().isEmpty();
     }
     
 }
