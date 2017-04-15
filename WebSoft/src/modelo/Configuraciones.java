@@ -39,6 +39,14 @@ public class Configuraciones {
         this.rutaArchivoConfiguracion = rutaArchivoConfiguracion;
     }
     
+    public Properties obtenerConfiguracionesProperties(){
+         try {
+             return cargarConfiguraciones();
+         } catch (IOException ex) {
+             return null;
+         }
+    }
+    
     public String obtenerConfiguracionPropertie(String nombreConfiguracion) throws IOException, ParserConfigurationException, ParserConfigurationException, SAXException, SAXException, SAXException, SAXException{
         Properties propiedades= cargarConfiguraciones();
         String propiedad=propiedades.getProperty(nombreConfiguracion);

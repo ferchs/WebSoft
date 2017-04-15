@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -30,7 +31,7 @@ public class Administrador extends AbstractFacade{
         return em=factory.createEntityManager();
     }
     
-    public void CrearAdministrador(Personas persona, String usuario, String contraseña, String email){
+    public void crearAdministrador(Personas persona, String usuario, String contraseña, String email){
         
         admin= new Administradores();
         admin.setUsuario(usuario);
@@ -57,8 +58,19 @@ public class Administrador extends AbstractFacade{
         return (Administradores) super.find(usuario);
     }
     
+    public Administradores BuscarAdministradorPorEmail(String email){
+        List<Administradores> administradores=super.findAll();
+        for(Administradores admin : administradores){
+            if(admin.getEmail().equals(email)){
+                return admin;
+            }
+        }
+        return null;
+    }
+    
     public boolean existenAdministradores(){
         return !super.findAll().isEmpty();
     }
+    
     
 }

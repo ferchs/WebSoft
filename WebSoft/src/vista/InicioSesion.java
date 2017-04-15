@@ -6,6 +6,9 @@
 package vista;
 
 import control.ControlPrincipal;
+import control.IniciarSesionControl;
+import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +21,7 @@ public class InicioSesion extends javax.swing.JFrame {
      */
     public InicioSesion() {
         initComponents();
-        controlPrincipal= new ControlPrincipal();
+        inicioSesionControl= new IniciarSesionControl();
     }
 
     /**
@@ -35,13 +38,13 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        usuarioT = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        contraseñaT = new javax.swing.JLabel();
+        contraseña = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         ingresar = new javax.swing.JButton();
-        olvideContraseña = new javax.swing.JButton();
+        olvideCredenciales = new javax.swing.JButton();
         usuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,27 +71,27 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel4.setText("INICIO DE SESION");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
 
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("USUARIO");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
+        usuarioT.setBackground(new java.awt.Color(255, 255, 255));
+        usuarioT.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        usuarioT.setForeground(new java.awt.Color(255, 255, 255));
+        usuarioT.setText("USUARIO");
+        jPanel2.add(usuarioT, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 240, -1));
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("CONTRASEÑA");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+        contraseñaT.setBackground(new java.awt.Color(255, 255, 255));
+        contraseñaT.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        contraseñaT.setForeground(new java.awt.Color(255, 255, 255));
+        contraseñaT.setText("CONTRASEÑA");
+        jPanel2.add(contraseñaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
 
-        jPasswordField1.setBackground(new java.awt.Color(102, 102, 102));
-        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setBorder(null);
-        jPasswordField1.setCaretColor(new java.awt.Color(255, 255, 255));
-        jPanel2.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 240, 20));
+        contraseña.setBackground(new java.awt.Color(102, 102, 102));
+        contraseña.setForeground(new java.awt.Color(255, 255, 255));
+        contraseña.setBorder(null);
+        contraseña.setCaretColor(new java.awt.Color(255, 255, 255));
+        jPanel2.add(contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 240, 20));
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,12 +109,17 @@ public class InicioSesion extends javax.swing.JFrame {
         });
         jPanel2.add(ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 130, 40));
 
-        olvideContraseña.setBackground(new java.awt.Color(102, 102, 102));
-        olvideContraseña.setForeground(new java.awt.Color(255, 255, 255));
-        olvideContraseña.setText("Olvide mi contraseña");
-        olvideContraseña.setBorderPainted(false);
-        olvideContraseña.setOpaque(true);
-        jPanel2.add(olvideContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
+        olvideCredenciales.setBackground(new java.awt.Color(102, 102, 102));
+        olvideCredenciales.setForeground(new java.awt.Color(255, 255, 255));
+        olvideCredenciales.setText("Olvide mis credenciales");
+        olvideCredenciales.setBorderPainted(false);
+        olvideCredenciales.setOpaque(true);
+        olvideCredenciales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                olvideCredencialesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(olvideCredenciales, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
 
         usuario.setBackground(new java.awt.Color(102, 102, 102));
         usuario.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,7 +147,24 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarActionPerformed
         // TODO add your handling code here:
-        
+        String user= usuario.getText();
+        String pass= new String(contraseña.getPassword());
+        if(inicioSesionControl.validarUsuario(user, pass)){
+            ControlPrincipal.getInstance().ocultarInicioSesion();
+            ControlPrincipal.getInstance().mostrarVentanaPrincipal();
+            ControlPrincipal.getInstance().mostrarUsuarioEnSesion(user);
+        }
+        else{
+            JOptionPane mensaje= new JOptionPane();
+            mensaje.setBackground(new java.awt.Color(102, 102, 102));
+            mensaje.setForeground(Color.white);
+            mensaje.showMessageDialog(null,"Comprueba tu usuario o contraseña");
+            usuarioT.setForeground(Color.red);
+            contraseñaT.setForeground(Color.red);
+            usuario.setForeground(Color.red);
+            contraseña.setForeground(Color.red);
+            contraseña.setText("");
+        }
     }//GEN-LAST:event_ingresarActionPerformed
 
     private void usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarioMouseClicked
@@ -150,6 +175,12 @@ public class InicioSesion extends javax.swing.JFrame {
     private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usuarioActionPerformed
+
+    private void olvideCredencialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_olvideCredencialesActionPerformed
+        // TODO add your handling code here:
+        ControlPrincipal.getInstance().ocultarInicioSesion();
+        ControlPrincipal.getInstance().mostrarVentanaRecuperacionCredenciales();
+    }//GEN-LAST:event_olvideCredencialesActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -186,20 +217,20 @@ public class InicioSesion extends javax.swing.JFrame {
 //        });
 //    }
 
-    private ControlPrincipal controlPrincipal;
+    private IniciarSesionControl inicioSesionControl;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField contraseña;
+    private javax.swing.JLabel contraseñaT;
     private javax.swing.JButton ingresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JButton olvideContraseña;
+    private javax.swing.JButton olvideCredenciales;
     private javax.swing.JTextField usuario;
+    private javax.swing.JLabel usuarioT;
     // End of variables declaration//GEN-END:variables
 }

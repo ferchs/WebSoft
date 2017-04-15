@@ -42,7 +42,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         PanelUsuario = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         SalirBoton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        usuarioSesion = new javax.swing.JLabel();
         PanelLogo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         PanelOpciones = new javax.swing.JPanel();
@@ -76,11 +76,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         PanelUsuario.add(SalirBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 80, 20));
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Nombre Usuario");
-        PanelUsuario.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        usuarioSesion.setBackground(new java.awt.Color(255, 255, 255));
+        usuarioSesion.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        usuarioSesion.setForeground(new java.awt.Color(255, 255, 255));
+        usuarioSesion.setText("Nombre Usuario");
+        PanelUsuario.add(usuarioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         getContentPane().add(PanelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 210, 110));
 
@@ -141,6 +141,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void SalirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirBotonActionPerformed
         // TODO add your handling code here:
+        ControlPrincipal.getInstance().ocultarVentanaPrincipal();
+        ControlPrincipal.getInstance().mostrarInicioSesion();
     }//GEN-LAST:event_SalirBotonActionPerformed
 
     private void EstudiantesTapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudiantesTapActionPerformed
@@ -190,7 +192,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               new ControlPrincipal().iniciarPrograma();
+              ControlPrincipal.getInstance().iniciarPrograma();
             }
         });
     }
@@ -230,6 +232,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
        }
     }
     
+    public void mostrarUsuarioEnSesion(String nombreUsuario){
+        usuarioSesion.setText(nombreUsuario.toUpperCase());
+    }
+    
     private EstudiantesPanel estudiantesPanel;
     private ProfesoresPanel profesoresPanel;
     private ReportesPanel reportesPanel;
@@ -243,8 +249,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton SalirBoton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel usuarioSesion;
     // End of variables declaration//GEN-END:variables
 }
 

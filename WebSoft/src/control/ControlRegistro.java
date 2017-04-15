@@ -35,7 +35,7 @@ public class ControlRegistro {
             Persona persona= new Persona();
             Personas person=persona.crearPersona(numeroId, primerNombre, segundoNombre, primerApellido, segundoApellido);
             Administrador admin= new Administrador();
-            admin.CrearAdministrador(person, usuario, contraseña, email);
+            admin.crearAdministrador(person, usuario, contraseña, email);
         }
         catch(Exception e){
             e.printStackTrace();

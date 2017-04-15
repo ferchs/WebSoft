@@ -8,16 +8,11 @@ package vista;
 import control.ControlPrincipal;
 import control.ControlRegistro;
 import java.awt.Color;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
-import modelo.entidades.Administradores;
-import modelo.entidades.Personas;
 
 /**
  *
@@ -31,7 +26,6 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     public RegistroAdministradores() {
         initComponents();
         controlRegistro= new ControlRegistro();
-        controlPrincipal= new ControlPrincipal();
     }
 
     /**
@@ -100,8 +94,8 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Bienvenido!");
-        panelRegistro.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, -1));
+        jLabel3.setText("Registrar Administrador");
+        panelRegistro.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
         usuarioT.setBackground(new java.awt.Color(255, 255, 255));
         usuarioT.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -347,7 +341,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void registrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarseActionPerformed
         // TODO add your handling code here:
         if(validarEntrada()){
@@ -366,13 +360,14 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 mensaje.setBackground(new java.awt.Color(102, 102, 102));
                 mensaje.setForeground(Color.white);
                 mensaje.showMessageDialog(null,"Registro exitoso");
-                controlPrincipal.iniciarPrograma();
+                ControlPrincipal.getInstance().mostrarInicioSesion();
+                ControlPrincipal.getInstance().ocultarVentanaRegistro();
             }
             else{
                 mensaje.setBackground(new java.awt.Color(102, 102, 102));
                 mensaje.setForeground(Color.white);
                 mensaje.showMessageDialog(null,"Registro Fallido");
-                controlPrincipal.iniciarPrograma();
+                ControlPrincipal.getInstance().iniciarPrograma();
             }
         }
     }//GEN-LAST:event_registrarseActionPerformed
@@ -655,6 +650,5 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     private javax.swing.JLabel usuarioT;
     // End of variables declaration//GEN-END:variables
     private ControlRegistro controlRegistro;
-    private ControlPrincipal controlPrincipal;
 }
 
