@@ -34,9 +34,6 @@ public class MatriculasPK implements Serializable {
     @Column(name = "Materia_En_Curso_Institucion")
     private int materiaEnCursoInstitucion;
     @Basic(optional = false)
-    @Column(name = "Materia_En_Curso_Sedes")
-    private int materiaEnCursoSedes;
-    @Basic(optional = false)
     @Column(name = "Materia_En_Curso_Jornada")
     private int materiaEnCursoJornada;
     @Basic(optional = false)
@@ -46,12 +43,11 @@ public class MatriculasPK implements Serializable {
     public MatriculasPK() {
     }
 
-    public MatriculasPK(String estudiante, Date materiaEnCursofecha, int materiaEnCursoSalon, int materiaEnCursoInstitucion, int materiaEnCursoSedes, int materiaEnCursoJornada, int materiaEnCursoMateria) {
+    public MatriculasPK(String estudiante, Date materiaEnCursofecha, int materiaEnCursoSalon, int materiaEnCursoInstitucion, int materiaEnCursoJornada, int materiaEnCursoMateria) {
         this.estudiante = estudiante;
         this.materiaEnCursofecha = materiaEnCursofecha;
         this.materiaEnCursoSalon = materiaEnCursoSalon;
         this.materiaEnCursoInstitucion = materiaEnCursoInstitucion;
-        this.materiaEnCursoSedes = materiaEnCursoSedes;
         this.materiaEnCursoJornada = materiaEnCursoJornada;
         this.materiaEnCursoMateria = materiaEnCursoMateria;
     }
@@ -88,14 +84,6 @@ public class MatriculasPK implements Serializable {
         this.materiaEnCursoInstitucion = materiaEnCursoInstitucion;
     }
 
-    public int getMateriaEnCursoSedes() {
-        return materiaEnCursoSedes;
-    }
-
-    public void setMateriaEnCursoSedes(int materiaEnCursoSedes) {
-        this.materiaEnCursoSedes = materiaEnCursoSedes;
-    }
-
     public int getMateriaEnCursoJornada() {
         return materiaEnCursoJornada;
     }
@@ -119,7 +107,6 @@ public class MatriculasPK implements Serializable {
         hash += (materiaEnCursofecha != null ? materiaEnCursofecha.hashCode() : 0);
         hash += (int) materiaEnCursoSalon;
         hash += (int) materiaEnCursoInstitucion;
-        hash += (int) materiaEnCursoSedes;
         hash += (int) materiaEnCursoJornada;
         hash += (int) materiaEnCursoMateria;
         return hash;
@@ -144,9 +131,6 @@ public class MatriculasPK implements Serializable {
         if (this.materiaEnCursoInstitucion != other.materiaEnCursoInstitucion) {
             return false;
         }
-        if (this.materiaEnCursoSedes != other.materiaEnCursoSedes) {
-            return false;
-        }
         if (this.materiaEnCursoJornada != other.materiaEnCursoJornada) {
             return false;
         }
@@ -158,7 +142,7 @@ public class MatriculasPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.MatriculasPK[ estudiante=" + estudiante + ", materiaEnCursofecha=" + materiaEnCursofecha + ", materiaEnCursoSalon=" + materiaEnCursoSalon + ", materiaEnCursoInstitucion=" + materiaEnCursoInstitucion + ", materiaEnCursoSedes=" + materiaEnCursoSedes + ", materiaEnCursoJornada=" + materiaEnCursoJornada + ", materiaEnCursoMateria=" + materiaEnCursoMateria + " ]";
+        return "modelo.entidades.MatriculasPK[ estudiante=" + estudiante + ", materiaEnCursofecha=" + materiaEnCursofecha + ", materiaEnCursoSalon=" + materiaEnCursoSalon + ", materiaEnCursoInstitucion=" + materiaEnCursoInstitucion + ", materiaEnCursoJornada=" + materiaEnCursoJornada + ", materiaEnCursoMateria=" + materiaEnCursoMateria + " ]";
     }
     
 }

@@ -32,7 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Matriculas.findByMateriaEnCursofecha", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursofecha = :materiaEnCursofecha")
     , @NamedQuery(name = "Matriculas.findByMateriaEnCursoSalon", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoSalon = :materiaEnCursoSalon")
     , @NamedQuery(name = "Matriculas.findByMateriaEnCursoInstitucion", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoInstitucion = :materiaEnCursoInstitucion")
-    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoSedes", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoSedes = :materiaEnCursoSedes")
     , @NamedQuery(name = "Matriculas.findByMateriaEnCursoJornada", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoJornada = :materiaEnCursoJornada")
     , @NamedQuery(name = "Matriculas.findByMateriaEnCursoMateria", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoMateria = :materiaEnCursoMateria")
     , @NamedQuery(name = "Matriculas.findByNotaDefinitiva", query = "SELECT m FROM Matriculas m WHERE m.notaDefinitiva = :notaDefinitiva")
@@ -53,7 +52,6 @@ public class Matriculas implements Serializable {
     @JoinColumns({
         @JoinColumn(name = "Materia_En_Curso_fecha", referencedColumnName = "fecha", insertable = false, updatable = false)
         , @JoinColumn(name = "Materia_En_Curso_Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
-        , @JoinColumn(name = "Materia_En_Curso_Sedes", referencedColumnName = "Sedes", insertable = false, updatable = false)
         , @JoinColumn(name = "Materia_En_Curso_Salon", referencedColumnName = "Salon", insertable = false, updatable = false)
         , @JoinColumn(name = "Materia_En_Curso_Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)
         , @JoinColumn(name = "Materia_En_Curso_Materia", referencedColumnName = "Materia", insertable = false, updatable = false)})
@@ -67,8 +65,8 @@ public class Matriculas implements Serializable {
         this.matriculasPK = matriculasPK;
     }
 
-    public Matriculas(String estudiante, Date materiaEnCursofecha, int materiaEnCursoSalon, int materiaEnCursoInstitucion, int materiaEnCursoSedes, int materiaEnCursoJornada, int materiaEnCursoMateria) {
-        this.matriculasPK = new MatriculasPK(estudiante, materiaEnCursofecha, materiaEnCursoSalon, materiaEnCursoInstitucion, materiaEnCursoSedes, materiaEnCursoJornada, materiaEnCursoMateria);
+    public Matriculas(String estudiante, Date materiaEnCursofecha, int materiaEnCursoSalon, int materiaEnCursoInstitucion, int materiaEnCursoJornada, int materiaEnCursoMateria) {
+        this.matriculasPK = new MatriculasPK(estudiante, materiaEnCursofecha, materiaEnCursoSalon, materiaEnCursoInstitucion, materiaEnCursoJornada, materiaEnCursoMateria);
     }
 
     public MatriculasPK getMatriculasPK() {

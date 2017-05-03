@@ -9,13 +9,13 @@ package vista;
  *
  * @author ferchs
  */
-public class ProfesoresPanel extends javax.swing.JPanel {
+public class CursosPanel extends javax.swing.JPanel {
 
     private VentanaPrincipal ventanaPrincipal;
     /**
      * Creates new form Estudiantes
      */
-    public ProfesoresPanel(VentanaPrincipal principal) {
+    public CursosPanel(VentanaPrincipal principal) {
         initComponents();
         ventanaPrincipal=principal;
     }

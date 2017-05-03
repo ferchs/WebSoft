@@ -8,6 +8,9 @@ package modelo;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import modelo.entidades.DocumentoIdentidad;
+import modelo.entidades.InformacionContacto;
+import modelo.entidades.InformacionMedica;
 import modelo.entidades.Personas;
 
 /**
@@ -28,14 +31,19 @@ public class Persona extends AbstractFacade{
         return emf.createEntityManager();
     }
     
-    public Personas crearPersona(String numeroId, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido){
+    public Personas crearPersona(String numeroId, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, DocumentoIdentidad docId,InformacionContacto infoContacto,InformacionMedica infoMedica){
         persona= new Personas();
         persona.setNumeroIdentificacion(numeroId);
         persona.setPrimerNombre(primerNombre);
         persona.setSegundoNombre(segundoNombre);
         persona.setPrimerApellido(primerApellido);
         persona.setSegundoApellido(segundoApellido);
+        persona.setDocumentoIdentidad(docId);
+        persona.setInformacionContacto(infoContacto);
+        persona.setInformacionMedica(infoMedica);
         super.create(persona);
         return persona;
     }
+    
+    
 }

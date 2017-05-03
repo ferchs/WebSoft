@@ -33,7 +33,7 @@ public class ControlRegistro {
         boolean registroExitoso=true;
         try{
             Persona persona= new Persona();
-            Personas person=persona.crearPersona(numeroId, primerNombre, segundoNombre, primerApellido, segundoApellido);
+            Personas person=persona.crearPersona(numeroId, primerNombre, segundoNombre, primerApellido, segundoApellido, null,null,null);
             Administrador admin= new Administrador();
             admin.crearAdministrador(person, usuario, contraseña, email);
         }

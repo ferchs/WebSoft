@@ -32,7 +32,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MateriaEnCurso.findAll", query = "SELECT m FROM MateriaEnCurso m")
     , @NamedQuery(name = "MateriaEnCurso.findByFecha", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.fecha = :fecha")
     , @NamedQuery(name = "MateriaEnCurso.findByInstitucion", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.institucion = :institucion")
-    , @NamedQuery(name = "MateriaEnCurso.findBySedes", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.sedes = :sedes")
     , @NamedQuery(name = "MateriaEnCurso.findBySalon", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.salon = :salon")
     , @NamedQuery(name = "MateriaEnCurso.findByJornada", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.jornada = :jornada")
     , @NamedQuery(name = "MateriaEnCurso.findByMateria", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.materia = :materia")})
@@ -45,7 +44,6 @@ public class MateriaEnCurso implements Serializable {
     private Collection<Evaluaciones> evaluacionesCollection;
     @JoinColumns({
         @JoinColumn(name = "Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
-        , @JoinColumn(name = "Sedes", referencedColumnName = "Sede", insertable = false, updatable = false)
         , @JoinColumn(name = "Salon", referencedColumnName = "Salon", insertable = false, updatable = false)
         , @JoinColumn(name = "Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
@@ -66,8 +64,8 @@ public class MateriaEnCurso implements Serializable {
         this.materiaEnCursoPK = materiaEnCursoPK;
     }
 
-    public MateriaEnCurso(Date fecha, int institucion, int sedes, int salon, int jornada, int materia) {
-        this.materiaEnCursoPK = new MateriaEnCursoPK(fecha, institucion, sedes, salon, jornada, materia);
+    public MateriaEnCurso(Date fecha, int institucion, int salon, int jornada, int materia) {
+        this.materiaEnCursoPK = new MateriaEnCursoPK(fecha, institucion, salon, jornada, materia);
     }
 
     public MateriaEnCursoPK getMateriaEnCursoPK() {

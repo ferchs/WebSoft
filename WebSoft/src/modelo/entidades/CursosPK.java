@@ -21,9 +21,6 @@ public class CursosPK implements Serializable {
     @Column(name = "Institucion")
     private int institucion;
     @Basic(optional = false)
-    @Column(name = "Sede")
-    private int sede;
-    @Basic(optional = false)
     @Column(name = "Salon")
     private int salon;
     @Basic(optional = false)
@@ -33,9 +30,8 @@ public class CursosPK implements Serializable {
     public CursosPK() {
     }
 
-    public CursosPK(int institucion, int sede, int salon, int jornada) {
+    public CursosPK(int institucion, int salon, int jornada) {
         this.institucion = institucion;
-        this.sede = sede;
         this.salon = salon;
         this.jornada = jornada;
     }
@@ -46,14 +42,6 @@ public class CursosPK implements Serializable {
 
     public void setInstitucion(int institucion) {
         this.institucion = institucion;
-    }
-
-    public int getSede() {
-        return sede;
-    }
-
-    public void setSede(int sede) {
-        this.sede = sede;
     }
 
     public int getSalon() {
@@ -76,7 +64,6 @@ public class CursosPK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (int) institucion;
-        hash += (int) sede;
         hash += (int) salon;
         hash += (int) jornada;
         return hash;
@@ -92,9 +79,6 @@ public class CursosPK implements Serializable {
         if (this.institucion != other.institucion) {
             return false;
         }
-        if (this.sede != other.sede) {
-            return false;
-        }
         if (this.salon != other.salon) {
             return false;
         }
@@ -106,7 +90,7 @@ public class CursosPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.CursosPK[ institucion=" + institucion + ", sede=" + sede + ", salon=" + salon + ", jornada=" + jornada + " ]";
+        return "modelo.entidades.CursosPK[ institucion=" + institucion + ", salon=" + salon + ", jornada=" + jornada + " ]";
     }
     
 }

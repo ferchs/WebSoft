@@ -34,7 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Evaluaciones.findByConsecutivo", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.consecutivo = :consecutivo")
     , @NamedQuery(name = "Evaluaciones.findByFechaMateriaEnCurso", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.fechaMateriaEnCurso = :fechaMateriaEnCurso")
     , @NamedQuery(name = "Evaluaciones.findByInstitucion", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.institucion = :institucion")
-    , @NamedQuery(name = "Evaluaciones.findBySede", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.sede = :sede")
     , @NamedQuery(name = "Evaluaciones.findBySalon", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.salon = :salon")
     , @NamedQuery(name = "Evaluaciones.findByJornada", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.jornada = :jornada")
     , @NamedQuery(name = "Evaluaciones.findByMateria", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.materia = :materia")
@@ -53,7 +52,6 @@ public class Evaluaciones implements Serializable {
     @JoinColumns({
         @JoinColumn(name = "Fecha_Materia-En-Curso", referencedColumnName = "fecha", insertable = false, updatable = false)
         , @JoinColumn(name = "Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
-        , @JoinColumn(name = "Sede", referencedColumnName = "Sedes", insertable = false, updatable = false)
         , @JoinColumn(name = "Salon", referencedColumnName = "Salon", insertable = false, updatable = false)
         , @JoinColumn(name = "Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)
         , @JoinColumn(name = "Materia", referencedColumnName = "Materia", insertable = false, updatable = false)})
@@ -69,8 +67,8 @@ public class Evaluaciones implements Serializable {
         this.evaluacionesPK = evaluacionesPK;
     }
 
-    public Evaluaciones(int consecutivo, Date fechaMateriaEnCurso, int institucion, int sede, int salon, int jornada, int materia) {
-        this.evaluacionesPK = new EvaluacionesPK(consecutivo, fechaMateriaEnCurso, institucion, sede, salon, jornada, materia);
+    public Evaluaciones(int consecutivo, Date fechaMateriaEnCurso, int institucion, int salon, int jornada, int materia) {
+        this.evaluacionesPK = new EvaluacionesPK(consecutivo, fechaMateriaEnCurso, institucion, salon, jornada, materia);
     }
 
     public EvaluacionesPK getEvaluacionesPK() {

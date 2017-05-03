@@ -32,7 +32,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cursos.findByGrado", query = "SELECT c FROM Cursos c WHERE c.grado = :grado")
     , @NamedQuery(name = "Cursos.findByConsecutivo", query = "SELECT c FROM Cursos c WHERE c.consecutivo = :consecutivo")
     , @NamedQuery(name = "Cursos.findByInstitucion", query = "SELECT c FROM Cursos c WHERE c.cursosPK.institucion = :institucion")
-    , @NamedQuery(name = "Cursos.findBySede", query = "SELECT c FROM Cursos c WHERE c.cursosPK.sede = :sede")
     , @NamedQuery(name = "Cursos.findBySalon", query = "SELECT c FROM Cursos c WHERE c.cursosPK.salon = :salon")
     , @NamedQuery(name = "Cursos.findByJornada", query = "SELECT c FROM Cursos c WHERE c.cursosPK.jornada = :jornada")})
 public class Cursos implements Serializable {
@@ -56,9 +55,6 @@ public class Cursos implements Serializable {
     @JoinColumn(name = "Salon", referencedColumnName = "id_salon", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Salones salones;
-    @JoinColumn(name = "Sede", referencedColumnName = "nit", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Sedes sedes;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursos")
     private Collection<MateriaEnCurso> materiaEnCursoCollection;
 
@@ -69,8 +65,8 @@ public class Cursos implements Serializable {
         this.cursosPK = cursosPK;
     }
 
-    public Cursos(int institucion, int sede, int salon, int jornada) {
-        this.cursosPK = new CursosPK(institucion, sede, salon, jornada);
+    public Cursos(int institucion, int salon, int jornada) {
+        this.cursosPK = new CursosPK(institucion, salon, jornada);
     }
 
     public CursosPK getCursosPK() {
@@ -127,14 +123,6 @@ public class Cursos implements Serializable {
 
     public void setSalones(Salones salones) {
         this.salones = salones;
-    }
-
-    public Sedes getSedes() {
-        return sedes;
-    }
-
-    public void setSedes(Sedes sedes) {
-        this.sedes = sedes;
     }
 
     @XmlTransient

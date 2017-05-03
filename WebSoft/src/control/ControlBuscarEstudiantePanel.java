@@ -5,10 +5,13 @@
  */
 package control;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ferchs
  */
-public class ControlInicial {
+public class ControlBuscarEstudiantePanel {
     
+ 
 }

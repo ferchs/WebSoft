@@ -31,9 +31,6 @@ public class EvaluacionesPK implements Serializable {
     @Column(name = "Institucion")
     private int institucion;
     @Basic(optional = false)
-    @Column(name = "Sede")
-    private int sede;
-    @Basic(optional = false)
     @Column(name = "Salon")
     private int salon;
     @Basic(optional = false)
@@ -46,11 +43,10 @@ public class EvaluacionesPK implements Serializable {
     public EvaluacionesPK() {
     }
 
-    public EvaluacionesPK(int consecutivo, Date fechaMateriaEnCurso, int institucion, int sede, int salon, int jornada, int materia) {
+    public EvaluacionesPK(int consecutivo, Date fechaMateriaEnCurso, int institucion, int salon, int jornada, int materia) {
         this.consecutivo = consecutivo;
         this.fechaMateriaEnCurso = fechaMateriaEnCurso;
         this.institucion = institucion;
-        this.sede = sede;
         this.salon = salon;
         this.jornada = jornada;
         this.materia = materia;
@@ -78,14 +74,6 @@ public class EvaluacionesPK implements Serializable {
 
     public void setInstitucion(int institucion) {
         this.institucion = institucion;
-    }
-
-    public int getSede() {
-        return sede;
-    }
-
-    public void setSede(int sede) {
-        this.sede = sede;
     }
 
     public int getSalon() {
@@ -118,7 +106,6 @@ public class EvaluacionesPK implements Serializable {
         hash += (int) consecutivo;
         hash += (fechaMateriaEnCurso != null ? fechaMateriaEnCurso.hashCode() : 0);
         hash += (int) institucion;
-        hash += (int) sede;
         hash += (int) salon;
         hash += (int) jornada;
         hash += (int) materia;
@@ -141,9 +128,6 @@ public class EvaluacionesPK implements Serializable {
         if (this.institucion != other.institucion) {
             return false;
         }
-        if (this.sede != other.sede) {
-            return false;
-        }
         if (this.salon != other.salon) {
             return false;
         }
@@ -158,7 +142,7 @@ public class EvaluacionesPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.EvaluacionesPK[ consecutivo=" + consecutivo + ", fechaMateriaEnCurso=" + fechaMateriaEnCurso + ", institucion=" + institucion + ", sede=" + sede + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + " ]";
+        return "modelo.entidades.EvaluacionesPK[ consecutivo=" + consecutivo + ", fechaMateriaEnCurso=" + fechaMateriaEnCurso + ", institucion=" + institucion + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + " ]";
     }
     
 }

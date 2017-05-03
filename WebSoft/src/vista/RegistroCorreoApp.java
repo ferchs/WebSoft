@@ -68,8 +68,8 @@ public class RegistroCorreoApp extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Bienvenido!");
-        panelRegistro.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+        jLabel3.setText("Registro E-Mail");
+        panelRegistro.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
 
         contraseñaT.setBackground(new java.awt.Color(255, 255, 255));
         contraseñaT.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -152,7 +152,7 @@ public class RegistroCorreoApp extends javax.swing.JFrame {
             JOptionPane mensaje= new JOptionPane();
             if(inicioExitoso){
                 controlRegistroCorreoApp.almacenarPreferenciasDeCorreo(correo, clave);
-                ControlPrincipal.getInstance().mostarVentanaRegistro();
+                ControlPrincipal.getInstance().mostarVentanaRegistroAdministradores();
                 ControlPrincipal.getInstance().ocultarVentanaRegistroCorreo();
             }
             else{

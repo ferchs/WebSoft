@@ -28,9 +28,6 @@ public class MateriaEnCursoPK implements Serializable {
     @Column(name = "Institucion")
     private int institucion;
     @Basic(optional = false)
-    @Column(name = "Sedes")
-    private int sedes;
-    @Basic(optional = false)
     @Column(name = "Salon")
     private int salon;
     @Basic(optional = false)
@@ -43,10 +40,9 @@ public class MateriaEnCursoPK implements Serializable {
     public MateriaEnCursoPK() {
     }
 
-    public MateriaEnCursoPK(Date fecha, int institucion, int sedes, int salon, int jornada, int materia) {
+    public MateriaEnCursoPK(Date fecha, int institucion, int salon, int jornada, int materia) {
         this.fecha = fecha;
         this.institucion = institucion;
-        this.sedes = sedes;
         this.salon = salon;
         this.jornada = jornada;
         this.materia = materia;
@@ -66,14 +62,6 @@ public class MateriaEnCursoPK implements Serializable {
 
     public void setInstitucion(int institucion) {
         this.institucion = institucion;
-    }
-
-    public int getSedes() {
-        return sedes;
-    }
-
-    public void setSedes(int sedes) {
-        this.sedes = sedes;
     }
 
     public int getSalon() {
@@ -105,7 +93,6 @@ public class MateriaEnCursoPK implements Serializable {
         int hash = 0;
         hash += (fecha != null ? fecha.hashCode() : 0);
         hash += (int) institucion;
-        hash += (int) sedes;
         hash += (int) salon;
         hash += (int) jornada;
         hash += (int) materia;
@@ -125,9 +112,6 @@ public class MateriaEnCursoPK implements Serializable {
         if (this.institucion != other.institucion) {
             return false;
         }
-        if (this.sedes != other.sedes) {
-            return false;
-        }
         if (this.salon != other.salon) {
             return false;
         }
@@ -142,7 +126,7 @@ public class MateriaEnCursoPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.MateriaEnCursoPK[ fecha=" + fecha + ", institucion=" + institucion + ", sedes=" + sedes + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + " ]";
+        return "modelo.entidades.MateriaEnCursoPK[ fecha=" + fecha + ", institucion=" + institucion + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + " ]";
     }
     
 }

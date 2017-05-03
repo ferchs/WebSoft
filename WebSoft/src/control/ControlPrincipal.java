@@ -6,11 +6,14 @@
 package control;
 
 import modelo.Administrador;
+import modelo.Institucion;
 import modelo.Preferencias;
+import vista.EstudiantesPanel;
 import vista.InicioSesion;
 import vista.RecuperaCredenciales;
 import vista.RegistroAdministradores;
 import vista.RegistroCorreoApp;
+import vista.RegistroInstitucion;
 import vista.VentanaPrincipal;
 
 /**
@@ -22,14 +25,17 @@ public class ControlPrincipal {
     private static ControlPrincipal instance = null;
     private VentanaPrincipal ventanaPrincipal;
     private Administrador administrador;
+    private Institucion institucion;
     private InicioSesion iniciosesion;
     private RegistroAdministradores registroAdmins;
     private RecuperaCredenciales recuperaCredenciales;
     private RegistroCorreoApp registroCorreoApp;
+    private RegistroInstitucion registroInstitucion;
 
     
     protected ControlPrincipal(){
         administrador= new Administrador();
+        institucion= new Institucion();
     }
     
     public static ControlPrincipal getInstance() {
@@ -50,13 +56,13 @@ public class ControlPrincipal {
         ventanaPrincipal.dispose();
     }
     
-    public void mostarVentanaRegistro(){
+    public void mostarVentanaRegistroAdministradores(){
         registroAdmins= new RegistroAdministradores();
         registroAdmins.setVisible(true);
         registroAdmins.setLocationRelativeTo(null);
     }
     
-    public void ocultarVentanaRegistro(){
+    public void ocultarVentanaRegistroAdministradores(){
         registroAdmins.setVisible(false);
         registroAdmins.dispose();
     }
@@ -99,20 +105,37 @@ public class ControlPrincipal {
         registroCorreoApp.dispose();
     }
     
+    public void mostrarVentanaRegistroInstitucion(){
+        registroInstitucion= new RegistroInstitucion();
+        registroInstitucion.setVisible(true);
+        registroInstitucion.setLocationRelativeTo(null);
+    }
+    
+    public void ocultarVentanaRegistroInstitucion(){
+        registroInstitucion.setVisible(false);
+        registroInstitucion.dispose();
+    }
+    
+    
     public void iniciarPrograma(){
-        Preferencias pref= new Preferencias();
-        String correo=pref.obtenerPreferencia("WebSoft.correo");
-        String clave=pref.obtenerPreferencia("WebSoft.clave");
-        if(correo==null || clave==null){
-            mostrarVentanaRegistroCorreo();
-        }
-        else{
-            if(administrador.existenAdministradores()){
-            mostrarInicioSesion();
-            }
-            else{
+        if(institucion.existeInstitucion()){
+            Preferencias pref= new Preferencias();
+            String correo=pref.obtenerPreferencia("WebSoft.correo");
+            String clave=pref.obtenerPreferencia("WebSoft.clave");
+            if(correo==null || clave==null){
                 mostrarVentanaRegistroCorreo();
             }
+            else{
+                if(administrador.existenAdministradores()){
+                    mostrarInicioSesion();
+                }
+                else{
+                mostrarVentanaRegistroCorreo();
+                }
+            }
+        }
+        else{
+           mostrarVentanaRegistroInstitucion();  
         }
     }
 }

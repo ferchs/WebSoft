@@ -35,9 +35,6 @@ public class ExamenPK implements Serializable {
     @Column(name = "Institucion")
     private int institucion;
     @Basic(optional = false)
-    @Column(name = "Sede")
-    private int sede;
-    @Basic(optional = false)
     @Column(name = "Salon")
     private int salon;
     @Basic(optional = false)
@@ -53,12 +50,11 @@ public class ExamenPK implements Serializable {
     public ExamenPK() {
     }
 
-    public ExamenPK(Date fecha, int consecutivoEvaluacion, Date fechaEvaluacion, int institucion, int sede, int salon, int jornada, int materia, String estudiante) {
+    public ExamenPK(Date fecha, int consecutivoEvaluacion, Date fechaEvaluacion, int institucion, int salon, int jornada, int materia, String estudiante) {
         this.fecha = fecha;
         this.consecutivoEvaluacion = consecutivoEvaluacion;
         this.fechaEvaluacion = fechaEvaluacion;
         this.institucion = institucion;
-        this.sede = sede;
         this.salon = salon;
         this.jornada = jornada;
         this.materia = materia;
@@ -95,14 +91,6 @@ public class ExamenPK implements Serializable {
 
     public void setInstitucion(int institucion) {
         this.institucion = institucion;
-    }
-
-    public int getSede() {
-        return sede;
-    }
-
-    public void setSede(int sede) {
-        this.sede = sede;
     }
 
     public int getSalon() {
@@ -144,7 +132,6 @@ public class ExamenPK implements Serializable {
         hash += (int) consecutivoEvaluacion;
         hash += (fechaEvaluacion != null ? fechaEvaluacion.hashCode() : 0);
         hash += (int) institucion;
-        hash += (int) sede;
         hash += (int) salon;
         hash += (int) jornada;
         hash += (int) materia;
@@ -171,9 +158,6 @@ public class ExamenPK implements Serializable {
         if (this.institucion != other.institucion) {
             return false;
         }
-        if (this.sede != other.sede) {
-            return false;
-        }
         if (this.salon != other.salon) {
             return false;
         }
@@ -191,7 +175,7 @@ public class ExamenPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.ExamenPK[ fecha=" + fecha + ", consecutivoEvaluacion=" + consecutivoEvaluacion + ", fechaEvaluacion=" + fechaEvaluacion + ", institucion=" + institucion + ", sede=" + sede + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + ", estudiante=" + estudiante + " ]";
+        return "modelo.entidades.ExamenPK[ fecha=" + fecha + ", consecutivoEvaluacion=" + consecutivoEvaluacion + ", fechaEvaluacion=" + fechaEvaluacion + ", institucion=" + institucion + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + ", estudiante=" + estudiante + " ]";
     }
     
 }

@@ -161,8 +161,6 @@ public class InicioSesion extends javax.swing.JFrame {
             mensaje.showMessageDialog(null,"Comprueba tu usuario o contraseña");
             usuarioT.setForeground(Color.red);
             contraseñaT.setForeground(Color.red);
-            usuario.setForeground(Color.red);
-            contraseña.setForeground(Color.red);
             contraseña.setText("");
         }
     }//GEN-LAST:event_ingresarActionPerformed

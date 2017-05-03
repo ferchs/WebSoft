@@ -65,7 +65,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         segundoApellidoT = new javax.swing.JLabel();
         segundoApellido = new javax.swing.JTextField();
         jSeparator8 = new javax.swing.JSeparator();
-        registrarse = new javax.swing.JButton();
+        finalizar = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JSeparator();
         confirmarContraseñaT1 = new javax.swing.JLabel();
         confirmacionContraseña = new javax.swing.JPasswordField();
@@ -299,17 +299,17 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
         panelRegistro.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 240, -1));
 
-        registrarse.setBackground(new java.awt.Color(101, 166, 148));
-        registrarse.setForeground(new java.awt.Color(255, 255, 255));
-        registrarse.setText("Registrarse");
-        registrarse.setBorderPainted(false);
-        registrarse.setOpaque(true);
-        registrarse.addActionListener(new java.awt.event.ActionListener() {
+        finalizar.setBackground(new java.awt.Color(101, 166, 148));
+        finalizar.setForeground(new java.awt.Color(255, 255, 255));
+        finalizar.setText("Finalizar");
+        finalizar.setBorderPainted(false);
+        finalizar.setOpaque(true);
+        finalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registrarseActionPerformed(evt);
+                finalizarActionPerformed(evt);
             }
         });
-        panelRegistro.add(registrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 130, 40));
+        panelRegistro.add(finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 130, 40));
 
         jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
@@ -342,7 +342,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void registrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarseActionPerformed
+    private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
         // TODO add your handling code here:
         if(validarEntrada()){
             String numDocumento= numeroID.getText();
@@ -360,8 +360,8 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 mensaje.setBackground(new java.awt.Color(102, 102, 102));
                 mensaje.setForeground(Color.white);
                 mensaje.showMessageDialog(null,"Registro exitoso");
-                ControlPrincipal.getInstance().mostrarInicioSesion();
-                ControlPrincipal.getInstance().ocultarVentanaRegistro();
+                ControlPrincipal.getInstance().mostrarVentanaRegistroInstitucion();
+                ControlPrincipal.getInstance().ocultarVentanaRegistroAdministradores();
             }
             else{
                 mensaje.setBackground(new java.awt.Color(102, 102, 102));
@@ -370,7 +370,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 ControlPrincipal.getInstance().iniciarPrograma();
             }
         }
-    }//GEN-LAST:event_registrarseActionPerformed
+    }//GEN-LAST:event_finalizarActionPerformed
 
     public boolean validarEntrada(){
         boolean entradaValida=true;
@@ -621,6 +621,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     private javax.swing.JLabel contraseñaT;
     private javax.swing.JTextField email;
     private javax.swing.JLabel emailT;
+    private javax.swing.JButton finalizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
@@ -641,7 +642,6 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     private javax.swing.JLabel primerApellidoT;
     private javax.swing.JTextField primerNombre;
     private javax.swing.JLabel primerNombreT;
-    private javax.swing.JButton registrarse;
     private javax.swing.JTextField segundoApellido;
     private javax.swing.JLabel segundoApellidoT;
     private javax.swing.JTextField segundoNombre;

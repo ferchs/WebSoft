@@ -6,6 +6,8 @@
 package vista;
 
 import control.ControlPrincipal;
+import control.ControlVentanaPrincipal;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 /**
@@ -14,13 +16,19 @@ import javax.swing.UIManager;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    private ControlVentanaPrincipal controlVentanaPrincipal;
+    
+    private JPanel actual;
+
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
-        agregarPaneles();
-        //agregarPaneles();
+        panelFondo.setVisible(false);
+        controlVentanaPrincipal= new ControlVentanaPrincipal();
+        menuPanel= new MenuPanel(this);
+        mostarPanel(menuPanel);
         try {
         UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
         } 
@@ -43,13 +51,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         SalirBoton = new javax.swing.JButton();
         usuarioSesion = new javax.swing.JLabel();
+        PanelLogo2 = new javax.swing.JPanel();
         PanelLogo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        PanelOpciones = new javax.swing.JPanel();
-        EstudiantesTap = new javax.swing.JButton();
-        ProfesoresTap = new javax.swing.JButton();
-        ReportesTap = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
+        PanelLogo1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        panelFondo = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -82,6 +89,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         usuarioSesion.setText("Nombre Usuario");
         PanelUsuario.add(usuarioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
+        PanelLogo2.setBackground(new java.awt.Color(101, 166, 148));
+        PanelLogo2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PanelUsuario.add(PanelLogo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 210, 10));
+
         getContentPane().add(PanelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 210, 110));
 
         PanelLogo.setBackground(new java.awt.Color(101, 166, 148));
@@ -90,77 +101,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Creative Cloud Files/WebSoft3.png")); // NOI18N
         PanelLogo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 300, 100));
 
+        PanelLogo1.setBackground(new java.awt.Color(101, 166, 148));
+        PanelLogo1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Creative Cloud Files/WebSoft3.png")); // NOI18N
+        PanelLogo1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 300, 100));
+
+        PanelLogo.add(PanelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 110));
+
         getContentPane().add(PanelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 110));
 
-        PanelOpciones.setBackground(new java.awt.Color(102, 102, 102));
-        PanelOpciones.setForeground(new java.awt.Color(255, 255, 255));
-        PanelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        EstudiantesTap.setBackground(new java.awt.Color(101, 166, 148));
-        EstudiantesTap.setForeground(new java.awt.Color(255, 255, 255));
-        EstudiantesTap.setText("Estudiantes");
-        EstudiantesTap.setBorderPainted(false);
-        EstudiantesTap.setOpaque(true);
-        EstudiantesTap.setSelected(true);
-        EstudiantesTap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EstudiantesTapActionPerformed(evt);
-            }
-        });
-        PanelOpciones.add(EstudiantesTap, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 120, 30));
-
-        ProfesoresTap.setBackground(new java.awt.Color(101, 166, 148));
-        ProfesoresTap.setForeground(new java.awt.Color(255, 255, 255));
-        ProfesoresTap.setText("Profesores");
-        ProfesoresTap.setBorderPainted(false);
-        ProfesoresTap.setOpaque(true);
-        ProfesoresTap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProfesoresTapActionPerformed(evt);
-            }
-        });
-        PanelOpciones.add(ProfesoresTap, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 110, 30));
-
-        ReportesTap.setBackground(new java.awt.Color(101, 166, 148));
-        ReportesTap.setForeground(new java.awt.Color(255, 255, 255));
-        ReportesTap.setText("Reportes");
-        ReportesTap.setBorderPainted(false);
-        ReportesTap.setOpaque(true);
-        ReportesTap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReportesTapActionPerformed(evt);
-            }
-        });
-        PanelOpciones.add(ReportesTap, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 100, 30));
-        PanelOpciones.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 880, 10));
-
-        getContentPane().add(PanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 880, 550));
+        panelFondo.setBackground(new java.awt.Color(102, 102, 102));
+        getContentPane().add(panelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 880, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirBotonActionPerformed
         // TODO add your handling code here:
-        ControlPrincipal.getInstance().ocultarVentanaPrincipal();
-        ControlPrincipal.getInstance().mostrarInicioSesion();
+       controlVentanaPrincipal.salirAplicacion();
     }//GEN-LAST:event_SalirBotonActionPerformed
-
-    private void EstudiantesTapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudiantesTapActionPerformed
-        // TODO add your handling code here:
-       seleccionarTap("estudiantes");
-    }//GEN-LAST:event_EstudiantesTapActionPerformed
-
-    private void ProfesoresTapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfesoresTapActionPerformed
-        // TODO add your handling code here:
-       seleccionarTap("profesores");
-        
-    }//GEN-LAST:event_ProfesoresTapActionPerformed
-
-    private void ReportesTapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesTapActionPerformed
-        // TODO add your handling code here:
-        seleccionarTap("reportes");
-
-    }//GEN-LAST:event_ReportesTapActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,59 +157,76 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
     }
     
-    private void agregarPaneles(){
-        estudiantesPanel= new EstudiantesPanel();
-        profesoresPanel= new ProfesoresPanel();
-        reportesPanel= new ReportesPanel();
-        PanelOpciones.add(estudiantesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 880, 500));
-        PanelOpciones.add(profesoresPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 880, 500));
-        PanelOpciones.add(reportesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 880, 500));
-        getContentPane().add(PanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 880, 550));
+    public void mostarMenu(){
+        mostarPanel(menuPanel);
+    }
+    
+    public void mostarPanel(JPanel panel){
+        panelFondo.setVisible(true);
+        if(actual!=null){
+            getContentPane().remove(actual);
+            pack();
+        }
+        actual=panel;
+        getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 880, 580));
+        panelFondo.setVisible(false);
+        getContentPane().revalidate();
+        getContentPane().repaint();
         pack();
     }
     
-    private void seleccionarTap(String tap){
-       if(tap.equals("estudiantes")){
-           estudiantesPanel.setVisible(true);
-           profesoresPanel.setVisible(false);
-           reportesPanel.setVisible(false);
-           PanelOpciones.revalidate();
-           PanelOpciones.repaint();
-       }
-       if(tap.equals("profesores")){
-           profesoresPanel.setVisible(true);
-           estudiantesPanel.setVisible(false);
-           reportesPanel.setVisible(false);
-           PanelOpciones.revalidate();
-           PanelOpciones.repaint();
-       }
-       if(tap.equals("reportes")){
-           reportesPanel.setVisible(true);
-           estudiantesPanel.setVisible(false);
-           profesoresPanel.setVisible(false);
-           PanelOpciones.revalidate();
-           PanelOpciones.repaint();
-       }
+    private void agregarPaneles(){
+//        menuPanel= new MenuPanel(this);
+//        estudiantesPanel= new EstudiantesPanel();
+//        profesoresPanel= new ProfesoresPanel();
+//        reportesPanel= new ReportesPanel();
+//        menuPanel.setVisible(true);
+//        estudiantesPanel.setVisible(false);
+//        profesoresPanel.setVisible(false);
+//        reportesPanel.setVisible(false);
+//        getContentPane().add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 880, 550));
+//        getContentPane().add(estudiantesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 880, 550));
+//        getContentPane().add(profesoresPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 880, 550));
+//        getContentPane().add(reportesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 880, 550));
+////        PanelOpciones.revalidate();
+////        PanelOpciones.repaint();
+//        pack();
+    }
+    
+    public void seleccionarTap(String tap){
+//       if(tap.equals("estudiantes")){
+//           estudiantesPanel.setVisible(true);
+//           menuPanel.setVisible(false);
+//       }
+//       if(tap.equals("profesores")){
+//           profesoresPanel.setVisible(true);
+//           menuPanel.setVisible(false);
+//       }
+//       if(tap.equals("reportes")){
+//           reportesPanel.setVisible(true);
+//           estudiantesPanel.setVisible(false);
+//           profesoresPanel.setVisible(false);
+//       }
+//       if(tap.equals("principal")){
+//           menuPanel.setVisible(true);
+//       }
     }
     
     public void mostrarUsuarioEnSesion(String nombreUsuario){
         usuarioSesion.setText(nombreUsuario.toUpperCase());
     }
     
-    private EstudiantesPanel estudiantesPanel;
-    private ProfesoresPanel profesoresPanel;
-    private ReportesPanel reportesPanel;
+    private MenuPanel menuPanel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton EstudiantesTap;
     private javax.swing.JPanel PanelLogo;
-    private javax.swing.JPanel PanelOpciones;
+    private javax.swing.JPanel PanelLogo1;
+    private javax.swing.JPanel PanelLogo2;
     private javax.swing.JPanel PanelUsuario;
-    private javax.swing.JButton ProfesoresTap;
-    private javax.swing.JButton ReportesTap;
     private javax.swing.JButton SalirBoton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel panelFondo;
     private javax.swing.JLabel usuarioSesion;
     // End of variables declaration//GEN-END:variables
 }
