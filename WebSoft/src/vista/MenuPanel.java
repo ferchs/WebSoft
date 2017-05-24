@@ -19,7 +19,7 @@ public class MenuPanel extends javax.swing.JPanel {
     private ProfesoresPanel profesoresPanel;
     private MatriculasPanel matriculasPanel;
     private CursosPanel cursosPanel;
-    private RecursosFisicosPanel recursosFisicosPanel;
+    private RecursosPanel recursosPanel;
     private ReportesPanel reportesPanel;
     /**
      * Creates new form Menu
@@ -149,8 +149,8 @@ public class MenuPanel extends javax.swing.JPanel {
         textoRecursosFisicos.setBackground(new java.awt.Color(255, 255, 255));
         textoRecursosFisicos.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         textoRecursosFisicos.setForeground(new java.awt.Color(255, 255, 255));
-        textoRecursosFisicos.setText("Recursos Fisicos");
-        add(textoRecursosFisicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 510, -1, -1));
+        textoRecursosFisicos.setText("Recursos");
+        add(textoRecursosFisicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 510, -1, -1));
 
         Reportes.setBackground(new java.awt.Color(102, 102, 102));
         Reportes.setForeground(new java.awt.Color(255, 255, 255));
@@ -198,8 +198,8 @@ public class MenuPanel extends javax.swing.JPanel {
 
     private void recursosFisicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recursosFisicosActionPerformed
         // TODO add your handling code here:
-        recursosFisicosPanel= new RecursosFisicosPanel(ventanaPrincipal);
-        ventanaPrincipal.mostarPanel(recursosFisicosPanel);
+        recursosPanel= new RecursosPanel(ventanaPrincipal);
+        ventanaPrincipal.mostarPanel(recursosPanel);
     }//GEN-LAST:event_recursosFisicosActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed

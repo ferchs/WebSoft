@@ -7,7 +7,6 @@ package modelo.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -29,32 +28,32 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Examen.findAll", query = "SELECT e FROM Examen e")
     , @NamedQuery(name = "Examen.findByFecha", query = "SELECT e FROM Examen e WHERE e.examenPK.fecha = :fecha")
-    , @NamedQuery(name = "Examen.findByConsecutivoEvaluacion", query = "SELECT e FROM Examen e WHERE e.examenPK.consecutivoEvaluacion = :consecutivoEvaluacion")
-    , @NamedQuery(name = "Examen.findByFechaEvaluacion", query = "SELECT e FROM Examen e WHERE e.examenPK.fechaEvaluacion = :fechaEvaluacion")
-    , @NamedQuery(name = "Examen.findByInstitucion", query = "SELECT e FROM Examen e WHERE e.examenPK.institucion = :institucion")
-    , @NamedQuery(name = "Examen.findBySalon", query = "SELECT e FROM Examen e WHERE e.examenPK.salon = :salon")
-    , @NamedQuery(name = "Examen.findByJornada", query = "SELECT e FROM Examen e WHERE e.examenPK.jornada = :jornada")
-    , @NamedQuery(name = "Examen.findByMateria", query = "SELECT e FROM Examen e WHERE e.examenPK.materia = :materia")
     , @NamedQuery(name = "Examen.findByEstudiante", query = "SELECT e FROM Examen e WHERE e.examenPK.estudiante = :estudiante")
+    , @NamedQuery(name = "Examen.findByEvaluacionesConsecutivo", query = "SELECT e FROM Examen e WHERE e.examenPK.evaluacionesConsecutivo = :evaluacionesConsecutivo")
+    , @NamedQuery(name = "Examen.findByEvaluacionesMateria", query = "SELECT e FROM Examen e WHERE e.examenPK.evaluacionesMateria = :evaluacionesMateria")
+    , @NamedQuery(name = "Examen.findByEvaluacionesProfesor", query = "SELECT e FROM Examen e WHERE e.examenPK.evaluacionesProfesor = :evaluacionesProfesor")
+    , @NamedQuery(name = "Examen.findByEvaluacionesGrado", query = "SELECT e FROM Examen e WHERE e.examenPK.evaluacionesGrado = :evaluacionesGrado")
+    , @NamedQuery(name = "Examen.findByEvaluacionesInstitucion", query = "SELECT e FROM Examen e WHERE e.examenPK.evaluacionesInstitucion = :evaluacionesInstitucion")
+    , @NamedQuery(name = "Examen.findByEvaluacionesConsecutivocurso", query = "SELECT e FROM Examen e WHERE e.examenPK.evaluacionesConsecutivocurso = :evaluacionesConsecutivocurso")
     , @NamedQuery(name = "Examen.findByNota", query = "SELECT e FROM Examen e WHERE e.nota = :nota")})
 public class Examen implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ExamenPK examenPK;
-    @Basic(optional = false)
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "nota")
-    private double nota;
+    private Double nota;
     @JoinColumn(name = "Estudiante", referencedColumnName = "Personas_numero_identificacion", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Estudiantes estudiantes;
     @JoinColumns({
-        @JoinColumn(name = "Consecutivo_Evaluacion", referencedColumnName = "Consecutivo", insertable = false, updatable = false)
-        , @JoinColumn(name = "Fecha_Evaluacion", referencedColumnName = "Fecha_Materia-En-Curso", insertable = false, updatable = false)
-        , @JoinColumn(name = "Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
-        , @JoinColumn(name = "Salon", referencedColumnName = "Salon", insertable = false, updatable = false)
-        , @JoinColumn(name = "Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)
-        , @JoinColumn(name = "Materia", referencedColumnName = "Materia", insertable = false, updatable = false)})
+        @JoinColumn(name = "Evaluaciones_Consecutivo", referencedColumnName = "Consecutivo", insertable = false, updatable = false)
+        , @JoinColumn(name = "Evaluaciones_Materia", referencedColumnName = "Curso_Materia", insertable = false, updatable = false)
+        , @JoinColumn(name = "Evaluaciones_Profesor", referencedColumnName = "Cursos_Profesor", insertable = false, updatable = false)
+        , @JoinColumn(name = "Evaluaciones_Grado", referencedColumnName = "Cursos_Grado", insertable = false, updatable = false)
+        , @JoinColumn(name = "Evaluaciones_Institucion", referencedColumnName = "Cursos_Institucion", insertable = false, updatable = false)
+        , @JoinColumn(name = "Evaluaciones_Consecutivo_curso", referencedColumnName = "Cursos_Consecutivo", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Evaluaciones evaluaciones;
 
@@ -65,13 +64,8 @@ public class Examen implements Serializable {
         this.examenPK = examenPK;
     }
 
-    public Examen(ExamenPK examenPK, double nota) {
-        this.examenPK = examenPK;
-        this.nota = nota;
-    }
-
-    public Examen(Date fecha, int consecutivoEvaluacion, Date fechaEvaluacion, int institucion, int salon, int jornada, int materia, String estudiante) {
-        this.examenPK = new ExamenPK(fecha, consecutivoEvaluacion, fechaEvaluacion, institucion, salon, jornada, materia, estudiante);
+    public Examen(Date fecha, String estudiante, int evaluacionesConsecutivo, int evaluacionesMateria, String evaluacionesProfesor, int evaluacionesGrado, int evaluacionesInstitucion, int evaluacionesConsecutivocurso) {
+        this.examenPK = new ExamenPK(fecha, estudiante, evaluacionesConsecutivo, evaluacionesMateria, evaluacionesProfesor, evaluacionesGrado, evaluacionesInstitucion, evaluacionesConsecutivocurso);
     }
 
     public ExamenPK getExamenPK() {
@@ -82,11 +76,11 @@ public class Examen implements Serializable {
         this.examenPK = examenPK;
     }
 
-    public double getNota() {
+    public Double getNota() {
         return nota;
     }
 
-    public void setNota(double nota) {
+    public void setNota(Double nota) {
         this.nota = nota;
     }
 

@@ -6,12 +6,9 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -24,32 +21,31 @@ public class EvaluacionesPK implements Serializable {
     @Column(name = "Consecutivo")
     private int consecutivo;
     @Basic(optional = false)
-    @Column(name = "Fecha_Materia-En-Curso")
-    @Temporal(TemporalType.DATE)
-    private Date fechaMateriaEnCurso;
+    @Column(name = "Curso_Materia")
+    private int cursoMateria;
     @Basic(optional = false)
-    @Column(name = "Institucion")
-    private int institucion;
+    @Column(name = "Cursos_Profesor")
+    private String cursosProfesor;
     @Basic(optional = false)
-    @Column(name = "Salon")
-    private int salon;
+    @Column(name = "Cursos_Grado")
+    private int cursosGrado;
     @Basic(optional = false)
-    @Column(name = "Jornada")
-    private int jornada;
+    @Column(name = "Cursos_Institucion")
+    private int cursosInstitucion;
     @Basic(optional = false)
-    @Column(name = "Materia")
-    private int materia;
+    @Column(name = "Cursos_Consecutivo")
+    private int cursosConsecutivo;
 
     public EvaluacionesPK() {
     }
 
-    public EvaluacionesPK(int consecutivo, Date fechaMateriaEnCurso, int institucion, int salon, int jornada, int materia) {
+    public EvaluacionesPK(int consecutivo, int cursoMateria, String cursosProfesor, int cursosGrado, int cursosInstitucion, int cursosConsecutivo) {
         this.consecutivo = consecutivo;
-        this.fechaMateriaEnCurso = fechaMateriaEnCurso;
-        this.institucion = institucion;
-        this.salon = salon;
-        this.jornada = jornada;
-        this.materia = materia;
+        this.cursoMateria = cursoMateria;
+        this.cursosProfesor = cursosProfesor;
+        this.cursosGrado = cursosGrado;
+        this.cursosInstitucion = cursosInstitucion;
+        this.cursosConsecutivo = cursosConsecutivo;
     }
 
     public int getConsecutivo() {
@@ -60,55 +56,55 @@ public class EvaluacionesPK implements Serializable {
         this.consecutivo = consecutivo;
     }
 
-    public Date getFechaMateriaEnCurso() {
-        return fechaMateriaEnCurso;
+    public int getCursoMateria() {
+        return cursoMateria;
     }
 
-    public void setFechaMateriaEnCurso(Date fechaMateriaEnCurso) {
-        this.fechaMateriaEnCurso = fechaMateriaEnCurso;
+    public void setCursoMateria(int cursoMateria) {
+        this.cursoMateria = cursoMateria;
     }
 
-    public int getInstitucion() {
-        return institucion;
+    public String getCursosProfesor() {
+        return cursosProfesor;
     }
 
-    public void setInstitucion(int institucion) {
-        this.institucion = institucion;
+    public void setCursosProfesor(String cursosProfesor) {
+        this.cursosProfesor = cursosProfesor;
     }
 
-    public int getSalon() {
-        return salon;
+    public int getCursosGrado() {
+        return cursosGrado;
     }
 
-    public void setSalon(int salon) {
-        this.salon = salon;
+    public void setCursosGrado(int cursosGrado) {
+        this.cursosGrado = cursosGrado;
     }
 
-    public int getJornada() {
-        return jornada;
+    public int getCursosInstitucion() {
+        return cursosInstitucion;
     }
 
-    public void setJornada(int jornada) {
-        this.jornada = jornada;
+    public void setCursosInstitucion(int cursosInstitucion) {
+        this.cursosInstitucion = cursosInstitucion;
     }
 
-    public int getMateria() {
-        return materia;
+    public int getCursosConsecutivo() {
+        return cursosConsecutivo;
     }
 
-    public void setMateria(int materia) {
-        this.materia = materia;
+    public void setCursosConsecutivo(int cursosConsecutivo) {
+        this.cursosConsecutivo = cursosConsecutivo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) consecutivo;
-        hash += (fechaMateriaEnCurso != null ? fechaMateriaEnCurso.hashCode() : 0);
-        hash += (int) institucion;
-        hash += (int) salon;
-        hash += (int) jornada;
-        hash += (int) materia;
+        hash += (int) cursoMateria;
+        hash += (cursosProfesor != null ? cursosProfesor.hashCode() : 0);
+        hash += (int) cursosGrado;
+        hash += (int) cursosInstitucion;
+        hash += (int) cursosConsecutivo;
         return hash;
     }
 
@@ -122,19 +118,19 @@ public class EvaluacionesPK implements Serializable {
         if (this.consecutivo != other.consecutivo) {
             return false;
         }
-        if ((this.fechaMateriaEnCurso == null && other.fechaMateriaEnCurso != null) || (this.fechaMateriaEnCurso != null && !this.fechaMateriaEnCurso.equals(other.fechaMateriaEnCurso))) {
+        if (this.cursoMateria != other.cursoMateria) {
             return false;
         }
-        if (this.institucion != other.institucion) {
+        if ((this.cursosProfesor == null && other.cursosProfesor != null) || (this.cursosProfesor != null && !this.cursosProfesor.equals(other.cursosProfesor))) {
             return false;
         }
-        if (this.salon != other.salon) {
+        if (this.cursosGrado != other.cursosGrado) {
             return false;
         }
-        if (this.jornada != other.jornada) {
+        if (this.cursosInstitucion != other.cursosInstitucion) {
             return false;
         }
-        if (this.materia != other.materia) {
+        if (this.cursosConsecutivo != other.cursosConsecutivo) {
             return false;
         }
         return true;
@@ -142,7 +138,7 @@ public class EvaluacionesPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.EvaluacionesPK[ consecutivo=" + consecutivo + ", fechaMateriaEnCurso=" + fechaMateriaEnCurso + ", institucion=" + institucion + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + " ]";
+        return "modelo.entidades.EvaluacionesPK[ consecutivo=" + consecutivo + ", cursoMateria=" + cursoMateria + ", cursosProfesor=" + cursosProfesor + ", cursosGrado=" + cursosGrado + ", cursosInstitucion=" + cursosInstitucion + ", cursosConsecutivo=" + cursosConsecutivo + " ]";
     }
     
 }

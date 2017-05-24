@@ -5,9 +5,13 @@
  */
 package vista;
 
+import control.ControlBuscarEstudiantePanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,9 +25,12 @@ public class BuscarEstudiantePanel extends javax.swing.JPanel  {
     /**
      * Creates new form AgregarEstudiantePanel
      */
-    public BuscarEstudiantePanel() {
+    protected EstudiantesPanel panelEstudiantes;
+    public BuscarEstudiantePanel(EstudiantesPanel panelEstudiantes) {
         initComponents();
         jScrollPane1= new JScrollPane();
+        controlBuscarEstudiantePanel= new ControlBuscarEstudiantePanel();
+        this.panelEstudiantes=panelEstudiantes;
     }
 
     /**
@@ -79,20 +86,8 @@ public class BuscarEstudiantePanel extends javax.swing.JPanel  {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
-        Object [][] datos= new Object [2][5];
-        datos [0][0]="1144050731";
-        datos [0][1]="Fernando Cordoba Lozano";
-        datos [0][2]=crearBoton("Visualizar","visualizar");
-        datos [0][3]=crearBoton("Editar","editar");
-        datos [0][4]=crearBoton("Eliminar","eliminar");
-        datos [1][0]="1154345873";
-        datos [1][1]="Andres Cordoba Lozano";
-        datos [1][2]=crearBoton("Visualizar","visualizar");
-        datos [1][3]=crearBoton("Editar","editar");
-        datos [1][4]=crearBoton("Eliminar","eliminar");
-        String [] columnas=new String [] {"IDENTIFICACION", "NOMBRE ESTUDIANTE", "", "", ""};
-        Class[] tipos = new Class [] {java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class};
-        DefaultTableModel modelo= crearModeloTabla(columnas,tipos,datos);
+        String itemBusqueda=barraBusqueda.getText().toLowerCase().trim();
+        DefaultTableModel modelo=controlBuscarEstudiantePanel.obtenerModeloBusqueda(itemBusqueda);
         JTable tablaResultados= new JTable();
         tablaResultados=agregarAccionesBotones(tablaResultados);
         mostrarDatosEnTabla(modelo,tablaResultados);
@@ -102,6 +97,12 @@ public class BuscarEstudiantePanel extends javax.swing.JPanel  {
          tabla.setModel(modelo);  
          tabla=aplicarFormatoTabla(tabla);
          ultimoResultadoBusqueda=tabla;
+         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 710, 470));
+         revalidate();
+         repaint();
+    }
+     public void mostrarDatosEnTabla(JTable tabla){
+         jScrollPane1.setViewportView(tabla);
          add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 710, 470));
          revalidate();
          repaint();
@@ -123,7 +124,10 @@ public class BuscarEstudiantePanel extends javax.swing.JPanel  {
                         editarEstudiante(id);
                     }
                     if(btn.getActionCommand().equals("eliminar")){
-                        eliminarEstudiante(id);
+                        int respuesta=JOptionPane.showConfirmDialog(null, "¿Eliminar este estudiante?", "Confirmar Eliminacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                        if(respuesta==0){
+                            eliminarEstudiante(id,fila); 
+                        }
                     }
                 }
             }
@@ -131,16 +135,35 @@ public class BuscarEstudiantePanel extends javax.swing.JPanel  {
         return tabla;
     }
     
-    public void visualizarEstudinate(String id){
-        System.out.println(id);
+    public void visualizarEstudinate(String idEstudiante){
+        try {
+        HashMap<String, String> campos=controlBuscarEstudiantePanel.obtenerDatosEstudiante(idEstudiante);
+        VisualizarEstudiantePanel vep= new VisualizarEstudiantePanel(this);
+        vep.llenarCampos(campos);
+        panelEstudiantes.mostarPanel(vep);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
-    public void editarEstudiante(String id){
-        
+    public void editarEstudiante(String idEstudiante){
+        try {
+        HashMap<String, String> campos=controlBuscarEstudiantePanel.obtenerDatosEstudiante(idEstudiante);
+        EditarEstudiantePanel eep= new EditarEstudiantePanel();
+        eep.llenarCampos(campos);
+        panelEstudiantes.mostarPanel(eep);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
-    public void eliminarEstudiante(String id){
-        
+    public void eliminarEstudiante(String idEstudiante,int fila){
+        boolean eliminado=controlBuscarEstudiantePanel.eliminarEstudiante(idEstudiante);
+        if(eliminado){
+            DefaultTableModel modelo=(DefaultTableModel) ultimoResultadoBusqueda.getModel();
+            modelo.removeRow(fila);
+            mostrarDatosEnTabla(modelo,ultimoResultadoBusqueda);
+        }
     }
     
     private JTable aplicarFormatoTabla(JTable tabla){
@@ -188,17 +211,11 @@ public class BuscarEstudiantePanel extends javax.swing.JPanel  {
         };
     }
     
-    private JButton crearBoton(String texto, String comando){
-        JButton boton= new JButton();
-        boton.setBackground(new java.awt.Color(101, 166, 148));
-        boton.setForeground(new java.awt.Color(255, 255, 255));
-        boton.setText(texto);
-        boton.setBorderPainted(false);
-        boton.setOpaque(true);
-        boton.setActionCommand(comando);
-        return boton;
+    protected void volver(JPanel panel){
+        panelEstudiantes.mostarPanel(panel);
     }
-
+    
+    private ControlBuscarEstudiantePanel controlBuscarEstudiantePanel;
     private JScrollPane jScrollPane1;
     private JTable ultimoResultadoBusqueda;
     // Variables declaration - do not modify//GEN-BEGIN:variables

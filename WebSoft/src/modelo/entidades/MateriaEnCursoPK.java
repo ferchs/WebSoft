@@ -25,27 +25,31 @@ public class MateriaEnCursoPK implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Basic(optional = false)
-    @Column(name = "Institucion")
-    private int institucion;
+    @Column(name = "Estudiantes_Personas_numero_identificacion")
+    private String estudiantesPersonasnumeroidentificacion;
     @Basic(optional = false)
-    @Column(name = "Salon")
-    private int salon;
+    @Column(name = "Materias_codigo_materia")
+    private int materiascodigomateria;
     @Basic(optional = false)
-    @Column(name = "Jornada")
-    private int jornada;
+    @Column(name = "Cursos_Grados_idGrado")
+    private int cursosGradosidGrado;
     @Basic(optional = false)
-    @Column(name = "Materia")
-    private int materia;
+    @Column(name = "Cursos_Grados_Instituciones_nit")
+    private int cursosGradosInstitucionesnit;
+    @Basic(optional = false)
+    @Column(name = "Cursos_consecutivo")
+    private int cursosconsecutivo;
 
     public MateriaEnCursoPK() {
     }
 
-    public MateriaEnCursoPK(Date fecha, int institucion, int salon, int jornada, int materia) {
+    public MateriaEnCursoPK(Date fecha, String estudiantesPersonasnumeroidentificacion, int materiascodigomateria, int cursosGradosidGrado, int cursosGradosInstitucionesnit, int cursosconsecutivo) {
         this.fecha = fecha;
-        this.institucion = institucion;
-        this.salon = salon;
-        this.jornada = jornada;
-        this.materia = materia;
+        this.estudiantesPersonasnumeroidentificacion = estudiantesPersonasnumeroidentificacion;
+        this.materiascodigomateria = materiascodigomateria;
+        this.cursosGradosidGrado = cursosGradosidGrado;
+        this.cursosGradosInstitucionesnit = cursosGradosInstitucionesnit;
+        this.cursosconsecutivo = cursosconsecutivo;
     }
 
     public Date getFecha() {
@@ -56,46 +60,55 @@ public class MateriaEnCursoPK implements Serializable {
         this.fecha = fecha;
     }
 
-    public int getInstitucion() {
-        return institucion;
+    public String getEstudiantesPersonasnumeroidentificacion() {
+        return estudiantesPersonasnumeroidentificacion;
     }
 
-    public void setInstitucion(int institucion) {
-        this.institucion = institucion;
+    public void setEstudiantesPersonasnumeroidentificacion(String estudiantesPersonasnumeroidentificacion) {
+        this.estudiantesPersonasnumeroidentificacion = estudiantesPersonasnumeroidentificacion;
     }
 
-    public int getSalon() {
-        return salon;
+    public int getMateriascodigomateria() {
+        return materiascodigomateria;
     }
 
-    public void setSalon(int salon) {
-        this.salon = salon;
+    public void setMateriascodigomateria(int materiascodigomateria) {
+        this.materiascodigomateria = materiascodigomateria;
     }
 
-    public int getJornada() {
-        return jornada;
+    public int getCursosGradosidGrado() {
+        return cursosGradosidGrado;
     }
 
-    public void setJornada(int jornada) {
-        this.jornada = jornada;
+    public void setCursosGradosidGrado(int cursosGradosidGrado) {
+        this.cursosGradosidGrado = cursosGradosidGrado;
     }
 
-    public int getMateria() {
-        return materia;
+    public int getCursosGradosInstitucionesnit() {
+        return cursosGradosInstitucionesnit;
     }
 
-    public void setMateria(int materia) {
-        this.materia = materia;
+    public void setCursosGradosInstitucionesnit(int cursosGradosInstitucionesnit) {
+        this.cursosGradosInstitucionesnit = cursosGradosInstitucionesnit;
+    }
+
+    public int getCursosconsecutivo() {
+        return cursosconsecutivo;
+    }
+
+    public void setCursosconsecutivo(int cursosconsecutivo) {
+        this.cursosconsecutivo = cursosconsecutivo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (fecha != null ? fecha.hashCode() : 0);
-        hash += (int) institucion;
-        hash += (int) salon;
-        hash += (int) jornada;
-        hash += (int) materia;
+        hash += (estudiantesPersonasnumeroidentificacion != null ? estudiantesPersonasnumeroidentificacion.hashCode() : 0);
+        hash += (int) materiascodigomateria;
+        hash += (int) cursosGradosidGrado;
+        hash += (int) cursosGradosInstitucionesnit;
+        hash += (int) cursosconsecutivo;
         return hash;
     }
 
@@ -109,16 +122,19 @@ public class MateriaEnCursoPK implements Serializable {
         if ((this.fecha == null && other.fecha != null) || (this.fecha != null && !this.fecha.equals(other.fecha))) {
             return false;
         }
-        if (this.institucion != other.institucion) {
+        if ((this.estudiantesPersonasnumeroidentificacion == null && other.estudiantesPersonasnumeroidentificacion != null) || (this.estudiantesPersonasnumeroidentificacion != null && !this.estudiantesPersonasnumeroidentificacion.equals(other.estudiantesPersonasnumeroidentificacion))) {
             return false;
         }
-        if (this.salon != other.salon) {
+        if (this.materiascodigomateria != other.materiascodigomateria) {
             return false;
         }
-        if (this.jornada != other.jornada) {
+        if (this.cursosGradosidGrado != other.cursosGradosidGrado) {
             return false;
         }
-        if (this.materia != other.materia) {
+        if (this.cursosGradosInstitucionesnit != other.cursosGradosInstitucionesnit) {
+            return false;
+        }
+        if (this.cursosconsecutivo != other.cursosconsecutivo) {
             return false;
         }
         return true;
@@ -126,7 +142,7 @@ public class MateriaEnCursoPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.MateriaEnCursoPK[ fecha=" + fecha + ", institucion=" + institucion + ", salon=" + salon + ", jornada=" + jornada + ", materia=" + materia + " ]";
+        return "modelo.entidades.MateriaEnCursoPK[ fecha=" + fecha + ", estudiantesPersonasnumeroidentificacion=" + estudiantesPersonasnumeroidentificacion + ", materiascodigomateria=" + materiascodigomateria + ", cursosGradosidGrado=" + cursosGradosidGrado + ", cursosGradosInstitucionesnit=" + cursosGradosInstitucionesnit + ", cursosconsecutivo=" + cursosconsecutivo + " ]";
     }
     
 }

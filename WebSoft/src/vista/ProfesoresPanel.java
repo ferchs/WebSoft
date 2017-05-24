@@ -5,6 +5,8 @@
  */
 package vista;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author ferchs
@@ -12,6 +14,7 @@ package vista;
 public class ProfesoresPanel extends javax.swing.JPanel {
 
     private VentanaPrincipal ventanaPrincipal;
+    private JPanel actual;
     /**
      * Creates new form Estudiantes
      */
@@ -36,7 +39,6 @@ public class ProfesoresPanel extends javax.swing.JPanel {
         agregarText = new javax.swing.JLabel();
         inicio = new javax.swing.JButton();
         inicioText = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(102, 102, 102));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -58,7 +60,7 @@ public class ProfesoresPanel extends javax.swing.JPanel {
 
         agregar.setBackground(new java.awt.Color(102, 102, 102));
         agregar.setForeground(new java.awt.Color(255, 255, 255));
-        agregar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/agregar.png")); // NOI18N
+        agregar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/profesoresMini.png")); // NOI18N
         agregar.setBorderPainted(false);
         agregar.setOpaque(true);
         agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +68,7 @@ public class ProfesoresPanel extends javax.swing.JPanel {
                 agregarActionPerformed(evt);
             }
         });
-        PanelLogo1.add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 60, -1));
+        PanelLogo1.add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 60, 50));
 
         buscarText.setBackground(new java.awt.Color(255, 255, 255));
         buscarText.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
@@ -99,18 +101,18 @@ public class ProfesoresPanel extends javax.swing.JPanel {
         PanelLogo1.add(inicioText, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, -1, -1));
 
         add(PanelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 580));
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 810, 550));
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
+        BuscarProfesorPanel buscarProfesorPanel= new BuscarProfesorPanel(this);
+        mostarPanel(buscarProfesorPanel);
     }//GEN-LAST:event_buscarActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         // TODO add your handling code here:
+        AgregarProfesorPanel agregarEstudiantePanel= new AgregarProfesorPanel();
+        mostarPanel(agregarEstudiantePanel);
     }//GEN-LAST:event_agregarActionPerformed
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
@@ -118,6 +120,17 @@ public class ProfesoresPanel extends javax.swing.JPanel {
         ventanaPrincipal.mostarMenu();
     }//GEN-LAST:event_inicioActionPerformed
 
+    public void mostarPanel(JPanel panel){
+//        panelFondo.setVisible(true);
+        if(actual!=null){
+            remove(actual);
+        }
+        actual=panel;
+        add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 810, 580));
+//        panelFondo.setVisible(false);
+        revalidate();
+        repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelLogo1;
@@ -127,6 +140,5 @@ public class ProfesoresPanel extends javax.swing.JPanel {
     private javax.swing.JLabel buscarText;
     private javax.swing.JButton inicio;
     private javax.swing.JLabel inicioText;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,8 +27,8 @@ public class Administrador extends AbstractFacade{
 
     @Override
     protected EntityManager getEntityManager() {
-        EntityManagerFactory factory=Persistence.createEntityManagerFactory("WebSoftPU");
-        return em=factory.createEntityManager();
+        EntityManagerFactory emf = (EntityManagerFactory) EntityManagerFactoryApp.getInstance().getEntityManagerFactory();
+        return em=emf.createEntityManager();
     }
     
     public void crearAdministrador(Personas persona, String usuario, String contraseña, String email){

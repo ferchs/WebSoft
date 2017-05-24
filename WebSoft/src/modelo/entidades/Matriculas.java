@@ -6,8 +6,6 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -29,34 +27,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Matriculas.findAll", query = "SELECT m FROM Matriculas m")
     , @NamedQuery(name = "Matriculas.findByEstudiante", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.estudiante = :estudiante")
-    , @NamedQuery(name = "Matriculas.findByMateriaEnCursofecha", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursofecha = :materiaEnCursofecha")
-    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoSalon", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoSalon = :materiaEnCursoSalon")
-    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoInstitucion", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoInstitucion = :materiaEnCursoInstitucion")
-    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoJornada", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoJornada = :materiaEnCursoJornada")
-    , @NamedQuery(name = "Matriculas.findByMateriaEnCursoMateria", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.materiaEnCursoMateria = :materiaEnCursoMateria")
-    , @NamedQuery(name = "Matriculas.findByNotaDefinitiva", query = "SELECT m FROM Matriculas m WHERE m.notaDefinitiva = :notaDefinitiva")
-    , @NamedQuery(name = "Matriculas.findByTotalInasistencias", query = "SELECT m FROM Matriculas m WHERE m.totalInasistencias = :totalInasistencias")})
+    , @NamedQuery(name = "Matriculas.findByGrado", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.grado = :grado")
+    , @NamedQuery(name = "Matriculas.findByInstitucion", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.institucion = :institucion")
+    , @NamedQuery(name = "Matriculas.findByCursosconsecutivo", query = "SELECT m FROM Matriculas m WHERE m.matriculasPK.cursosconsecutivo = :cursosconsecutivo")})
 public class Matriculas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MatriculasPK matriculasPK;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "nota_definitiva")
-    private Double notaDefinitiva;
-    @Column(name = "total_inasistencias")
-    private Integer totalInasistencias;
+    @JoinColumns({
+        @JoinColumn(name = "Grado", referencedColumnName = "Grados_idGrado", insertable = false, updatable = false)
+        , @JoinColumn(name = "Institucion", referencedColumnName = "Grados_Instituciones_nit", insertable = false, updatable = false)
+        , @JoinColumn(name = "Cursos_consecutivo", referencedColumnName = "consecutivo", insertable = false, updatable = false)})
+    @ManyToOne(optional = false)
+    private Cursos cursos;
     @JoinColumn(name = "Estudiante", referencedColumnName = "Personas_numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Estudiantes estudiantes;
-    @JoinColumns({
-        @JoinColumn(name = "Materia_En_Curso_fecha", referencedColumnName = "fecha", insertable = false, updatable = false)
-        , @JoinColumn(name = "Materia_En_Curso_Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
-        , @JoinColumn(name = "Materia_En_Curso_Salon", referencedColumnName = "Salon", insertable = false, updatable = false)
-        , @JoinColumn(name = "Materia_En_Curso_Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)
-        , @JoinColumn(name = "Materia_En_Curso_Materia", referencedColumnName = "Materia", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
-    private MateriaEnCurso materiaEnCurso;
 
     public Matriculas() {
     }
@@ -65,8 +52,8 @@ public class Matriculas implements Serializable {
         this.matriculasPK = matriculasPK;
     }
 
-    public Matriculas(String estudiante, Date materiaEnCursofecha, int materiaEnCursoSalon, int materiaEnCursoInstitucion, int materiaEnCursoJornada, int materiaEnCursoMateria) {
-        this.matriculasPK = new MatriculasPK(estudiante, materiaEnCursofecha, materiaEnCursoSalon, materiaEnCursoInstitucion, materiaEnCursoJornada, materiaEnCursoMateria);
+    public Matriculas(String estudiante, int grado, int institucion, int cursosconsecutivo) {
+        this.matriculasPK = new MatriculasPK(estudiante, grado, institucion, cursosconsecutivo);
     }
 
     public MatriculasPK getMatriculasPK() {
@@ -77,20 +64,12 @@ public class Matriculas implements Serializable {
         this.matriculasPK = matriculasPK;
     }
 
-    public Double getNotaDefinitiva() {
-        return notaDefinitiva;
+    public Cursos getCursos() {
+        return cursos;
     }
 
-    public void setNotaDefinitiva(Double notaDefinitiva) {
-        this.notaDefinitiva = notaDefinitiva;
-    }
-
-    public Integer getTotalInasistencias() {
-        return totalInasistencias;
-    }
-
-    public void setTotalInasistencias(Integer totalInasistencias) {
-        this.totalInasistencias = totalInasistencias;
+    public void setCursos(Cursos cursos) {
+        this.cursos = cursos;
     }
 
     public Estudiantes getEstudiantes() {
@@ -99,14 +78,6 @@ public class Matriculas implements Serializable {
 
     public void setEstudiantes(Estudiantes estudiantes) {
         this.estudiantes = estudiantes;
-    }
-
-    public MateriaEnCurso getMateriaEnCurso() {
-        return materiaEnCurso;
-    }
-
-    public void setMateriaEnCurso(MateriaEnCurso materiaEnCurso) {
-        this.materiaEnCurso = materiaEnCurso;
     }
 
     @Override

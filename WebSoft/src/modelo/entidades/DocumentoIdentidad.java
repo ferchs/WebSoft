@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "DocumentoIdentidad.findByFechaNacimiento", query = "SELECT d FROM DocumentoIdentidad d WHERE d.fechaNacimiento = :fechaNacimiento")
     , @NamedQuery(name = "DocumentoIdentidad.findByLugarNacimiento", query = "SELECT d FROM DocumentoIdentidad d WHERE d.lugarNacimiento = :lugarNacimiento")
     , @NamedQuery(name = "DocumentoIdentidad.findByPaisNacimiento", query = "SELECT d FROM DocumentoIdentidad d WHERE d.paisNacimiento = :paisNacimiento")
-    , @NamedQuery(name = "DocumentoIdentidad.findByRh", query = "SELECT d FROM DocumentoIdentidad d WHERE d.rh = :rh")})
+    , @NamedQuery(name = "DocumentoIdentidad.findByRh", query = "SELECT d FROM DocumentoIdentidad d WHERE d.rh = :rh")
+    , @NamedQuery(name = "DocumentoIdentidad.findBySexo", query = "SELECT d FROM DocumentoIdentidad d WHERE d.sexo = :sexo")})
 public class DocumentoIdentidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +54,8 @@ public class DocumentoIdentidad implements Serializable {
     private String paisNacimiento;
     @Column(name = "rh")
     private String rh;
+    @Column(name = "sexo")
+    private String sexo;
     @JoinColumn(name = "Personas_Id", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
@@ -110,6 +113,14 @@ public class DocumentoIdentidad implements Serializable {
 
     public void setRh(String rh) {
         this.rh = rh;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public Personas getPersonas() {

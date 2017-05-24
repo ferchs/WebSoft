@@ -18,54 +18,54 @@ import javax.persistence.Embeddable;
 public class CursosPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "Institucion")
-    private int institucion;
+    @Column(name = "Grados_idGrado")
+    private int gradosidGrado;
     @Basic(optional = false)
-    @Column(name = "Salon")
-    private int salon;
+    @Column(name = "Grados_Instituciones_nit")
+    private int gradosInstitucionesnit;
     @Basic(optional = false)
-    @Column(name = "Jornada")
-    private int jornada;
+    @Column(name = "consecutivo")
+    private int consecutivo;
 
     public CursosPK() {
     }
 
-    public CursosPK(int institucion, int salon, int jornada) {
-        this.institucion = institucion;
-        this.salon = salon;
-        this.jornada = jornada;
+    public CursosPK(int gradosidGrado, int gradosInstitucionesnit, int consecutivo) {
+        this.gradosidGrado = gradosidGrado;
+        this.gradosInstitucionesnit = gradosInstitucionesnit;
+        this.consecutivo = consecutivo;
     }
 
-    public int getInstitucion() {
-        return institucion;
+    public int getGradosidGrado() {
+        return gradosidGrado;
     }
 
-    public void setInstitucion(int institucion) {
-        this.institucion = institucion;
+    public void setGradosidGrado(int gradosidGrado) {
+        this.gradosidGrado = gradosidGrado;
     }
 
-    public int getSalon() {
-        return salon;
+    public int getGradosInstitucionesnit() {
+        return gradosInstitucionesnit;
     }
 
-    public void setSalon(int salon) {
-        this.salon = salon;
+    public void setGradosInstitucionesnit(int gradosInstitucionesnit) {
+        this.gradosInstitucionesnit = gradosInstitucionesnit;
     }
 
-    public int getJornada() {
-        return jornada;
+    public int getConsecutivo() {
+        return consecutivo;
     }
 
-    public void setJornada(int jornada) {
-        this.jornada = jornada;
+    public void setConsecutivo(int consecutivo) {
+        this.consecutivo = consecutivo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) institucion;
-        hash += (int) salon;
-        hash += (int) jornada;
+        hash += (int) gradosidGrado;
+        hash += (int) gradosInstitucionesnit;
+        hash += (int) consecutivo;
         return hash;
     }
 
@@ -76,13 +76,13 @@ public class CursosPK implements Serializable {
             return false;
         }
         CursosPK other = (CursosPK) object;
-        if (this.institucion != other.institucion) {
+        if (this.gradosidGrado != other.gradosidGrado) {
             return false;
         }
-        if (this.salon != other.salon) {
+        if (this.gradosInstitucionesnit != other.gradosInstitucionesnit) {
             return false;
         }
-        if (this.jornada != other.jornada) {
+        if (this.consecutivo != other.consecutivo) {
             return false;
         }
         return true;
@@ -90,7 +90,7 @@ public class CursosPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.CursosPK[ institucion=" + institucion + ", salon=" + salon + ", jornada=" + jornada + " ]";
+        return "modelo.entidades.CursosPK[ gradosidGrado=" + gradosidGrado + ", gradosInstitucionesnit=" + gradosInstitucionesnit + ", consecutivo=" + consecutivo + " ]";
     }
     
 }

@@ -6,12 +6,9 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -24,32 +21,23 @@ public class MatriculasPK implements Serializable {
     @Column(name = "Estudiante")
     private String estudiante;
     @Basic(optional = false)
-    @Column(name = "Materia_En_Curso_fecha")
-    @Temporal(TemporalType.DATE)
-    private Date materiaEnCursofecha;
+    @Column(name = "Grado")
+    private int grado;
     @Basic(optional = false)
-    @Column(name = "Materia_En_Curso_Salon")
-    private int materiaEnCursoSalon;
+    @Column(name = "Institucion")
+    private int institucion;
     @Basic(optional = false)
-    @Column(name = "Materia_En_Curso_Institucion")
-    private int materiaEnCursoInstitucion;
-    @Basic(optional = false)
-    @Column(name = "Materia_En_Curso_Jornada")
-    private int materiaEnCursoJornada;
-    @Basic(optional = false)
-    @Column(name = "Materia_En_Curso_Materia")
-    private int materiaEnCursoMateria;
+    @Column(name = "Cursos_consecutivo")
+    private int cursosconsecutivo;
 
     public MatriculasPK() {
     }
 
-    public MatriculasPK(String estudiante, Date materiaEnCursofecha, int materiaEnCursoSalon, int materiaEnCursoInstitucion, int materiaEnCursoJornada, int materiaEnCursoMateria) {
+    public MatriculasPK(String estudiante, int grado, int institucion, int cursosconsecutivo) {
         this.estudiante = estudiante;
-        this.materiaEnCursofecha = materiaEnCursofecha;
-        this.materiaEnCursoSalon = materiaEnCursoSalon;
-        this.materiaEnCursoInstitucion = materiaEnCursoInstitucion;
-        this.materiaEnCursoJornada = materiaEnCursoJornada;
-        this.materiaEnCursoMateria = materiaEnCursoMateria;
+        this.grado = grado;
+        this.institucion = institucion;
+        this.cursosconsecutivo = cursosconsecutivo;
     }
 
     public String getEstudiante() {
@@ -60,55 +48,37 @@ public class MatriculasPK implements Serializable {
         this.estudiante = estudiante;
     }
 
-    public Date getMateriaEnCursofecha() {
-        return materiaEnCursofecha;
+    public int getGrado() {
+        return grado;
     }
 
-    public void setMateriaEnCursofecha(Date materiaEnCursofecha) {
-        this.materiaEnCursofecha = materiaEnCursofecha;
+    public void setGrado(int grado) {
+        this.grado = grado;
     }
 
-    public int getMateriaEnCursoSalon() {
-        return materiaEnCursoSalon;
+    public int getInstitucion() {
+        return institucion;
     }
 
-    public void setMateriaEnCursoSalon(int materiaEnCursoSalon) {
-        this.materiaEnCursoSalon = materiaEnCursoSalon;
+    public void setInstitucion(int institucion) {
+        this.institucion = institucion;
     }
 
-    public int getMateriaEnCursoInstitucion() {
-        return materiaEnCursoInstitucion;
+    public int getCursosconsecutivo() {
+        return cursosconsecutivo;
     }
 
-    public void setMateriaEnCursoInstitucion(int materiaEnCursoInstitucion) {
-        this.materiaEnCursoInstitucion = materiaEnCursoInstitucion;
-    }
-
-    public int getMateriaEnCursoJornada() {
-        return materiaEnCursoJornada;
-    }
-
-    public void setMateriaEnCursoJornada(int materiaEnCursoJornada) {
-        this.materiaEnCursoJornada = materiaEnCursoJornada;
-    }
-
-    public int getMateriaEnCursoMateria() {
-        return materiaEnCursoMateria;
-    }
-
-    public void setMateriaEnCursoMateria(int materiaEnCursoMateria) {
-        this.materiaEnCursoMateria = materiaEnCursoMateria;
+    public void setCursosconsecutivo(int cursosconsecutivo) {
+        this.cursosconsecutivo = cursosconsecutivo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (estudiante != null ? estudiante.hashCode() : 0);
-        hash += (materiaEnCursofecha != null ? materiaEnCursofecha.hashCode() : 0);
-        hash += (int) materiaEnCursoSalon;
-        hash += (int) materiaEnCursoInstitucion;
-        hash += (int) materiaEnCursoJornada;
-        hash += (int) materiaEnCursoMateria;
+        hash += (int) grado;
+        hash += (int) institucion;
+        hash += (int) cursosconsecutivo;
         return hash;
     }
 
@@ -122,19 +92,13 @@ public class MatriculasPK implements Serializable {
         if ((this.estudiante == null && other.estudiante != null) || (this.estudiante != null && !this.estudiante.equals(other.estudiante))) {
             return false;
         }
-        if ((this.materiaEnCursofecha == null && other.materiaEnCursofecha != null) || (this.materiaEnCursofecha != null && !this.materiaEnCursofecha.equals(other.materiaEnCursofecha))) {
+        if (this.grado != other.grado) {
             return false;
         }
-        if (this.materiaEnCursoSalon != other.materiaEnCursoSalon) {
+        if (this.institucion != other.institucion) {
             return false;
         }
-        if (this.materiaEnCursoInstitucion != other.materiaEnCursoInstitucion) {
-            return false;
-        }
-        if (this.materiaEnCursoJornada != other.materiaEnCursoJornada) {
-            return false;
-        }
-        if (this.materiaEnCursoMateria != other.materiaEnCursoMateria) {
+        if (this.cursosconsecutivo != other.cursosconsecutivo) {
             return false;
         }
         return true;
@@ -142,7 +106,7 @@ public class MatriculasPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.MatriculasPK[ estudiante=" + estudiante + ", materiaEnCursofecha=" + materiaEnCursofecha + ", materiaEnCursoSalon=" + materiaEnCursoSalon + ", materiaEnCursoInstitucion=" + materiaEnCursoInstitucion + ", materiaEnCursoJornada=" + materiaEnCursoJornada + ", materiaEnCursoMateria=" + materiaEnCursoMateria + " ]";
+        return "modelo.entidades.MatriculasPK[ estudiante=" + estudiante + ", grado=" + grado + ", institucion=" + institucion + ", cursosconsecutivo=" + cursosconsecutivo + " ]";
     }
     
 }

@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -39,8 +40,12 @@ public class Materias implements Serializable {
     private Integer codigoMateria;
     @Column(name = "nombre")
     private String nombre;
+    @ManyToMany(mappedBy = "materiasCollection")
+    private Collection<Grados> gradosCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "materias")
     private Collection<MateriaEnCurso> materiaEnCursoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materias")
+    private Collection<CursosImpartidos> cursosImpartidosCollection;
 
     public Materias() {
     }
@@ -66,12 +71,30 @@ public class Materias implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Grados> getGradosCollection() {
+        return gradosCollection;
+    }
+
+    public void setGradosCollection(Collection<Grados> gradosCollection) {
+        this.gradosCollection = gradosCollection;
+    }
+
+    @XmlTransient
     public Collection<MateriaEnCurso> getMateriaEnCursoCollection() {
         return materiaEnCursoCollection;
     }
 
     public void setMateriaEnCursoCollection(Collection<MateriaEnCurso> materiaEnCursoCollection) {
         this.materiaEnCursoCollection = materiaEnCursoCollection;
+    }
+
+    @XmlTransient
+    public Collection<CursosImpartidos> getCursosImpartidosCollection() {
+        return cursosImpartidosCollection;
+    }
+
+    public void setCursosImpartidosCollection(Collection<CursosImpartidos> cursosImpartidosCollection) {
+        this.cursosImpartidosCollection = cursosImpartidosCollection;
     }
 
     @Override

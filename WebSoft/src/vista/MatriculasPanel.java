@@ -5,6 +5,8 @@
  */
 package vista;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author ferchs
@@ -12,6 +14,7 @@ package vista;
 public class MatriculasPanel extends javax.swing.JPanel {
 
     private VentanaPrincipal ventanaPrincipal;
+    private JPanel actual;
     /**
      * Creates new form Estudiantes
      */
@@ -30,55 +33,18 @@ public class MatriculasPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         PanelLogo1 = new javax.swing.JPanel();
-        buscar = new javax.swing.JButton();
-        agregar = new javax.swing.JButton();
-        buscarText = new javax.swing.JLabel();
-        agregarText = new javax.swing.JLabel();
         inicio = new javax.swing.JButton();
         inicioText = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        matricularEstudiante = new javax.swing.JButton();
+        agregarText1 = new javax.swing.JLabel();
+        matricularProfesor = new javax.swing.JButton();
+        agregarText = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 102, 102));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanelLogo1.setBackground(new java.awt.Color(101, 166, 148));
         PanelLogo1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        buscar.setBackground(new java.awt.Color(102, 102, 102));
-        buscar.setForeground(new java.awt.Color(255, 255, 255));
-        buscar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/buscar.png")); // NOI18N
-        buscar.setBorderPainted(false);
-        buscar.setOpaque(true);
-        buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
-            }
-        });
-        PanelLogo1.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 60, -1));
-
-        agregar.setBackground(new java.awt.Color(102, 102, 102));
-        agregar.setForeground(new java.awt.Color(255, 255, 255));
-        agregar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/agregar.png")); // NOI18N
-        agregar.setBorderPainted(false);
-        agregar.setOpaque(true);
-        agregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarActionPerformed(evt);
-            }
-        });
-        PanelLogo1.add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 60, -1));
-
-        buscarText.setBackground(new java.awt.Color(255, 255, 255));
-        buscarText.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        buscarText.setForeground(new java.awt.Color(255, 255, 255));
-        buscarText.setText("Buscar");
-        PanelLogo1.add(buscarText, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
-
-        agregarText.setBackground(new java.awt.Color(255, 255, 255));
-        agregarText.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        agregarText.setForeground(new java.awt.Color(255, 255, 255));
-        agregarText.setText("Agregar");
-        PanelLogo1.add(agregarText, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         inicio.setBackground(new java.awt.Color(102, 102, 102));
         inicio.setForeground(new java.awt.Color(255, 255, 255));
@@ -98,35 +64,81 @@ public class MatriculasPanel extends javax.swing.JPanel {
         inicioText.setText("inicio");
         PanelLogo1.add(inicioText, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, -1, -1));
 
+        matricularEstudiante.setBackground(new java.awt.Color(102, 102, 102));
+        matricularEstudiante.setForeground(new java.awt.Color(255, 255, 255));
+        matricularEstudiante.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/studentMini.png")); // NOI18N
+        matricularEstudiante.setBorderPainted(false);
+        matricularEstudiante.setOpaque(true);
+        matricularEstudiante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matricularEstudianteActionPerformed(evt);
+            }
+        });
+        PanelLogo1.add(matricularEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 60, -1));
+
+        agregarText1.setBackground(new java.awt.Color(255, 255, 255));
+        agregarText1.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        agregarText1.setForeground(new java.awt.Color(255, 255, 255));
+        agregarText1.setText("<html>\n<pre>Matricular\nEstudiante</pre>\n</html>");
+        PanelLogo1.add(agregarText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 30));
+
+        matricularProfesor.setBackground(new java.awt.Color(102, 102, 102));
+        matricularProfesor.setForeground(new java.awt.Color(255, 255, 255));
+        matricularProfesor.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/teacherMini.png")); // NOI18N
+        matricularProfesor.setBorderPainted(false);
+        matricularProfesor.setOpaque(true);
+        matricularProfesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matricularProfesorActionPerformed(evt);
+            }
+        });
+        PanelLogo1.add(matricularProfesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 60, 40));
+
+        agregarText.setBackground(new java.awt.Color(255, 255, 255));
+        agregarText.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        agregarText.setForeground(new java.awt.Color(255, 255, 255));
+        agregarText.setText("<html>\n<pre>Matricular\n Profesor</pre>\n</html>");
+        PanelLogo1.add(agregarText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
+
         add(PanelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 580));
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 810, 550));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buscarActionPerformed
-
-    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_agregarActionPerformed
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         // TODO add your handling code here:
         ventanaPrincipal.mostarMenu();
     }//GEN-LAST:event_inicioActionPerformed
 
+    private void matricularEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matricularEstudianteActionPerformed
+        // TODO add your handling code here:
+        MatricularEstudiantePanel matricularEstudiantePanel= new MatricularEstudiantePanel();
+        mostarPanel(matricularEstudiantePanel);
+    }//GEN-LAST:event_matricularEstudianteActionPerformed
+
+    private void matricularProfesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matricularProfesorActionPerformed
+        // TODO add your handling code here:
+        MatricularProfesorPanel matricularProfesorPanel= new MatricularProfesorPanel();
+        mostarPanel(matricularProfesorPanel);  
+    }//GEN-LAST:event_matricularProfesorActionPerformed
+
+    public void mostarPanel(JPanel panel){
+//        panelFondo.setVisible(true);
+        if(actual!=null){
+            remove(actual);
+        }
+        actual=panel;
+        add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 810, 580));
+//        panelFondo.setVisible(false);
+        revalidate();
+        repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelLogo1;
-    private javax.swing.JButton agregar;
     private javax.swing.JLabel agregarText;
-    private javax.swing.JButton buscar;
-    private javax.swing.JLabel buscarText;
+    private javax.swing.JLabel agregarText1;
     private javax.swing.JButton inicio;
     private javax.swing.JLabel inicioText;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton matricularEstudiante;
+    private javax.swing.JButton matricularProfesor;
     // End of variables declaration//GEN-END:variables
 }

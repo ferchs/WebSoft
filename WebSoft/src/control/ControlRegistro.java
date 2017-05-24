@@ -7,12 +7,8 @@ package control;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import modelo.Administrador;
 import modelo.Persona;
-import modelo.entidades.Administradores;
 import modelo.entidades.Personas;
 
 /**

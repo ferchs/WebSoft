@@ -42,7 +42,7 @@ public class Salones implements Serializable {
     private String nombre;
     @Column(name = "piso")
     private String piso;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salones")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salonesidsalon")
     private Collection<Cursos> cursosCollection;
 
     public Salones() {

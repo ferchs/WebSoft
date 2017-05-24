@@ -7,9 +7,7 @@ package modelo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import modelo.entidades.Instituciones;
-import modelo.entidades.Personas;
 
 /**
  *
@@ -43,8 +41,8 @@ public class Institucion extends AbstractFacade {
 
     @Override
     protected EntityManager getEntityManager() {
-        EntityManagerFactory factory=Persistence.createEntityManagerFactory("WebSoftPU");
-        return em=factory.createEntityManager();    
+        EntityManagerFactory emf = (EntityManagerFactory) EntityManagerFactoryApp.getInstance().getEntityManagerFactory();
+        return em=emf.createEntityManager();    
     }
     
 }

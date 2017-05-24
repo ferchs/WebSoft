@@ -29,7 +29,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Jornadas.findAll", query = "SELECT j FROM Jornadas j")
     , @NamedQuery(name = "Jornadas.findByIdJornada", query = "SELECT j FROM Jornadas j WHERE j.idJornada = :idJornada")
-    , @NamedQuery(name = "Jornadas.findByNombre", query = "SELECT j FROM Jornadas j WHERE j.nombre = :nombre")})
+    , @NamedQuery(name = "Jornadas.findByNombre", query = "SELECT j FROM Jornadas j WHERE j.nombre = :nombre")
+    , @NamedQuery(name = "Jornadas.findByHoraInicio", query = "SELECT j FROM Jornadas j WHERE j.horaInicio = :horaInicio")
+    , @NamedQuery(name = "Jornadas.findByHoraFin", query = "SELECT j FROM Jornadas j WHERE j.horaFin = :horaFin")})
 public class Jornadas implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,7 +41,13 @@ public class Jornadas implements Serializable {
     private Integer idJornada;
     @Column(name = "nombre")
     private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jornadas")
+    @Basic(optional = false)
+    @Column(name = "horaInicio")
+    private String horaInicio;
+    @Basic(optional = false)
+    @Column(name = "horaFin")
+    private String horaFin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jornadasidjornada")
     private Collection<Cursos> cursosCollection;
 
     public Jornadas() {
@@ -47,6 +55,12 @@ public class Jornadas implements Serializable {
 
     public Jornadas(Integer idJornada) {
         this.idJornada = idJornada;
+    }
+
+    public Jornadas(Integer idJornada, String horaInicio, String horaFin) {
+        this.idJornada = idJornada;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
     }
 
     public Integer getIdJornada() {
@@ -63,6 +77,22 @@ public class Jornadas implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(String horaFin) {
+        this.horaFin = horaFin;
     }
 
     @XmlTransient

@@ -49,7 +49,7 @@ public class Instituciones implements Serializable {
     @Column(name = "correo")
     private String correo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instituciones")
-    private Collection<Cursos> cursosCollection;
+    private Collection<Grados> gradosCollection;
 
     public Instituciones() {
     }
@@ -99,12 +99,12 @@ public class Instituciones implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Cursos> getCursosCollection() {
-        return cursosCollection;
+    public Collection<Grados> getGradosCollection() {
+        return gradosCollection;
     }
 
-    public void setCursosCollection(Collection<Cursos> cursosCollection) {
-        this.cursosCollection = cursosCollection;
+    public void setGradosCollection(Collection<Grados> gradosCollection) {
+        this.gradosCollection = gradosCollection;
     }
 
     @Override

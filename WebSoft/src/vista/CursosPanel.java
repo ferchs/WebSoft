@@ -5,6 +5,8 @@
  */
 package vista;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author ferchs
@@ -12,6 +14,7 @@ package vista;
 public class CursosPanel extends javax.swing.JPanel {
 
     private VentanaPrincipal ventanaPrincipal;
+    private JPanel actual;
     /**
      * Creates new form Estudiantes
      */
@@ -30,13 +33,14 @@ public class CursosPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         PanelLogo1 = new javax.swing.JPanel();
-        buscar = new javax.swing.JButton();
-        agregar = new javax.swing.JButton();
-        buscarText = new javax.swing.JLabel();
+        administrarCursos = new javax.swing.JButton();
         agregarText = new javax.swing.JLabel();
         inicio = new javax.swing.JButton();
         inicioText = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        gestionarEvaluaciones = new javax.swing.JButton();
+        buscarText1 = new javax.swing.JLabel();
+        administrarExamenes1 = new javax.swing.JButton();
+        buscarText3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 102, 102));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -44,41 +48,23 @@ public class CursosPanel extends javax.swing.JPanel {
         PanelLogo1.setBackground(new java.awt.Color(101, 166, 148));
         PanelLogo1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        buscar.setBackground(new java.awt.Color(102, 102, 102));
-        buscar.setForeground(new java.awt.Color(255, 255, 255));
-        buscar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/buscar.png")); // NOI18N
-        buscar.setBorderPainted(false);
-        buscar.setOpaque(true);
-        buscar.addActionListener(new java.awt.event.ActionListener() {
+        administrarCursos.setBackground(new java.awt.Color(102, 102, 102));
+        administrarCursos.setForeground(new java.awt.Color(255, 255, 255));
+        administrarCursos.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/cursosMini.png")); // NOI18N
+        administrarCursos.setBorderPainted(false);
+        administrarCursos.setOpaque(true);
+        administrarCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
+                administrarCursosActionPerformed(evt);
             }
         });
-        PanelLogo1.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 60, -1));
-
-        agregar.setBackground(new java.awt.Color(102, 102, 102));
-        agregar.setForeground(new java.awt.Color(255, 255, 255));
-        agregar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/agregar.png")); // NOI18N
-        agregar.setBorderPainted(false);
-        agregar.setOpaque(true);
-        agregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarActionPerformed(evt);
-            }
-        });
-        PanelLogo1.add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 60, -1));
-
-        buscarText.setBackground(new java.awt.Color(255, 255, 255));
-        buscarText.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        buscarText.setForeground(new java.awt.Color(255, 255, 255));
-        buscarText.setText("Buscar");
-        PanelLogo1.add(buscarText, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        PanelLogo1.add(administrarCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 70, -1));
 
         agregarText.setBackground(new java.awt.Color(255, 255, 255));
         agregarText.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         agregarText.setForeground(new java.awt.Color(255, 255, 255));
-        agregarText.setText("Agregar");
-        PanelLogo1.add(agregarText, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        agregarText.setText("<html>\n<pre>Administrar\n  Cursos\n</pre>\n</html>");
+        PanelLogo1.add(agregarText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
         inicio.setBackground(new java.awt.Color(102, 102, 102));
         inicio.setForeground(new java.awt.Color(255, 255, 255));
@@ -90,7 +76,7 @@ public class CursosPanel extends javax.swing.JPanel {
                 inicioActionPerformed(evt);
             }
         });
-        PanelLogo1.add(inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 60, -1));
+        PanelLogo1.add(inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 70, -1));
 
         inicioText.setBackground(new java.awt.Color(255, 255, 255));
         inicioText.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
@@ -98,35 +84,87 @@ public class CursosPanel extends javax.swing.JPanel {
         inicioText.setText("inicio");
         PanelLogo1.add(inicioText, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, -1, -1));
 
-        add(PanelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 580));
+        gestionarEvaluaciones.setBackground(new java.awt.Color(102, 102, 102));
+        gestionarEvaluaciones.setForeground(new java.awt.Color(255, 255, 255));
+        gestionarEvaluaciones.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/evaluacionMini.png")); // NOI18N
+        gestionarEvaluaciones.setBorderPainted(false);
+        gestionarEvaluaciones.setOpaque(true);
+        gestionarEvaluaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gestionarEvaluacionesActionPerformed(evt);
+            }
+        });
+        PanelLogo1.add(gestionarEvaluaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 70, -1));
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 810, 550));
+        buscarText1.setBackground(new java.awt.Color(255, 255, 255));
+        buscarText1.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        buscarText1.setForeground(new java.awt.Color(255, 255, 255));
+        buscarText1.setText("<html>\n<pre>  Gestionar\nEvaluaciones</pre>\n</html>");
+        PanelLogo1.add(buscarText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, -1, -1));
+
+        administrarExamenes1.setBackground(new java.awt.Color(102, 102, 102));
+        administrarExamenes1.setForeground(new java.awt.Color(255, 255, 255));
+        administrarExamenes1.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/examenMin.png")); // NOI18N
+        administrarExamenes1.setBorderPainted(false);
+        administrarExamenes1.setOpaque(true);
+        administrarExamenes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                administrarExamenes1ActionPerformed(evt);
+            }
+        });
+        PanelLogo1.add(administrarExamenes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 70, -1));
+
+        buscarText3.setBackground(new java.awt.Color(255, 255, 255));
+        buscarText3.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        buscarText3.setForeground(new java.awt.Color(255, 255, 255));
+        buscarText3.setText("<html> \n<pre> Gestionar  \n   Notas</pre> \n</html>");
+        PanelLogo1.add(buscarText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, -1, -1));
+
+        add(PanelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 580));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+    private void administrarCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administrarCursosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buscarActionPerformed
-
-    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_agregarActionPerformed
+        AdministrarCursosPanel administrarCursosPanel= new AdministrarCursosPanel(this);
+        ventanaPrincipal.mostarPanel(administrarCursosPanel);
+    }//GEN-LAST:event_administrarCursosActionPerformed
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         // TODO add your handling code here:
         ventanaPrincipal.mostarMenu();
     }//GEN-LAST:event_inicioActionPerformed
 
+    private void gestionarEvaluacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarEvaluacionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gestionarEvaluacionesActionPerformed
+
+    private void administrarExamenes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administrarExamenes1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_administrarExamenes1ActionPerformed
+
+    public void mostarPanel(JPanel panel){
+        if(actual!=null){
+            remove(actual);
+        }
+        actual=panel;
+        add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 810, 580));
+        revalidate();
+        repaint();
+    }
+    
+    public void mostrarInicio(){
+        ventanaPrincipal.mostarMenu();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelLogo1;
-    private javax.swing.JButton agregar;
+    private javax.swing.JButton administrarCursos;
+    private javax.swing.JButton administrarExamenes1;
     private javax.swing.JLabel agregarText;
-    private javax.swing.JButton buscar;
-    private javax.swing.JLabel buscarText;
+    private javax.swing.JLabel buscarText1;
+    private javax.swing.JLabel buscarText3;
+    private javax.swing.JButton gestionarEvaluaciones;
     private javax.swing.JButton inicio;
     private javax.swing.JLabel inicioText;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

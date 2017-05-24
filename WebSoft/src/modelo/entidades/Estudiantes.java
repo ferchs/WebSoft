@@ -45,6 +45,8 @@ public class Estudiantes implements Serializable {
     @JoinColumn(name = "Personas_numero_identificacion", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiantes")
+    private Collection<MateriaEnCurso> materiaEnCursoCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "estudiantes")
     private Matriculas matriculas;
 
@@ -87,6 +89,15 @@ public class Estudiantes implements Serializable {
 
     public void setPersonas(Personas personas) {
         this.personas = personas;
+    }
+
+    @XmlTransient
+    public Collection<MateriaEnCurso> getMateriaEnCursoCollection() {
+        return materiaEnCursoCollection;
+    }
+
+    public void setMateriaEnCursoCollection(Collection<MateriaEnCurso> materiaEnCursoCollection) {
+        this.materiaEnCursoCollection = materiaEnCursoCollection;
     }
 
     public Matriculas getMatriculas() {

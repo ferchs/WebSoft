@@ -6,9 +6,8 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -16,10 +15,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,31 +28,35 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "MateriaEnCurso.findAll", query = "SELECT m FROM MateriaEnCurso m")
     , @NamedQuery(name = "MateriaEnCurso.findByFecha", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.fecha = :fecha")
-    , @NamedQuery(name = "MateriaEnCurso.findByInstitucion", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.institucion = :institucion")
-    , @NamedQuery(name = "MateriaEnCurso.findBySalon", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.salon = :salon")
-    , @NamedQuery(name = "MateriaEnCurso.findByJornada", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.jornada = :jornada")
-    , @NamedQuery(name = "MateriaEnCurso.findByMateria", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.materia = :materia")})
+    , @NamedQuery(name = "MateriaEnCurso.findByEstudiantesPersonasnumeroidentificacion", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.estudiantesPersonasnumeroidentificacion = :estudiantesPersonasnumeroidentificacion")
+    , @NamedQuery(name = "MateriaEnCurso.findByMateriascodigomateria", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.materiascodigomateria = :materiascodigomateria")
+    , @NamedQuery(name = "MateriaEnCurso.findByCursosGradosidGrado", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.cursosGradosidGrado = :cursosGradosidGrado")
+    , @NamedQuery(name = "MateriaEnCurso.findByCursosGradosInstitucionesnit", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.cursosGradosInstitucionesnit = :cursosGradosInstitucionesnit")
+    , @NamedQuery(name = "MateriaEnCurso.findByCursosconsecutivo", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.cursosconsecutivo = :cursosconsecutivo")
+    , @NamedQuery(name = "MateriaEnCurso.findByNotaDefinitiva", query = "SELECT m FROM MateriaEnCurso m WHERE m.notaDefinitiva = :notaDefinitiva")
+    , @NamedQuery(name = "MateriaEnCurso.findByTotalInasistencias", query = "SELECT m FROM MateriaEnCurso m WHERE m.totalInasistencias = :totalInasistencias")})
 public class MateriaEnCurso implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MateriaEnCursoPK materiaEnCursoPK;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materiaEnCurso")
-    private Collection<Evaluaciones> evaluacionesCollection;
-    @JoinColumns({
-        @JoinColumn(name = "Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
-        , @JoinColumn(name = "Salon", referencedColumnName = "Salon", insertable = false, updatable = false)
-        , @JoinColumn(name = "Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)})
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "nota_Definitiva")
+    private Double notaDefinitiva;
+    @Column(name = "total_inasistencias")
+    private Integer totalInasistencias;
+    @JoinColumn(name = "Estudiantes_Personas_numero_identificacion", referencedColumnName = "Personas_numero_identificacion", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Cursos cursos;
-    @JoinColumn(name = "Materia", referencedColumnName = "codigo_materia", insertable = false, updatable = false)
+    private Estudiantes estudiantes;
+    @JoinColumn(name = "Materias_codigo_materia", referencedColumnName = "codigo_materia", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Materias materias;
-    @JoinColumn(name = "Profesor", referencedColumnName = "Personas_numero_identificacion")
+    @JoinColumns({
+        @JoinColumn(name = "Cursos_Grados_idGrado", referencedColumnName = "Grados_idGrado", insertable = false, updatable = false)
+        , @JoinColumn(name = "Cursos_Grados_Instituciones_nit", referencedColumnName = "Grados_Instituciones_nit", insertable = false, updatable = false)
+        , @JoinColumn(name = "Cursos_consecutivo", referencedColumnName = "consecutivo", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
-    private Profesores profesor;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materiaEnCurso")
-    private Collection<Matriculas> matriculasCollection;
+    private Cursos cursos;
 
     public MateriaEnCurso() {
     }
@@ -64,8 +65,8 @@ public class MateriaEnCurso implements Serializable {
         this.materiaEnCursoPK = materiaEnCursoPK;
     }
 
-    public MateriaEnCurso(Date fecha, int institucion, int salon, int jornada, int materia) {
-        this.materiaEnCursoPK = new MateriaEnCursoPK(fecha, institucion, salon, jornada, materia);
+    public MateriaEnCurso(Date fecha, String estudiantesPersonasnumeroidentificacion, int materiascodigomateria, int cursosGradosidGrado, int cursosGradosInstitucionesnit, int cursosconsecutivo) {
+        this.materiaEnCursoPK = new MateriaEnCursoPK(fecha, estudiantesPersonasnumeroidentificacion, materiascodigomateria, cursosGradosidGrado, cursosGradosInstitucionesnit, cursosconsecutivo);
     }
 
     public MateriaEnCursoPK getMateriaEnCursoPK() {
@@ -76,21 +77,28 @@ public class MateriaEnCurso implements Serializable {
         this.materiaEnCursoPK = materiaEnCursoPK;
     }
 
-    @XmlTransient
-    public Collection<Evaluaciones> getEvaluacionesCollection() {
-        return evaluacionesCollection;
+    public Double getNotaDefinitiva() {
+        return notaDefinitiva;
     }
 
-    public void setEvaluacionesCollection(Collection<Evaluaciones> evaluacionesCollection) {
-        this.evaluacionesCollection = evaluacionesCollection;
+    public void setNotaDefinitiva(Double notaDefinitiva) {
+        this.notaDefinitiva = notaDefinitiva;
     }
 
-    public Cursos getCursos() {
-        return cursos;
+    public Integer getTotalInasistencias() {
+        return totalInasistencias;
     }
 
-    public void setCursos(Cursos cursos) {
-        this.cursos = cursos;
+    public void setTotalInasistencias(Integer totalInasistencias) {
+        this.totalInasistencias = totalInasistencias;
+    }
+
+    public Estudiantes getEstudiantes() {
+        return estudiantes;
+    }
+
+    public void setEstudiantes(Estudiantes estudiantes) {
+        this.estudiantes = estudiantes;
     }
 
     public Materias getMaterias() {
@@ -101,21 +109,12 @@ public class MateriaEnCurso implements Serializable {
         this.materias = materias;
     }
 
-    public Profesores getProfesor() {
-        return profesor;
+    public Cursos getCursos() {
+        return cursos;
     }
 
-    public void setProfesor(Profesores profesor) {
-        this.profesor = profesor;
-    }
-
-    @XmlTransient
-    public Collection<Matriculas> getMatriculasCollection() {
-        return matriculasCollection;
-    }
-
-    public void setMatriculasCollection(Collection<Matriculas> matriculasCollection) {
-        this.matriculasCollection = matriculasCollection;
+    public void setCursos(Cursos cursos) {
+        this.cursos = cursos;
     }
 
     @Override

@@ -7,6 +7,10 @@ package modelo;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -29,21 +33,39 @@ public abstract class AbstractFacade<T> {
     }
 
     public void edit(T entity) {
-        getEntityManager().merge(entity);
+        EntityManager em=getEntityManager();
+        em.getTransaction().begin();
+        em.merge(entity);
+        em.getTransaction().commit();
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+        EntityManager em=getEntityManager();
+        em.getTransaction().begin();
+        entity = em.merge(entity);
+        em.remove(entity);
+        em.getTransaction().commit();
     }
 
     public T find(Object id) {
-        return getEntityManager().find(entityClass, id);
+        EntityManager em=getEntityManager();
+        T entity=em.find(entityClass, id);
+        if(entity!=null){
+            if(em.contains(entity)){
+                em.refresh(entity);
+            }
+        }
+        return entity;
     }
 
     public List<T> findAll() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        return getEntityManager().createQuery(cq).getResultList();
+        getEntityManager().getEntityManagerFactory().getCache().evictAll();
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<T> cq = cb.createQuery(entityClass);
+        Root<T> rootEntry = cq.from(entityClass);
+        CriteriaQuery<T> all = cq.select(rootEntry);
+        TypedQuery<T> allQuery = getEntityManager().createQuery(all);
+        return allQuery.getResultList();
     }
 
     public List<T> findRange(int[] range) {

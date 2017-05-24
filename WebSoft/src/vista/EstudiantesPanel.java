@@ -60,7 +60,7 @@ public class EstudiantesPanel extends javax.swing.JPanel {
 
         agregar.setBackground(new java.awt.Color(102, 102, 102));
         agregar.setForeground(new java.awt.Color(255, 255, 255));
-        agregar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/agregar.png")); // NOI18N
+        agregar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/estudiantesmini.png")); // NOI18N
         agregar.setBorderPainted(false);
         agregar.setOpaque(true);
         agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +105,7 @@ public class EstudiantesPanel extends javax.swing.JPanel {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
-        BuscarEstudiantePanel buscarEstudiantePanel= new BuscarEstudiantePanel();
+        BuscarEstudiantePanel buscarEstudiantePanel= new BuscarEstudiantePanel(this);
         mostarPanel(buscarEstudiantePanel);
     }//GEN-LAST:event_buscarActionPerformed
 

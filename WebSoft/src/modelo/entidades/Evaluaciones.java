@@ -7,7 +7,6 @@ package modelo.entidades;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -32,11 +31,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Evaluaciones.findAll", query = "SELECT e FROM Evaluaciones e")
     , @NamedQuery(name = "Evaluaciones.findByConsecutivo", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.consecutivo = :consecutivo")
-    , @NamedQuery(name = "Evaluaciones.findByFechaMateriaEnCurso", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.fechaMateriaEnCurso = :fechaMateriaEnCurso")
-    , @NamedQuery(name = "Evaluaciones.findByInstitucion", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.institucion = :institucion")
-    , @NamedQuery(name = "Evaluaciones.findBySalon", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.salon = :salon")
-    , @NamedQuery(name = "Evaluaciones.findByJornada", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.jornada = :jornada")
-    , @NamedQuery(name = "Evaluaciones.findByMateria", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.materia = :materia")
+    , @NamedQuery(name = "Evaluaciones.findByCursoMateria", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursoMateria = :cursoMateria")
+    , @NamedQuery(name = "Evaluaciones.findByCursosProfesor", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosProfesor = :cursosProfesor")
+    , @NamedQuery(name = "Evaluaciones.findByCursosGrado", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosGrado = :cursosGrado")
+    , @NamedQuery(name = "Evaluaciones.findByCursosInstitucion", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosInstitucion = :cursosInstitucion")
+    , @NamedQuery(name = "Evaluaciones.findByCursosConsecutivo", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosConsecutivo = :cursosConsecutivo")
     , @NamedQuery(name = "Evaluaciones.findByTema", query = "SELECT e FROM Evaluaciones e WHERE e.tema = :tema")
     , @NamedQuery(name = "Evaluaciones.findByPorcentaje", query = "SELECT e FROM Evaluaciones e WHERE e.porcentaje = :porcentaje")})
 public class Evaluaciones implements Serializable {
@@ -50,13 +49,13 @@ public class Evaluaciones implements Serializable {
     @Column(name = "porcentaje")
     private Double porcentaje;
     @JoinColumns({
-        @JoinColumn(name = "Fecha_Materia-En-Curso", referencedColumnName = "fecha", insertable = false, updatable = false)
-        , @JoinColumn(name = "Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
-        , @JoinColumn(name = "Salon", referencedColumnName = "Salon", insertable = false, updatable = false)
-        , @JoinColumn(name = "Jornada", referencedColumnName = "Jornada", insertable = false, updatable = false)
-        , @JoinColumn(name = "Materia", referencedColumnName = "Materia", insertable = false, updatable = false)})
+        @JoinColumn(name = "Curso_Materia", referencedColumnName = "Materia", insertable = false, updatable = false)
+        , @JoinColumn(name = "Cursos_Profesor", referencedColumnName = "Profesor", insertable = false, updatable = false)
+        , @JoinColumn(name = "Cursos_Grado", referencedColumnName = "Grado", insertable = false, updatable = false)
+        , @JoinColumn(name = "Cursos_Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
+        , @JoinColumn(name = "Cursos_Consecutivo", referencedColumnName = "Consecutivo_curso", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
-    private MateriaEnCurso materiaEnCurso;
+    private CursosImpartidos cursosImpartidos;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluaciones")
     private Collection<Examen> examenCollection;
 
@@ -67,8 +66,8 @@ public class Evaluaciones implements Serializable {
         this.evaluacionesPK = evaluacionesPK;
     }
 
-    public Evaluaciones(int consecutivo, Date fechaMateriaEnCurso, int institucion, int salon, int jornada, int materia) {
-        this.evaluacionesPK = new EvaluacionesPK(consecutivo, fechaMateriaEnCurso, institucion, salon, jornada, materia);
+    public Evaluaciones(int consecutivo, int cursoMateria, String cursosProfesor, int cursosGrado, int cursosInstitucion, int cursosConsecutivo) {
+        this.evaluacionesPK = new EvaluacionesPK(consecutivo, cursoMateria, cursosProfesor, cursosGrado, cursosInstitucion, cursosConsecutivo);
     }
 
     public EvaluacionesPK getEvaluacionesPK() {
@@ -95,12 +94,12 @@ public class Evaluaciones implements Serializable {
         this.porcentaje = porcentaje;
     }
 
-    public MateriaEnCurso getMateriaEnCurso() {
-        return materiaEnCurso;
+    public CursosImpartidos getCursosImpartidos() {
+        return cursosImpartidos;
     }
 
-    public void setMateriaEnCurso(MateriaEnCurso materiaEnCurso) {
-        this.materiaEnCurso = materiaEnCurso;
+    public void setCursosImpartidos(CursosImpartidos cursosImpartidos) {
+        this.cursosImpartidos = cursosImpartidos;
     }
 
     @XmlTransient

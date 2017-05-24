@@ -8,10 +8,10 @@ package modelo.entidades;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,34 +29,34 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cursos.findAll", query = "SELECT c FROM Cursos c")
-    , @NamedQuery(name = "Cursos.findByGrado", query = "SELECT c FROM Cursos c WHERE c.grado = :grado")
-    , @NamedQuery(name = "Cursos.findByConsecutivo", query = "SELECT c FROM Cursos c WHERE c.consecutivo = :consecutivo")
-    , @NamedQuery(name = "Cursos.findByInstitucion", query = "SELECT c FROM Cursos c WHERE c.cursosPK.institucion = :institucion")
-    , @NamedQuery(name = "Cursos.findBySalon", query = "SELECT c FROM Cursos c WHERE c.cursosPK.salon = :salon")
-    , @NamedQuery(name = "Cursos.findByJornada", query = "SELECT c FROM Cursos c WHERE c.cursosPK.jornada = :jornada")})
+    , @NamedQuery(name = "Cursos.findByGradosidGrado", query = "SELECT c FROM Cursos c WHERE c.cursosPK.gradosidGrado = :gradosidGrado")
+    , @NamedQuery(name = "Cursos.findByGradosInstitucionesnit", query = "SELECT c FROM Cursos c WHERE c.cursosPK.gradosInstitucionesnit = :gradosInstitucionesnit")
+    , @NamedQuery(name = "Cursos.findByConsecutivo", query = "SELECT c FROM Cursos c WHERE c.cursosPK.consecutivo = :consecutivo")})
 public class Cursos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CursosPK cursosPK;
-    @Column(name = "grado")
-    private Integer grado;
-    @Column(name = "consecutivo")
-    private Integer consecutivo;
-    @JoinColumn(name = "Institucion", referencedColumnName = "nit", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "Grados_idGrado", referencedColumnName = "idGrado", insertable = false, updatable = false)
+        , @JoinColumn(name = "Grados_Instituciones_nit", referencedColumnName = "Instituciones_nit", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
-    private Instituciones instituciones;
-    @JoinColumn(name = "Jornada", referencedColumnName = "id_jornada", insertable = false, updatable = false)
+    private Grados grados;
+    @JoinColumn(name = "Jornadas_id_jornada", referencedColumnName = "id_jornada")
     @ManyToOne(optional = false)
-    private Jornadas jornadas;
-    @JoinColumn(name = "Director", referencedColumnName = "Personas_numero_identificacion")
+    private Jornadas jornadasidjornada;
+    @JoinColumn(name = "director", referencedColumnName = "Personas_numero_identificacion")
     @ManyToOne(optional = false)
     private Profesores director;
-    @JoinColumn(name = "Salon", referencedColumnName = "id_salon", insertable = false, updatable = false)
+    @JoinColumn(name = "Salones_id_salon", referencedColumnName = "id_salon")
     @ManyToOne(optional = false)
-    private Salones salones;
+    private Salones salonesidsalon;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursos")
     private Collection<MateriaEnCurso> materiaEnCursoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursos")
+    private Collection<CursosImpartidos> cursosImpartidosCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursos")
+    private Collection<Matriculas> matriculasCollection;
 
     public Cursos() {
     }
@@ -65,8 +65,8 @@ public class Cursos implements Serializable {
         this.cursosPK = cursosPK;
     }
 
-    public Cursos(int institucion, int salon, int jornada) {
-        this.cursosPK = new CursosPK(institucion, salon, jornada);
+    public Cursos(int gradosidGrado, int gradosInstitucionesnit, int consecutivo) {
+        this.cursosPK = new CursosPK(gradosidGrado, gradosInstitucionesnit, consecutivo);
     }
 
     public CursosPK getCursosPK() {
@@ -77,36 +77,20 @@ public class Cursos implements Serializable {
         this.cursosPK = cursosPK;
     }
 
-    public Integer getGrado() {
-        return grado;
+    public Grados getGrados() {
+        return grados;
     }
 
-    public void setGrado(Integer grado) {
-        this.grado = grado;
+    public void setGrados(Grados grados) {
+        this.grados = grados;
     }
 
-    public Integer getConsecutivo() {
-        return consecutivo;
+    public Jornadas getJornadasidjornada() {
+        return jornadasidjornada;
     }
 
-    public void setConsecutivo(Integer consecutivo) {
-        this.consecutivo = consecutivo;
-    }
-
-    public Instituciones getInstituciones() {
-        return instituciones;
-    }
-
-    public void setInstituciones(Instituciones instituciones) {
-        this.instituciones = instituciones;
-    }
-
-    public Jornadas getJornadas() {
-        return jornadas;
-    }
-
-    public void setJornadas(Jornadas jornadas) {
-        this.jornadas = jornadas;
+    public void setJornadasidjornada(Jornadas jornadasidjornada) {
+        this.jornadasidjornada = jornadasidjornada;
     }
 
     public Profesores getDirector() {
@@ -117,12 +101,12 @@ public class Cursos implements Serializable {
         this.director = director;
     }
 
-    public Salones getSalones() {
-        return salones;
+    public Salones getSalonesidsalon() {
+        return salonesidsalon;
     }
 
-    public void setSalones(Salones salones) {
-        this.salones = salones;
+    public void setSalonesidsalon(Salones salonesidsalon) {
+        this.salonesidsalon = salonesidsalon;
     }
 
     @XmlTransient
@@ -132,6 +116,24 @@ public class Cursos implements Serializable {
 
     public void setMateriaEnCursoCollection(Collection<MateriaEnCurso> materiaEnCursoCollection) {
         this.materiaEnCursoCollection = materiaEnCursoCollection;
+    }
+
+    @XmlTransient
+    public Collection<CursosImpartidos> getCursosImpartidosCollection() {
+        return cursosImpartidosCollection;
+    }
+
+    public void setCursosImpartidosCollection(Collection<CursosImpartidos> cursosImpartidosCollection) {
+        this.cursosImpartidosCollection = cursosImpartidosCollection;
+    }
+
+    @XmlTransient
+    public Collection<Matriculas> getMatriculasCollection() {
+        return matriculasCollection;
+    }
+
+    public void setMatriculasCollection(Collection<Matriculas> matriculasCollection) {
+        this.matriculasCollection = matriculasCollection;
     }
 
     @Override

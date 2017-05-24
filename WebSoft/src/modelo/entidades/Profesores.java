@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Profesores.findAll", query = "SELECT p FROM Profesores p")
-    , @NamedQuery(name = "Profesores.findByPersonasnumeroidentificacion", query = "SELECT p FROM Profesores p WHERE p.personasnumeroidentificacion = :personasnumeroidentificacion")})
+    , @NamedQuery(name = "Profesores.findByPersonasnumeroidentificacion", query = "SELECT p FROM Profesores p WHERE p.personasnumeroidentificacion = :personasnumeroidentificacion")
+    , @NamedQuery(name = "Profesores.findByTitulo", query = "SELECT p FROM Profesores p WHERE p.titulo = :titulo")
+    , @NamedQuery(name = "Profesores.findByInstitucion", query = "SELECT p FROM Profesores p WHERE p.institucion = :institucion")})
 public class Profesores implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,13 +40,19 @@ public class Profesores implements Serializable {
     @Basic(optional = false)
     @Column(name = "Personas_numero_identificacion")
     private String personasnumeroidentificacion;
+    @Basic(optional = false)
+    @Column(name = "titulo")
+    private String titulo;
+    @Basic(optional = false)
+    @Column(name = "institucion")
+    private String institucion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "director")
     private Collection<Cursos> cursosCollection;
     @JoinColumn(name = "Personas_numero_identificacion", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
-    private Collection<MateriaEnCurso> materiaEnCursoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesores")
+    private Collection<CursosImpartidos> cursosImpartidosCollection;
 
     public Profesores() {
     }
@@ -53,12 +61,34 @@ public class Profesores implements Serializable {
         this.personasnumeroidentificacion = personasnumeroidentificacion;
     }
 
+    public Profesores(String personasnumeroidentificacion, String titulo, String institucion) {
+        this.personasnumeroidentificacion = personasnumeroidentificacion;
+        this.titulo = titulo;
+        this.institucion = institucion;
+    }
+
     public String getPersonasnumeroidentificacion() {
         return personasnumeroidentificacion;
     }
 
     public void setPersonasnumeroidentificacion(String personasnumeroidentificacion) {
         this.personasnumeroidentificacion = personasnumeroidentificacion;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getInstitucion() {
+        return institucion;
+    }
+
+    public void setInstitucion(String institucion) {
+        this.institucion = institucion;
     }
 
     @XmlTransient
@@ -79,12 +109,12 @@ public class Profesores implements Serializable {
     }
 
     @XmlTransient
-    public Collection<MateriaEnCurso> getMateriaEnCursoCollection() {
-        return materiaEnCursoCollection;
+    public Collection<CursosImpartidos> getCursosImpartidosCollection() {
+        return cursosImpartidosCollection;
     }
 
-    public void setMateriaEnCursoCollection(Collection<MateriaEnCurso> materiaEnCursoCollection) {
-        this.materiaEnCursoCollection = materiaEnCursoCollection;
+    public void setCursosImpartidosCollection(Collection<CursosImpartidos> cursosImpartidosCollection) {
+        this.cursosImpartidosCollection = cursosImpartidosCollection;
     }
 
     @Override

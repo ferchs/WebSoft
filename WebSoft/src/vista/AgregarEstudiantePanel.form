@@ -226,31 +226,6 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JComboBox" name="tipoDocumentoFamiliar">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Lucida Grande" size="12" style="0"/>
-            </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="6">
-                <StringItem index="0" value="Seleccione..."/>
-                <StringItem index="1" value="Tarjeta Identidad"/>
-                <StringItem index="2" value="Cedula Ciudadania"/>
-                <StringItem index="3" value="Cedula Extranjeria"/>
-                <StringItem index="4" value="Registro Civil"/>
-                <StringItem index="5" value=" "/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="234" y="45" width="-1" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
         <Component class="javax.swing.JLabel" name="profesionFamiliarT">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -301,15 +276,59 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="parentescoFamiliar">
+        <Component class="javax.swing.JComboBox" name="tipoDocumentoFamiliar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lucida Grande" size="12" style="0"/>
             </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="5">
+                <StringItem index="0" value="Seleccione..."/>
+                <StringItem index="1" value="Tarjeta Identidad"/>
+                <StringItem index="2" value="Cedula Ciudadania"/>
+                <StringItem index="3" value="Cedula Extranjeria"/>
+                <StringItem index="4" value="Registro Civil"/>
+              </StringArray>
+            </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="234" y="197" width="216" height="-1"/>
+              <AbsoluteConstraints x="234" y="45" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="parentescoFamiliar">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="12" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="13">
+                <StringItem index="0" value="Seleccione..."/>
+                <StringItem index="1" value="Padre"/>
+                <StringItem index="2" value="Madre"/>
+                <StringItem index="3" value="Abuelo(a)"/>
+                <StringItem index="4" value="Hermano(a)"/>
+                <StringItem index="5" value="Hijo(a)"/>
+                <StringItem index="6" value="Primo(a)"/>
+                <StringItem index="7" value="Tio(a)"/>
+                <StringItem index="8" value="Esposo(a)"/>
+                <StringItem index="9" value="Vecino(a)"/>
+                <StringItem index="10" value="Cu&#xf1;ado(a)"/>
+                <StringItem index="11" value="Nuera/Yerno"/>
+                <StringItem index="12" value="Nieto(a)"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="230" y="200" width="120" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -971,13 +990,12 @@
               <Font name="Lucida Grande" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="6">
+              <StringArray count="5">
                 <StringItem index="0" value="Seleccione..."/>
                 <StringItem index="1" value="Tarjeta Identidad"/>
                 <StringItem index="2" value="Cedula Ciudadania"/>
                 <StringItem index="3" value="Cedula Extranjeria"/>
                 <StringItem index="4" value="Registro Civil"/>
-                <StringItem index="5" value=" "/>
               </StringArray>
             </Property>
           </Properties>
