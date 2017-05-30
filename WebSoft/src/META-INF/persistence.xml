@@ -23,6 +23,7 @@
     <class>modelo.entidades.InformacionMedica</class>
     <class>modelo.entidades.CursosImpartidos</class>
     <class>modelo.entidades.Grados</class>
+    <class>modelo.entidades.Examenes</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/WebSoftSchema?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

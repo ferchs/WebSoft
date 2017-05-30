@@ -18,14 +18,8 @@ import javax.persistence.Embeddable;
 public class EvaluacionesPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "Consecutivo")
-    private int consecutivo;
-    @Basic(optional = false)
-    @Column(name = "Curso_Materia")
-    private int cursoMateria;
-    @Basic(optional = false)
-    @Column(name = "Cursos_Profesor")
-    private String cursosProfesor;
+    @Column(name = "Cursos_Materia")
+    private int cursosMateria;
     @Basic(optional = false)
     @Column(name = "Cursos_Grado")
     private int cursosGrado;
@@ -33,43 +27,29 @@ public class EvaluacionesPK implements Serializable {
     @Column(name = "Cursos_Institucion")
     private int cursosInstitucion;
     @Basic(optional = false)
-    @Column(name = "Cursos_Consecutivo")
-    private int cursosConsecutivo;
+    @Column(name = "Cursos_Consecutivo_curso")
+    private int cursosConsecutivocurso;
+    @Basic(optional = false)
+    @Column(name = "tema")
+    private String tema;
 
     public EvaluacionesPK() {
     }
 
-    public EvaluacionesPK(int consecutivo, int cursoMateria, String cursosProfesor, int cursosGrado, int cursosInstitucion, int cursosConsecutivo) {
-        this.consecutivo = consecutivo;
-        this.cursoMateria = cursoMateria;
-        this.cursosProfesor = cursosProfesor;
+    public EvaluacionesPK(int cursosMateria, int cursosGrado, int cursosInstitucion, int cursosConsecutivocurso, String tema) {
+        this.cursosMateria = cursosMateria;
         this.cursosGrado = cursosGrado;
         this.cursosInstitucion = cursosInstitucion;
-        this.cursosConsecutivo = cursosConsecutivo;
+        this.cursosConsecutivocurso = cursosConsecutivocurso;
+        this.tema = tema;
     }
 
-    public int getConsecutivo() {
-        return consecutivo;
+    public int getCursosMateria() {
+        return cursosMateria;
     }
 
-    public void setConsecutivo(int consecutivo) {
-        this.consecutivo = consecutivo;
-    }
-
-    public int getCursoMateria() {
-        return cursoMateria;
-    }
-
-    public void setCursoMateria(int cursoMateria) {
-        this.cursoMateria = cursoMateria;
-    }
-
-    public String getCursosProfesor() {
-        return cursosProfesor;
-    }
-
-    public void setCursosProfesor(String cursosProfesor) {
-        this.cursosProfesor = cursosProfesor;
+    public void setCursosMateria(int cursosMateria) {
+        this.cursosMateria = cursosMateria;
     }
 
     public int getCursosGrado() {
@@ -88,23 +68,30 @@ public class EvaluacionesPK implements Serializable {
         this.cursosInstitucion = cursosInstitucion;
     }
 
-    public int getCursosConsecutivo() {
-        return cursosConsecutivo;
+    public int getCursosConsecutivocurso() {
+        return cursosConsecutivocurso;
     }
 
-    public void setCursosConsecutivo(int cursosConsecutivo) {
-        this.cursosConsecutivo = cursosConsecutivo;
+    public void setCursosConsecutivocurso(int cursosConsecutivocurso) {
+        this.cursosConsecutivocurso = cursosConsecutivocurso;
+    }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) consecutivo;
-        hash += (int) cursoMateria;
-        hash += (cursosProfesor != null ? cursosProfesor.hashCode() : 0);
+        hash += (int) cursosMateria;
         hash += (int) cursosGrado;
         hash += (int) cursosInstitucion;
-        hash += (int) cursosConsecutivo;
+        hash += (int) cursosConsecutivocurso;
+        hash += (tema != null ? tema.hashCode() : 0);
         return hash;
     }
 
@@ -115,13 +102,7 @@ public class EvaluacionesPK implements Serializable {
             return false;
         }
         EvaluacionesPK other = (EvaluacionesPK) object;
-        if (this.consecutivo != other.consecutivo) {
-            return false;
-        }
-        if (this.cursoMateria != other.cursoMateria) {
-            return false;
-        }
-        if ((this.cursosProfesor == null && other.cursosProfesor != null) || (this.cursosProfesor != null && !this.cursosProfesor.equals(other.cursosProfesor))) {
+        if (this.cursosMateria != other.cursosMateria) {
             return false;
         }
         if (this.cursosGrado != other.cursosGrado) {
@@ -130,7 +111,10 @@ public class EvaluacionesPK implements Serializable {
         if (this.cursosInstitucion != other.cursosInstitucion) {
             return false;
         }
-        if (this.cursosConsecutivo != other.cursosConsecutivo) {
+        if (this.cursosConsecutivocurso != other.cursosConsecutivocurso) {
+            return false;
+        }
+        if ((this.tema == null && other.tema != null) || (this.tema != null && !this.tema.equals(other.tema))) {
             return false;
         }
         return true;
@@ -138,7 +122,7 @@ public class EvaluacionesPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.EvaluacionesPK[ consecutivo=" + consecutivo + ", cursoMateria=" + cursoMateria + ", cursosProfesor=" + cursosProfesor + ", cursosGrado=" + cursosGrado + ", cursosInstitucion=" + cursosInstitucion + ", cursosConsecutivo=" + cursosConsecutivo + " ]";
+        return "modelo.entidades.EvaluacionesPK[ cursosMateria=" + cursosMateria + ", cursosGrado=" + cursosGrado + ", cursosInstitucion=" + cursosInstitucion + ", cursosConsecutivocurso=" + cursosConsecutivocurso + ", tema=" + tema + " ]";
     }
     
 }

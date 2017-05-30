@@ -41,7 +41,7 @@ public class Estudiantes implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiantes")
     private Collection<RolResponsable> rolResponsableCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudiantes")
-    private Collection<Examen> examenCollection;
+    private Collection<Examenes> examenesCollection;
     @JoinColumn(name = "Personas_numero_identificacion", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
@@ -75,12 +75,12 @@ public class Estudiantes implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Examen> getExamenCollection() {
-        return examenCollection;
+    public Collection<Examenes> getExamenesCollection() {
+        return examenesCollection;
     }
 
-    public void setExamenCollection(Collection<Examen> examenCollection) {
-        this.examenCollection = examenCollection;
+    public void setExamenesCollection(Collection<Examenes> examenesCollection) {
+        this.examenesCollection = examenesCollection;
     }
 
     public Personas getPersonas() {

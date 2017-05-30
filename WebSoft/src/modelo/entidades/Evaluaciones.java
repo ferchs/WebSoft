@@ -30,34 +30,29 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Evaluaciones.findAll", query = "SELECT e FROM Evaluaciones e")
-    , @NamedQuery(name = "Evaluaciones.findByConsecutivo", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.consecutivo = :consecutivo")
-    , @NamedQuery(name = "Evaluaciones.findByCursoMateria", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursoMateria = :cursoMateria")
-    , @NamedQuery(name = "Evaluaciones.findByCursosProfesor", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosProfesor = :cursosProfesor")
+    , @NamedQuery(name = "Evaluaciones.findByCursosMateria", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosMateria = :cursosMateria")
     , @NamedQuery(name = "Evaluaciones.findByCursosGrado", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosGrado = :cursosGrado")
     , @NamedQuery(name = "Evaluaciones.findByCursosInstitucion", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosInstitucion = :cursosInstitucion")
-    , @NamedQuery(name = "Evaluaciones.findByCursosConsecutivo", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosConsecutivo = :cursosConsecutivo")
-    , @NamedQuery(name = "Evaluaciones.findByTema", query = "SELECT e FROM Evaluaciones e WHERE e.tema = :tema")
+    , @NamedQuery(name = "Evaluaciones.findByCursosConsecutivocurso", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.cursosConsecutivocurso = :cursosConsecutivocurso")
+    , @NamedQuery(name = "Evaluaciones.findByTema", query = "SELECT e FROM Evaluaciones e WHERE e.evaluacionesPK.tema = :tema")
     , @NamedQuery(name = "Evaluaciones.findByPorcentaje", query = "SELECT e FROM Evaluaciones e WHERE e.porcentaje = :porcentaje")})
 public class Evaluaciones implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected EvaluacionesPK evaluacionesPK;
-    @Column(name = "tema")
-    private String tema;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "porcentaje")
     private Double porcentaje;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluaciones")
+    private Collection<Examenes> examenesCollection;
     @JoinColumns({
-        @JoinColumn(name = "Curso_Materia", referencedColumnName = "Materia", insertable = false, updatable = false)
-        , @JoinColumn(name = "Cursos_Profesor", referencedColumnName = "Profesor", insertable = false, updatable = false)
+        @JoinColumn(name = "Cursos_Materia", referencedColumnName = "Materia", insertable = false, updatable = false)
         , @JoinColumn(name = "Cursos_Grado", referencedColumnName = "Grado", insertable = false, updatable = false)
         , @JoinColumn(name = "Cursos_Institucion", referencedColumnName = "Institucion", insertable = false, updatable = false)
-        , @JoinColumn(name = "Cursos_Consecutivo", referencedColumnName = "Consecutivo_curso", insertable = false, updatable = false)})
+        , @JoinColumn(name = "Cursos_Consecutivo_curso", referencedColumnName = "Consecutivo_curso", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private CursosImpartidos cursosImpartidos;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluaciones")
-    private Collection<Examen> examenCollection;
 
     public Evaluaciones() {
     }
@@ -66,8 +61,8 @@ public class Evaluaciones implements Serializable {
         this.evaluacionesPK = evaluacionesPK;
     }
 
-    public Evaluaciones(int consecutivo, int cursoMateria, String cursosProfesor, int cursosGrado, int cursosInstitucion, int cursosConsecutivo) {
-        this.evaluacionesPK = new EvaluacionesPK(consecutivo, cursoMateria, cursosProfesor, cursosGrado, cursosInstitucion, cursosConsecutivo);
+    public Evaluaciones(int cursosMateria, int cursosGrado, int cursosInstitucion, int cursosConsecutivocurso, String tema) {
+        this.evaluacionesPK = new EvaluacionesPK(cursosMateria, cursosGrado, cursosInstitucion, cursosConsecutivocurso, tema);
     }
 
     public EvaluacionesPK getEvaluacionesPK() {
@@ -78,14 +73,6 @@ public class Evaluaciones implements Serializable {
         this.evaluacionesPK = evaluacionesPK;
     }
 
-    public String getTema() {
-        return tema;
-    }
-
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
-
     public Double getPorcentaje() {
         return porcentaje;
     }
@@ -94,21 +81,21 @@ public class Evaluaciones implements Serializable {
         this.porcentaje = porcentaje;
     }
 
+    @XmlTransient
+    public Collection<Examenes> getExamenesCollection() {
+        return examenesCollection;
+    }
+
+    public void setExamenesCollection(Collection<Examenes> examenesCollection) {
+        this.examenesCollection = examenesCollection;
+    }
+
     public CursosImpartidos getCursosImpartidos() {
         return cursosImpartidos;
     }
 
     public void setCursosImpartidos(CursosImpartidos cursosImpartidos) {
         this.cursosImpartidos = cursosImpartidos;
-    }
-
-    @XmlTransient
-    public Collection<Examen> getExamenCollection() {
-        return examenCollection;
-    }
-
-    public void setExamenCollection(Collection<Examen> examenCollection) {
-        this.examenCollection = examenCollection;
     }
 
     @Override

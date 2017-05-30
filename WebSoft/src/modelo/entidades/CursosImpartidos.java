@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CursosImpartidos.findAll", query = "SELECT c FROM CursosImpartidos c")
     , @NamedQuery(name = "CursosImpartidos.findByMateria", query = "SELECT c FROM CursosImpartidos c WHERE c.cursosImpartidosPK.materia = :materia")
-    , @NamedQuery(name = "CursosImpartidos.findByProfesor", query = "SELECT c FROM CursosImpartidos c WHERE c.cursosImpartidosPK.profesor = :profesor")
     , @NamedQuery(name = "CursosImpartidos.findByGrado", query = "SELECT c FROM CursosImpartidos c WHERE c.cursosImpartidosPK.grado = :grado")
     , @NamedQuery(name = "CursosImpartidos.findByInstitucion", query = "SELECT c FROM CursosImpartidos c WHERE c.cursosImpartidosPK.institucion = :institucion")
     , @NamedQuery(name = "CursosImpartidos.findByConsecutivocurso", query = "SELECT c FROM CursosImpartidos c WHERE c.cursosImpartidosPK.consecutivocurso = :consecutivocurso")})
@@ -47,9 +46,9 @@ public class CursosImpartidos implements Serializable {
         , @JoinColumn(name = "Consecutivo_curso", referencedColumnName = "consecutivo", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Cursos cursos;
-    @JoinColumn(name = "Profesor", referencedColumnName = "Personas_numero_identificacion", insertable = false, updatable = false)
+    @JoinColumn(name = "Profesor", referencedColumnName = "Personas_numero_identificacion")
     @ManyToOne(optional = false)
-    private Profesores profesores;
+    private Profesores profesor;
     @JoinColumn(name = "Materia", referencedColumnName = "codigo_materia", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Materias materias;
@@ -61,8 +60,8 @@ public class CursosImpartidos implements Serializable {
         this.cursosImpartidosPK = cursosImpartidosPK;
     }
 
-    public CursosImpartidos(int materia, String profesor, int grado, int institucion, int consecutivocurso) {
-        this.cursosImpartidosPK = new CursosImpartidosPK(materia, profesor, grado, institucion, consecutivocurso);
+    public CursosImpartidos(int materia, int grado, int institucion, int consecutivocurso) {
+        this.cursosImpartidosPK = new CursosImpartidosPK(materia, grado, institucion, consecutivocurso);
     }
 
     public CursosImpartidosPK getCursosImpartidosPK() {
@@ -90,12 +89,12 @@ public class CursosImpartidos implements Serializable {
         this.cursos = cursos;
     }
 
-    public Profesores getProfesores() {
-        return profesores;
+    public Profesores getProfesor() {
+        return profesor;
     }
 
-    public void setProfesores(Profesores profesores) {
-        this.profesores = profesores;
+    public void setProfesor(Profesores profesor) {
+        this.profesor = profesor;
     }
 
     public Materias getMaterias() {

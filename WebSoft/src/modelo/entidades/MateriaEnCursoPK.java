@@ -6,12 +6,9 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -20,10 +17,6 @@ import javax.persistence.TemporalType;
 @Embeddable
 public class MateriaEnCursoPK implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
     @Basic(optional = false)
     @Column(name = "Estudiantes_Personas_numero_identificacion")
     private String estudiantesPersonasnumeroidentificacion;
@@ -43,21 +36,12 @@ public class MateriaEnCursoPK implements Serializable {
     public MateriaEnCursoPK() {
     }
 
-    public MateriaEnCursoPK(Date fecha, String estudiantesPersonasnumeroidentificacion, int materiascodigomateria, int cursosGradosidGrado, int cursosGradosInstitucionesnit, int cursosconsecutivo) {
-        this.fecha = fecha;
+    public MateriaEnCursoPK(String estudiantesPersonasnumeroidentificacion, int materiascodigomateria, int cursosGradosidGrado, int cursosGradosInstitucionesnit, int cursosconsecutivo) {
         this.estudiantesPersonasnumeroidentificacion = estudiantesPersonasnumeroidentificacion;
         this.materiascodigomateria = materiascodigomateria;
         this.cursosGradosidGrado = cursosGradosidGrado;
         this.cursosGradosInstitucionesnit = cursosGradosInstitucionesnit;
         this.cursosconsecutivo = cursosconsecutivo;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public String getEstudiantesPersonasnumeroidentificacion() {
@@ -103,7 +87,6 @@ public class MateriaEnCursoPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (fecha != null ? fecha.hashCode() : 0);
         hash += (estudiantesPersonasnumeroidentificacion != null ? estudiantesPersonasnumeroidentificacion.hashCode() : 0);
         hash += (int) materiascodigomateria;
         hash += (int) cursosGradosidGrado;
@@ -119,9 +102,6 @@ public class MateriaEnCursoPK implements Serializable {
             return false;
         }
         MateriaEnCursoPK other = (MateriaEnCursoPK) object;
-        if ((this.fecha == null && other.fecha != null) || (this.fecha != null && !this.fecha.equals(other.fecha))) {
-            return false;
-        }
         if ((this.estudiantesPersonasnumeroidentificacion == null && other.estudiantesPersonasnumeroidentificacion != null) || (this.estudiantesPersonasnumeroidentificacion != null && !this.estudiantesPersonasnumeroidentificacion.equals(other.estudiantesPersonasnumeroidentificacion))) {
             return false;
         }
@@ -142,7 +122,7 @@ public class MateriaEnCursoPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.MateriaEnCursoPK[ fecha=" + fecha + ", estudiantesPersonasnumeroidentificacion=" + estudiantesPersonasnumeroidentificacion + ", materiascodigomateria=" + materiascodigomateria + ", cursosGradosidGrado=" + cursosGradosidGrado + ", cursosGradosInstitucionesnit=" + cursosGradosInstitucionesnit + ", cursosconsecutivo=" + cursosconsecutivo + " ]";
+        return "modelo.entidades.MateriaEnCursoPK[ estudiantesPersonasnumeroidentificacion=" + estudiantesPersonasnumeroidentificacion + ", materiascodigomateria=" + materiascodigomateria + ", cursosGradosidGrado=" + cursosGradosidGrado + ", cursosGradosInstitucionesnit=" + cursosGradosInstitucionesnit + ", cursosconsecutivo=" + cursosconsecutivo + " ]";
     }
     
 }

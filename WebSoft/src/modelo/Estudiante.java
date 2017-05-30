@@ -56,6 +56,32 @@ public class Estudiante extends AbstractFacade{
         return estudiante;
     }
     
+    public String buscarEstudiantePorNombreCompleto(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido ){
+        List<Estudiantes> estudiantes=super.findAll();
+        if(segundoNombre!=null || !segundoNombre.isEmpty()){
+            for(int i=0;i<estudiantes.size();i++){
+                Estudiantes tmp= estudiantes.get(i);
+                if(tmp.getPersonas().getPrimerNombre().equalsIgnoreCase(primerNombre) &&
+                    tmp.getPersonas().getSegundoNombre().equalsIgnoreCase(segundoNombre) &&
+                      tmp.getPersonas().getPrimerApellido().equalsIgnoreCase(primerApellido) &&
+                       tmp.getPersonas().getSegundoApellido().equalsIgnoreCase(segundoApellido)){
+                    return tmp.getPersonasnumeroidentificacion();
+                }
+            }   
+        }
+        else{
+            for(int i=0;i<estudiantes.size();i++){
+                Estudiantes tmp= estudiantes.get(i);
+                if(tmp.getPersonas().getPrimerNombre().equalsIgnoreCase(primerNombre) &&
+                    tmp.getPersonas().getPrimerApellido().equalsIgnoreCase(primerApellido) &&
+                       tmp.getPersonas().getSegundoApellido().equalsIgnoreCase(segundoApellido)){
+                    return tmp.getPersonasnumeroidentificacion();
+                }
+            }
+        }
+        return null;
+    }
+    
     public ArrayList<Estudiantes> buscarEstudiantePorComodin(String comodin){
         List <Estudiantes> estudiantes=super.findAll();
         ArrayList <Estudiantes> resultadoBusqueda= new ArrayList();

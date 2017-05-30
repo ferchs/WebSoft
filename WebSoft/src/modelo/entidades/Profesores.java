@@ -51,7 +51,7 @@ public class Profesores implements Serializable {
     @JoinColumn(name = "Personas_numero_identificacion", referencedColumnName = "numero_identificacion", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Personas personas;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesores")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
     private Collection<CursosImpartidos> cursosImpartidosCollection;
 
     public Profesores() {

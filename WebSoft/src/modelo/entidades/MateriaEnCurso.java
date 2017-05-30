@@ -6,7 +6,6 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -27,7 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MateriaEnCurso.findAll", query = "SELECT m FROM MateriaEnCurso m")
-    , @NamedQuery(name = "MateriaEnCurso.findByFecha", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.fecha = :fecha")
     , @NamedQuery(name = "MateriaEnCurso.findByEstudiantesPersonasnumeroidentificacion", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.estudiantesPersonasnumeroidentificacion = :estudiantesPersonasnumeroidentificacion")
     , @NamedQuery(name = "MateriaEnCurso.findByMateriascodigomateria", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.materiascodigomateria = :materiascodigomateria")
     , @NamedQuery(name = "MateriaEnCurso.findByCursosGradosidGrado", query = "SELECT m FROM MateriaEnCurso m WHERE m.materiaEnCursoPK.cursosGradosidGrado = :cursosGradosidGrado")
@@ -65,8 +63,8 @@ public class MateriaEnCurso implements Serializable {
         this.materiaEnCursoPK = materiaEnCursoPK;
     }
 
-    public MateriaEnCurso(Date fecha, String estudiantesPersonasnumeroidentificacion, int materiascodigomateria, int cursosGradosidGrado, int cursosGradosInstitucionesnit, int cursosconsecutivo) {
-        this.materiaEnCursoPK = new MateriaEnCursoPK(fecha, estudiantesPersonasnumeroidentificacion, materiascodigomateria, cursosGradosidGrado, cursosGradosInstitucionesnit, cursosconsecutivo);
+    public MateriaEnCurso(String estudiantesPersonasnumeroidentificacion, int materiascodigomateria, int cursosGradosidGrado, int cursosGradosInstitucionesnit, int cursosconsecutivo) {
+        this.materiaEnCursoPK = new MateriaEnCursoPK(estudiantesPersonasnumeroidentificacion, materiascodigomateria, cursosGradosidGrado, cursosGradosInstitucionesnit, cursosconsecutivo);
     }
 
     public MateriaEnCursoPK getMateriaEnCursoPK() {

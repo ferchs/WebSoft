@@ -21,9 +21,6 @@ public class CursosImpartidosPK implements Serializable {
     @Column(name = "Materia")
     private int materia;
     @Basic(optional = false)
-    @Column(name = "Profesor")
-    private String profesor;
-    @Basic(optional = false)
     @Column(name = "Grado")
     private int grado;
     @Basic(optional = false)
@@ -36,9 +33,8 @@ public class CursosImpartidosPK implements Serializable {
     public CursosImpartidosPK() {
     }
 
-    public CursosImpartidosPK(int materia, String profesor, int grado, int institucion, int consecutivocurso) {
+    public CursosImpartidosPK(int materia, int grado, int institucion, int consecutivocurso) {
         this.materia = materia;
-        this.profesor = profesor;
         this.grado = grado;
         this.institucion = institucion;
         this.consecutivocurso = consecutivocurso;
@@ -50,14 +46,6 @@ public class CursosImpartidosPK implements Serializable {
 
     public void setMateria(int materia) {
         this.materia = materia;
-    }
-
-    public String getProfesor() {
-        return profesor;
-    }
-
-    public void setProfesor(String profesor) {
-        this.profesor = profesor;
     }
 
     public int getGrado() {
@@ -88,7 +76,6 @@ public class CursosImpartidosPK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (int) materia;
-        hash += (profesor != null ? profesor.hashCode() : 0);
         hash += (int) grado;
         hash += (int) institucion;
         hash += (int) consecutivocurso;
@@ -105,9 +92,6 @@ public class CursosImpartidosPK implements Serializable {
         if (this.materia != other.materia) {
             return false;
         }
-        if ((this.profesor == null && other.profesor != null) || (this.profesor != null && !this.profesor.equals(other.profesor))) {
-            return false;
-        }
         if (this.grado != other.grado) {
             return false;
         }
@@ -122,7 +106,7 @@ public class CursosImpartidosPK implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.entidades.CursosImpartidosPK[ materia=" + materia + ", profesor=" + profesor + ", grado=" + grado + ", institucion=" + institucion + ", consecutivocurso=" + consecutivocurso + " ]";
+        return "modelo.entidades.CursosImpartidosPK[ materia=" + materia + ", grado=" + grado + ", institucion=" + institucion + ", consecutivocurso=" + consecutivocurso + " ]";
     }
     
 }

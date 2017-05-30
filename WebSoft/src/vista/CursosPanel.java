@@ -136,10 +136,14 @@ public class CursosPanel extends javax.swing.JPanel {
 
     private void gestionarEvaluacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionarEvaluacionesActionPerformed
         // TODO add your handling code here:
+        GestionarEvaluacionesPanel gestionarEvaluacionesPanel = new GestionarEvaluacionesPanel(this);
+         ventanaPrincipal.mostarPanel(gestionarEvaluacionesPanel);
     }//GEN-LAST:event_gestionarEvaluacionesActionPerformed
 
     private void administrarExamenes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administrarExamenes1ActionPerformed
         // TODO add your handling code here:
+        GestionarNotasPanel gestionarNotasPanel= new GestionarNotasPanel(this);
+        ventanaPrincipal.mostarPanel(gestionarNotasPanel);
     }//GEN-LAST:event_administrarExamenes1ActionPerformed
 
     public void mostarPanel(JPanel panel){

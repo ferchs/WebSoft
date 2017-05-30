@@ -6,6 +6,7 @@
 package vista;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -20,6 +21,7 @@ public class BotonTablaRender extends DefaultTableCellRenderer{
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         if(value instanceof JButton){
             JButton boton=(JButton)value;
+            boton.setPreferredSize(new Dimension(20,20));
             return boton;
         }
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.

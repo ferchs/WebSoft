@@ -6,22 +6,22 @@
 package vista;
 
 import control.ControlAdministrarCursos;
+import control.ControlAdministrarRecursos;
 import control.ControlBuscarProfesorPanel;
 import control.ControlMatriculasPanel;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.entidades.CursosImpartidos;
-import modelo.entidades.CursosImpartidosPK;
 /**
  *
  * @author ferchs
@@ -34,6 +34,7 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
         controlBuscarProfesorPanel= new ControlBuscarProfesorPanel();
         controlAdministrarCursos= new ControlAdministrarCursos();
         controlMatriculasPanel= new ControlMatriculasPanel();
+        controlAdministrarGrados= new ControlAdministrarRecursos();
         initComponents();
         jScrollPane1= new JScrollPane();
         seleccionaProfesor.setVisible(false);
@@ -44,6 +45,9 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
         materiaT.setVisible(false);
         materia.setVisible(false);
         matricular.setVisible(false);
+        agregar.setVisible(false);
+        jScrollPane2.setVisible(false);
+        reiniciarTablaMateria();
     }
 
     /**
@@ -65,6 +69,9 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
         gradoT = new javax.swing.JLabel();
         materiaT = new javax.swing.JLabel();
         materia = new javax.swing.JComboBox<>();
+        agregar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaMaterias = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(102, 102, 102));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -80,7 +87,7 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
                 matricularActionPerformed(evt);
             }
         });
-        add(matricular, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, -1, -1));
+        add(matricular, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 520, -1, -1));
 
         barraBusqueda.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         barraBusqueda.setForeground(new java.awt.Color(204, 204, 204));
@@ -117,29 +124,34 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
             }
         });
         cargarGrados();
-        add(grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, -1, -1));
+        add(grado, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, -1, -1));
 
         consecutivoT.setBackground(new java.awt.Color(255, 255, 255));
         consecutivoT.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         consecutivoT.setForeground(new java.awt.Color(255, 255, 255));
         consecutivoT.setText("Consecutivo:");
-        add(consecutivoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, -1, -1));
+        add(consecutivoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, -1, -1));
 
         consecutivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione..." }));
         consecutivo.setEnabled(false);
-        add(consecutivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, -1, -1));
+        consecutivo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                consecutivoItemStateChanged(evt);
+            }
+        });
+        add(consecutivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, -1, -1));
 
         gradoT.setBackground(new java.awt.Color(255, 255, 255));
         gradoT.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         gradoT.setForeground(new java.awt.Color(255, 255, 255));
         gradoT.setText("Grado:");
-        add(gradoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 300, -1, -1));
+        add(gradoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, -1, -1));
 
         materiaT.setBackground(new java.awt.Color(255, 255, 255));
         materiaT.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         materiaT.setForeground(new java.awt.Color(255, 255, 255));
         materiaT.setText("Materia:");
-        add(materiaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, -1, -1));
+        add(materiaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, -1, -1));
 
         materia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         materia.setEnabled(false);
@@ -148,23 +160,56 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
                 materiaItemStateChanged(evt);
             }
         });
-        add(materia, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, -1, -1));
+        add(materia, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
+
+        agregar.setBackground(new java.awt.Color(101, 166, 148));
+        agregar.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        agregar.setForeground(new java.awt.Color(255, 255, 255));
+        agregar.setText("Agregar");
+        agregar.setBorderPainted(false);
+        agregar.setEnabled(false);
+        agregar.setOpaque(true);
+        agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarActionPerformed(evt);
+            }
+        });
+        add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, -1, 20));
+
+        tablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CODIGO", "MATERIA", "ACCIONES"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaMaterias.setEnabled(false);
+        jScrollPane2.setViewportView(tablaMaterias);
+
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 450, 120));
     }// </editor-fold>//GEN-END:initComponents
 
     
     private void matricularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matricularActionPerformed
         // TODO add your handling code here:
         if(matricular.getActionCommand().equals("cambiarMatricula")){
-            if(grado.getSelectedIndex()==0){
-                controlMatriculasPanel.eliminarCursoImpartido(cursosImpartidosPK.getInstitucion(),cursosImpartidosPK.getGrado(),
-                        cursosImpartidosPK.getConsecutivocurso(),cursosImpartidosPK.getProfesor(),cursosImpartidosPK.getMateria());
-                JOptionPane mensaje= new JOptionPane();
-                mensaje.setBackground(new java.awt.Color(102, 102, 102));
-                mensaje.setForeground(Color.white);
-                mensaje.showMessageDialog(null,"El profesor se ha desvinculado del curso");
-            }
-            else{
-                if(validarCamposEntrada()){
+            if(validarCamposModificarMatricula()){
                 int filaSeleccionada=ultimoResultadoBusqueda.getSelectedRow();
                 String idProfesor= (String) ultimoResultadoBusqueda.getModel().getValueAt(filaSeleccionada, 0);
                 String nombreGrado=(String) grado.getSelectedItem();
@@ -172,46 +217,49 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
                 int consecutivo=Integer.parseInt(consecutivoStr);
                 HashMap<String,String> datosCurso=controlAdministrarCursos.obtenerDatosCurso(nombreGrado, consecutivo);
                 int idGrado=Integer.parseInt(datosCurso.get("idGrado"));
-                String item=(String) materia.getSelectedItem();
-                int index=item.indexOf("-");
-                String tmp=item.substring(index+1,item.length()).trim();
-                int idMateria=Integer.parseInt(tmp);
-                CursosImpartidosPK nueva= new CursosImpartidosPK();
-                nueva.setInstitucion(cursosImpartidosPK.getInstitucion());
-                nueva.setGrado(idGrado);
-                nueva.setConsecutivocurso(consecutivo);
-                nueva.setProfesor(idProfesor);
-                nueva.setMateria(idMateria);
-                controlMatriculasPanel.editarCursoImpartido(cursosImpartidosPK, nueva);
+                int[] idMaterias=obtenerIdMaterias();
+                controlMatriculasPanel.editarCursoImpartido(idGrado, consecutivo,idProfesor,idMaterias);
                 JOptionPane mensaje= new JOptionPane();
                 mensaje.setBackground(new java.awt.Color(102, 102, 102));
                 mensaje.setForeground(Color.white);
-                mensaje.showMessageDialog(null,"Se ha matriculado el profesor en el curso indicado");
-                }
-            }
+                mensaje.showMessageDialog(null,"Se han realizado exitosamente los cambios indicados");
+            }    
         }
         else{
-        if(validarCamposEntrada()){
-            int filaSeleccionada=ultimoResultadoBusqueda.getSelectedRow();
-            String idProfesor= (String) ultimoResultadoBusqueda.getModel().getValueAt(filaSeleccionada, 0);
-            String nombreGrado=(String) grado.getSelectedItem();
-            String item=(String) materia.getSelectedItem();
-            int index=item.indexOf("-");
-            String tmp=item.substring(index+1,item.length()).trim();
-            int idMateria=Integer.parseInt(tmp);
-            String consecutivoStr= (String) consecutivo.getSelectedItem();
-            int consecutivo=Integer.parseInt(consecutivoStr);
-            HashMap<String,String> datosCurso=controlAdministrarCursos.obtenerDatosCurso(nombreGrado, consecutivo);
-            int idGrado=Integer.parseInt(datosCurso.get("idGrado"));
-            controlMatriculasPanel.crearCursoImpartido(idGrado, consecutivo, idProfesor, idMateria);
-            JOptionPane mensaje= new JOptionPane();
-            mensaje.setBackground(new java.awt.Color(102, 102, 102));
-            mensaje.setForeground(Color.white);
-            mensaje.showMessageDialog(null,"Se ha matriculado el estudiante en el curso indicado");
-        }
+            if(validarCamposEntrada()){
+                int filaSeleccionada=ultimoResultadoBusqueda.getSelectedRow();
+                String idProfesor= (String) ultimoResultadoBusqueda.getModel().getValueAt(filaSeleccionada, 0);
+                String nombreGrado=(String) grado.getSelectedItem();
+                String consecutivoStr= (String) consecutivo.getSelectedItem();
+                int consecutivo=Integer.parseInt(consecutivoStr);
+                HashMap<String,String> datosCurso=controlAdministrarCursos.obtenerDatosCurso(nombreGrado, consecutivo);
+                int idGrado=Integer.parseInt(datosCurso.get("idGrado"));
+                int[] idMaterias=obtenerIdMaterias();
+                for(int i=0;i<idMaterias.length;i++){
+                    controlMatriculasPanel.crearCursoImpartido(idGrado, consecutivo, idProfesor, idMaterias[i]);
+                }
+                JOptionPane mensaje= new JOptionPane();
+                mensaje.setBackground(new java.awt.Color(102, 102, 102));
+                mensaje.setForeground(Color.white);
+                if(idMaterias.length>1){
+                    mensaje.showMessageDialog(null,"Se ha matriculado el profesor en los cursos indicados");
+                }
+                else{
+                    mensaje.showMessageDialog(null,"Se ha matriculado el profesor en el curso indicado");
+                }
+            }
         }    
     }//GEN-LAST:event_matricularActionPerformed
 
+    private int[] obtenerIdMaterias(){
+        DefaultTableModel modeloTabla=(DefaultTableModel) tablaMaterias.getModel();
+        int [] idMaterias= new int [tablaMaterias.getRowCount()];
+        for(int i=0; i<idMaterias.length;i++){
+            idMaterias[i]=(int) tablaMaterias.getValueAt(i,0);
+        }
+        return idMaterias;
+    }
+    
     private boolean validarCamposEntrada(){
         boolean valido=true;
         if(ultimoResultadoBusqueda!=null){
@@ -219,14 +267,12 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
         String idProfesor=null;
         String consec=null;
         String grad=null;
-        String mate=null;
         if(filaSeleccionada>=0){
             idProfesor= (String) ultimoResultadoBusqueda.getModel().getValueAt(filaSeleccionada, 0);
         }
-        if(grado.getSelectedIndex()>0 && consecutivo.getSelectedIndex()>0 && materia.getSelectedIndex()>0){
+        if(grado.getSelectedIndex()>0 && consecutivo.getSelectedIndex()>0){
             grad=(String) grado.getSelectedItem();
             consec= (String) consecutivo.getSelectedItem();
-            mate=(String) materia.getSelectedItem();
         }
         if(idProfesor==null){
             seleccionaProfesor.setForeground(Color.red);
@@ -234,13 +280,6 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
         }
         else{
             seleccionaProfesor.setForeground(Color.WHITE);
-        }
-        if(mate==null){
-            materiaT.setForeground(Color.red);
-            valido=false;
-        }
-        else{
-            materiaT.setForeground(Color.WHITE);
         }
         if(grad==null || grado.getSelectedIndex()==0){
             gradoT.setForeground(Color.red);
@@ -256,8 +295,68 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
         else{
             consecutivoT.setForeground(Color.WHITE);
         }
-        if(idProfesor==null || grad==null || consec==null || mate==null ){
+        DefaultTableModel modeloTabla=(DefaultTableModel) tablaMaterias.getModel();
+        int totalFilas=modeloTabla.getRowCount();
+        if(totalFilas==0){
+            materiaT.setForeground(Color.red);
             valido=false;
+        }
+        else{
+            materiaT.setForeground(Color.WHITE);
+        }
+        if(!valido){
+            JOptionPane mensaje= new JOptionPane();
+            mensaje.setBackground(new java.awt.Color(102, 102, 102));
+            mensaje.setForeground(Color.white);
+            mensaje.showMessageDialog(null,"Debes completar los campos indicados");
+        }
+        }
+        else{
+            JOptionPane mensaje= new JOptionPane();
+            mensaje.setBackground(new java.awt.Color(102, 102, 102));
+            mensaje.setForeground(Color.white);
+            mensaje.showMessageDialog(null,"Debes buscar un profesor para matricular");
+            valido=false;
+        }
+        return valido;
+    }
+    
+    private boolean validarCamposModificarMatricula(){
+        boolean valido=true;
+        if(ultimoResultadoBusqueda!=null){
+        int filaSeleccionada=ultimoResultadoBusqueda.getSelectedRow();
+        String idProfesor=null;
+        String consec=null;
+        String grad=null;
+        if(filaSeleccionada>=0){
+            idProfesor= (String) ultimoResultadoBusqueda.getModel().getValueAt(filaSeleccionada, 0);
+        }
+        if(grado.getSelectedIndex()>0 && consecutivo.getSelectedIndex()>0){
+            grad=(String) grado.getSelectedItem();
+            consec= (String) consecutivo.getSelectedItem();
+        }
+        if(idProfesor==null){
+            seleccionaProfesor.setForeground(Color.red);
+            valido=false;
+        }
+        else{
+            seleccionaProfesor.setForeground(Color.WHITE);
+        }
+        if(grad==null || grado.getSelectedIndex()==0){
+            gradoT.setForeground(Color.red);
+            valido=false;
+        }
+        else{
+           gradoT.setForeground(Color.WHITE);
+        }
+        if(consec==null|| consecutivo.getSelectedIndex()==0){
+           consecutivoT.setForeground(Color.red);
+           valido=false;
+        }
+        else{
+            consecutivoT.setForeground(Color.WHITE);
+        }
+        if(!valido){
             JOptionPane mensaje= new JOptionPane();
             mensaje.setBackground(new java.awt.Color(102, 102, 102));
             mensaje.setForeground(Color.white);
@@ -282,6 +381,7 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
+        reiniciarTablaMateria();
         String itemBusqueda=barraBusqueda.getText().toLowerCase().trim();
         boolean valido=isNumeric(itemBusqueda);
         if(valido){
@@ -289,7 +389,7 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
             JTable tablaResultados= new JTable();
             tablaResultados=agregarAccionesBotones(tablaResultados);
             mostrarDatosEnTabla(modelo,tablaResultados);
-            boolean matriculado=controlMatriculasPanel.profesorMatriculado(itemBusqueda);
+//            boolean matriculado=controlMatriculasPanel.profesorMatriculado(itemBusqueda);
             seleccionaProfesor.setVisible(true);
             grado.setVisible(true);
             grado.setSelectedIndex(0);
@@ -298,18 +398,21 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
             consecutivo.setVisible(true);
             materiaT.setVisible(true);
             materia.setVisible(true);
+            agregar.setVisible(true);
+            jScrollPane2.setVisible(true);
             matricular.setText("Matricular");
             matricular.setVisible(true);
-            if(matriculado){
-                CursosImpartidos cursoImpartido=controlMatriculasPanel.buscarCursoImpartidoProfesor(itemBusqueda);
-                cursosImpartidosPK=cursoImpartido.getCursosImpartidosPK();
-                MostrarItem(grado,cursoImpartido.getCursos().getGrados().getNombre());
-                MostrarItem(consecutivo,Integer.toString(cursoImpartido.getCursos().getCursosPK().getConsecutivo()));
-                MostrarItem(materia,cursoImpartido.getMaterias().getNombre()+" - "+cursoImpartido.getMaterias().getCodigoMateria());
-                matricular.setActionCommand("cambiarMatricula");
-                matricular.setText("Cambiar Matricula");
-                matricular.setVisible(true);
-            } 
+           
+//            if(matriculado){
+//                ArrayList<CursosImpartidos> cursosImpartidos=controlMatriculasPanel.buscarCursosImpartidosProfesor(itemBusqueda);
+//                for(int i=0;i<cursosImpartidos.size();i++){
+//                    CursosImpartidos tmp=cursosImpartidos.get(i);
+//                    
+//                }
+//                matricular.setActionCommand("cambiarMatricula");
+//                matricular.setText("Cambiar Matricula");
+//                matricular.setVisible(true);
+//            } 
         }
         else{
             JOptionPane mensaje= new JOptionPane();
@@ -320,10 +423,12 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_buscarActionPerformed
 
+    
     private void gradoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_gradoItemStateChanged
         // TODO add your handling code here:
         if(evt.getStateChange()==ItemEvent.SELECTED){
             if(grado.getSelectedIndex()>0){
+                reiniciarTablaMateria();
                 String nombreGrado=(String) grado.getSelectedItem();
                 String [] listadoConsecutivos=controlAdministrarCursos.obtenerListadoConsecutivosDeGrado(nombreGrado);
                 String [] listadoMaterias=controlAdministrarCursos.obtenerListadoMateriasGrado(nombreGrado);
@@ -355,7 +460,109 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
 
     private void materiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_materiaItemStateChanged
         // TODO add your handling code here:
+        if(evt.getStateChange()==ItemEvent.SELECTED){
+            if(materia.getSelectedIndex()>0){
+                agregar.setEnabled(true);
+            }
+            else{
+                agregar.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_materiaItemStateChanged
+
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        // TODO add your handling code here:
+        int itemIndex=materia.getSelectedIndex();
+        if(itemIndex>0){
+            String nombreGrado=(String) grado.getSelectedItem();
+            String consecutivoStr= (String) consecutivo.getSelectedItem();
+            int consecutivo=Integer.parseInt(consecutivoStr);
+            HashMap<String,String> datosCurso=controlAdministrarCursos.obtenerDatosCurso(nombreGrado, consecutivo);
+            int idGrado=Integer.parseInt(datosCurso.get("idGrado"));  
+            String item=(String) materia.getSelectedItem();
+            int index=item.indexOf("-");
+            String tmp=item.substring(index+1,item.length()).trim();
+            int idMateria=Integer.parseInt(tmp);
+            boolean impartido=controlMatriculasPanel.existeCursoImpartido(idGrado,consecutivo,idMateria);
+            if(impartido){
+                JOptionPane mensaje= new JOptionPane();
+                mensaje.setBackground(new java.awt.Color(102, 102, 102));
+                mensaje.setForeground(Color.white);
+                mensaje.showMessageDialog(null,"Este curso ya es impartido por otro profesor");
+            }
+            boolean agregada=verificarIdMateriaLista(idMateria);
+            if(agregada){
+                JOptionPane mensaje= new JOptionPane();
+                mensaje.setBackground(new java.awt.Color(102, 102, 102));
+                mensaje.setForeground(Color.white);
+                mensaje.showMessageDialog(null,"La materia ya fue agregada");
+            }
+            if(!impartido && !agregada)
+            {
+                String nombre=item.substring(0, index).trim();
+                DefaultTableModel modeloTabla=controlAdministrarGrados.crearModeloAgregarMateria(tablaMaterias, idMateria, nombre);
+                tablaMaterias.setModel(modeloTabla);
+                tablaMaterias=agregarAccionesBotonesMaterias(tablaMaterias);
+                tablaMaterias=aplicarFormatoTablaMaterias(tablaMaterias);
+                revalidate();
+                repaint();
+            }
+        }
+        else{
+            JOptionPane mensaje= new JOptionPane();
+            mensaje.setBackground(new java.awt.Color(102, 102, 102));
+            mensaje.setForeground(Color.white);
+            mensaje.showMessageDialog(null,"Debes seleccionar una materia");
+        }
+    }//GEN-LAST:event_agregarActionPerformed
+
+    private void consecutivoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consecutivoItemStateChanged
+        // TODO add your handling code here:
+        int itemIndex=consecutivo.getSelectedIndex();
+        if(itemIndex>0){
+             String idProfesor= (String) ultimoResultadoBusqueda.getModel().getValueAt(0, 0);
+             String nombreGrado=(String) grado.getSelectedItem();
+             String consecutivoStr= (String) consecutivo.getSelectedItem();
+             int consecutivo=Integer.parseInt(consecutivoStr);
+             HashMap<String,String> datosCurso=controlAdministrarCursos.obtenerDatosCurso(nombreGrado, consecutivo);
+             int idGrado=Integer.parseInt(datosCurso.get("idGrado"));
+             ArrayList<CursosImpartidos> cursosImpartidos=controlMatriculasPanel.buscarCursosImpartidosProfesor(idProfesor, idGrado, consecutivo);
+             for(int i=0;i<cursosImpartidos.size();i++){
+                boolean agregada= verificarIdMateriaLista(cursosImpartidos.get(i).getMaterias().getCodigoMateria());
+                if(!agregada){
+                 DefaultTableModel modeloTabla=controlAdministrarGrados.crearModeloAgregarMateria(tablaMaterias, 
+                        cursosImpartidos.get(i).getMaterias().getCodigoMateria(),cursosImpartidos.get(i).getMaterias().getNombre());
+                tablaMaterias.setModel(modeloTabla);
+                tablaMaterias=agregarAccionesBotonesMaterias(tablaMaterias);
+                tablaMaterias=aplicarFormatoTablaMaterias(tablaMaterias);   
+                }
+             }
+             if(cursosImpartidos.size()>0){
+                matricular.setActionCommand("cambiarMatricula");
+                matricular.setText("Cambiar Matricula");
+             }
+             else{
+                matricular.setText("Matricular");
+                matricular.setActionCommand("");
+             }
+        }
+    }//GEN-LAST:event_consecutivoItemStateChanged
+    
+    private boolean verificarIdMateriaLista(int idMateria){
+        DefaultTableModel modeloTabla=(DefaultTableModel) tablaMaterias.getModel();
+        int [] idMaterias= new int [tablaMaterias.getRowCount()];
+        for(int i=0; i<idMaterias.length;i++){
+            idMaterias[i]=(int) tablaMaterias.getValueAt(i,0);
+        }
+        boolean encontrado=false;
+        for(int j=0;j<idMaterias.length && !encontrado;j++){
+            int id=idMaterias[j];
+            if(id==idMateria){
+                encontrado=true;
+            }
+        }
+        return encontrado;
+    }
     
     private final void cargarGrados(){
         String [] listadoGrados=controlAdministrarCursos.obtenerListadoGrados();
@@ -376,13 +583,13 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
          tabla.setModel(modelo);  
          tabla=aplicarFormatoTabla(tabla);
          ultimoResultadoBusqueda=tabla;
-         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 570, 110));
+         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 620, 90));
          revalidate();
          repaint();
     }
      public void mostrarDatosEnTabla(JTable tabla){
          jScrollPane1.setViewportView(tabla);
-         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 570, 110));
+         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 620, 90));
          revalidate();
          repaint();
     }
@@ -403,6 +610,30 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
             }
         });
         return tabla;
+    }
+    
+    private JTable agregarAccionesBotonesMaterias(JTable tabla){
+        tabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila = tabla.rowAtPoint(e.getPoint());
+                int columna = tabla.columnAtPoint(e.getPoint());
+                if (tabla.getModel().getColumnClass(columna).equals(Object.class)) {
+                    JButton btn=(JButton) tabla.getModel().getValueAt(fila,columna);
+                    if(btn.getActionCommand().equals("remover")){
+                        remover(fila); 
+                    }
+                 
+                }
+            }
+        });
+        return tabla;
+    }
+    
+    private void remover(int fila){
+        DefaultTableModel modeloTabla=(DefaultTableModel) tablaMaterias.getModel();
+        modeloTabla.removeRow(fila);
+        tablaMaterias.setModel(modeloTabla);  
     }
     
     public void selecccionarProfesor(JTable tabla,int fila){
@@ -430,6 +661,27 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
         return tabla;
     }
     
+    private JTable aplicarFormatoTablaMaterias(JTable tabla){
+       tabla.setRowHeight(20);
+       tabla.setDefaultRenderer(Object.class, new BotonTablaRender());
+       tabla.setGridColor(new java.awt.Color(102, 102, 102));
+       tabla.setSelectionBackground(new java.awt.Color(101, 166, 148));
+       tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+       tabla.setRowSelectionAllowed(true);
+       tabla.getTableHeader().setReorderingAllowed(false);
+       jScrollPane2.setViewportView(tabla);
+       tabla.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tabla.getColumnModel().getColumnCount() > 0) {
+            tabla.getColumnModel().getColumn(0).setResizable(false);
+            tabla.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tabla.getColumnModel().getColumn(1).setResizable(false);
+            tabla.getColumnModel().getColumn(1).setPreferredWidth(210);
+            tabla.getColumnModel().getColumn(2).setResizable(false);
+            tabla.getColumnModel().getColumn(2).setPreferredWidth(120);
+        }
+        return tabla;
+    }
+    
     private DefaultTableModel crearModeloTabla(String [] columnas, Class[] types, Object [][] datos){
 
         for(int i=0;i<datos.length;i++){
@@ -449,37 +701,55 @@ public class MatricularProfesorPanel extends javax.swing.JPanel {
             }
         };
     }
-    
-    private void MostrarItem(JComboBox comboBox, String itemSeleccionado){
-         int num = comboBox.getItemCount();
-         for (int i = 0; i < num; i++) {
-            String item = (String) comboBox.getItemAt(i);
-            if(itemSeleccionado.equals(item)){
-                comboBox.setSelectedIndex(i);
-            }
-         }
-    }
+   
     
     private static boolean isNumeric(String str) {
         return (str.matches("[+-]?\\d*(\\.\\d+)?") && str.equals("")==false);
     }
     
-    private CursosImpartidosPK cursosImpartidosPK;
+    private void reiniciarTablaMateria(){
+         tablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},new String [] {
+       "CODIGO", "MATERIA", "ACCIONES"
+    }
+) {
+    Class[] types = new Class [] {
+        java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+    };
+    boolean[] canEdit = new boolean [] {
+        false, false, false
+    };
+
+    public Class getColumnClass(int columnIndex) {
+        return types [columnIndex];
+    }
+
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return canEdit [columnIndex];
+    }
+});
+         jScrollPane2.setViewportView(tablaMaterias);
+    }
+    
+    private ControlAdministrarRecursos controlAdministrarGrados;
     private ControlMatriculasPanel controlMatriculasPanel;
     private ControlAdministrarCursos controlAdministrarCursos;
     private ControlBuscarProfesorPanel controlBuscarProfesorPanel;
     private JScrollPane jScrollPane1;
     private JTable ultimoResultadoBusqueda;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton agregar;
     private javax.swing.JTextField barraBusqueda;
     private javax.swing.JButton buscar;
     private javax.swing.JComboBox<String> consecutivo;
     private javax.swing.JLabel consecutivoT;
     private javax.swing.JComboBox<String> grado;
     private javax.swing.JLabel gradoT;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> materia;
     private javax.swing.JLabel materiaT;
     private javax.swing.JButton matricular;
     private javax.swing.JLabel seleccionaProfesor;
+    private javax.swing.JTable tablaMaterias;
     // End of variables declaration//GEN-END:variables
 }
