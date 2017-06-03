@@ -8,6 +8,7 @@ package modelo;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -108,6 +109,27 @@ public class MateriaCurso extends AbstractFacade{
                 tmp.getMateriaEnCursoPK().getCursosconsecutivo()==consecutivo &&
                 tmp.getMateriaEnCursoPK().getMateriascodigomateria()==idMateria){
                 estudiantes.add(tmp.getEstudiantes());
+            }
+        }
+        return estudiantes;
+    }
+    
+    public ArrayList<Estudiantes> obtenerEstudiantesEnCurso(int idInstitucion,int idGrado, int consecutivo){
+        List<MateriaEnCurso> materiasEnCurso= super.findAll();
+        ArrayList<Estudiantes> estudiantes=new ArrayList();
+        HashMap<String,String> ids= new HashMap();
+        for(int i=0;i<materiasEnCurso.size();i++){
+            MateriaEnCurso tmp=materiasEnCurso.get(i);
+            if(tmp.getMateriaEnCursoPK().getCursosGradosInstitucionesnit()==idInstitucion &&
+                tmp.getMateriaEnCursoPK().getCursosGradosidGrado()==idGrado &&
+                tmp.getMateriaEnCursoPK().getCursosconsecutivo()==consecutivo){
+                int anterior=ids.size();
+                String id=tmp.getMateriaEnCursoPK().getEstudiantesPersonasnumeroidentificacion();
+                ids.put(id,id);
+                int nuevo=ids.size();
+                if(nuevo>anterior){
+                    estudiantes.add(tmp.getEstudiantes());
+                }
             }
         }
         return estudiantes;

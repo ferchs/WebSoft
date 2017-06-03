@@ -33,12 +33,12 @@ public class ReportesPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         PanelLogo1 = new javax.swing.JPanel();
-        buscar = new javax.swing.JButton();
-        agregar = new javax.swing.JButton();
-        buscarText = new javax.swing.JLabel();
+        generarBoletines = new javax.swing.JButton();
+        fichasMatriculas = new javax.swing.JButton();
         agregarText = new javax.swing.JLabel();
         inicio = new javax.swing.JButton();
         inicioText = new javax.swing.JLabel();
+        agregarText1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 102, 102));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -46,41 +46,35 @@ public class ReportesPanel extends javax.swing.JPanel {
         PanelLogo1.setBackground(new java.awt.Color(101, 166, 148));
         PanelLogo1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        buscar.setBackground(new java.awt.Color(102, 102, 102));
-        buscar.setForeground(new java.awt.Color(255, 255, 255));
-        buscar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/buscar.png")); // NOI18N
-        buscar.setBorderPainted(false);
-        buscar.setOpaque(true);
-        buscar.addActionListener(new java.awt.event.ActionListener() {
+        generarBoletines.setBackground(new java.awt.Color(102, 102, 102));
+        generarBoletines.setForeground(new java.awt.Color(255, 255, 255));
+        generarBoletines.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/boletinMini.png")); // NOI18N
+        generarBoletines.setBorderPainted(false);
+        generarBoletines.setOpaque(true);
+        generarBoletines.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
+                generarBoletinesActionPerformed(evt);
             }
         });
-        PanelLogo1.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 60, -1));
+        PanelLogo1.add(generarBoletines, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 60, -1));
 
-        agregar.setBackground(new java.awt.Color(102, 102, 102));
-        agregar.setForeground(new java.awt.Color(255, 255, 255));
-        agregar.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/fichamatriculaMini.png")); // NOI18N
-        agregar.setBorderPainted(false);
-        agregar.setOpaque(true);
-        agregar.addActionListener(new java.awt.event.ActionListener() {
+        fichasMatriculas.setBackground(new java.awt.Color(102, 102, 102));
+        fichasMatriculas.setForeground(new java.awt.Color(255, 255, 255));
+        fichasMatriculas.setIcon(new javax.swing.ImageIcon("/Users/ferchs/Desktop/fichamatriculaMini.png")); // NOI18N
+        fichasMatriculas.setBorderPainted(false);
+        fichasMatriculas.setOpaque(true);
+        fichasMatriculas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarActionPerformed(evt);
+                fichasMatriculasActionPerformed(evt);
             }
         });
-        PanelLogo1.add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 60, -1));
-
-        buscarText.setBackground(new java.awt.Color(255, 255, 255));
-        buscarText.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
-        buscarText.setForeground(new java.awt.Color(255, 255, 255));
-        buscarText.setText("Buscar");
-        PanelLogo1.add(buscarText, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+        PanelLogo1.add(fichasMatriculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 60, -1));
 
         agregarText.setBackground(new java.awt.Color(255, 255, 255));
         agregarText.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         agregarText.setForeground(new java.awt.Color(255, 255, 255));
-        agregarText.setText("<html>\n<pre> Ficha \nMatricula</pre>\n</html>");
-        PanelLogo1.add(agregarText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 60, -1));
+        agregarText.setText("<html>\n<pre> Generar\nBoletines</pre>\n</html>");
+        PanelLogo1.add(agregarText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 60, -1));
 
         inicio.setBackground(new java.awt.Color(102, 102, 102));
         inicio.setForeground(new java.awt.Color(255, 255, 255));
@@ -100,20 +94,25 @@ public class ReportesPanel extends javax.swing.JPanel {
         inicioText.setText("inicio");
         PanelLogo1.add(inicioText, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, -1, -1));
 
+        agregarText1.setBackground(new java.awt.Color(255, 255, 255));
+        agregarText1.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
+        agregarText1.setForeground(new java.awt.Color(255, 255, 255));
+        agregarText1.setText("<html>\n<pre>  Fichas\nMatriculas</pre>\n</html>");
+        PanelLogo1.add(agregarText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 60, -1));
+
         add(PanelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 580));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+    private void generarBoletinesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarBoletinesActionPerformed
         // TODO add your handling code here:
-//        BuscarEstudiantePanel buscarEstudiantePanel= new BuscarEstudiantePanel(this);
-//        mostarPanel(buscarEstudiantePanel);
-    }//GEN-LAST:event_buscarActionPerformed
+       GenerarBoletinesPanel generarBoletinesPanel= new GenerarBoletinesPanel(this);
+       mostarPanel(generarBoletinesPanel);
+    }//GEN-LAST:event_generarBoletinesActionPerformed
 
-    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        // TODO add your handling code here:
-//        AgregarEstudiantePanel agregarEstudiantePanel= new AgregarEstudiantePanel();
-//        mostarPanel(agregarEstudiantePanel);
-    }//GEN-LAST:event_agregarActionPerformed
+    private void fichasMatriculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichasMatriculasActionPerformed
+        GenerarFichaMatriculaPanel generarFichaMatriculaPanel= new GenerarFichaMatriculaPanel(this);
+        mostarPanel(generarFichaMatriculaPanel);
+    }//GEN-LAST:event_fichasMatriculasActionPerformed
 
     private void inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioActionPerformed
         // TODO add your handling code here:
@@ -134,10 +133,10 @@ public class ReportesPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelLogo1;
-    private javax.swing.JButton agregar;
     private javax.swing.JLabel agregarText;
-    private javax.swing.JButton buscar;
-    private javax.swing.JLabel buscarText;
+    private javax.swing.JLabel agregarText1;
+    private javax.swing.JButton fichasMatriculas;
+    private javax.swing.JButton generarBoletines;
     private javax.swing.JButton inicio;
     private javax.swing.JLabel inicioText;
     // End of variables declaration//GEN-END:variables

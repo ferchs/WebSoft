@@ -36,6 +36,16 @@ public class ControlBuscarEstudiantePanel {
             }
     }
     
+    public DefaultTableModel obtenerModeloBusquedaFichaMatricula(String parametroBusqueda){
+            if(isNumeric(parametroBusqueda)){
+                Estudiantes estud=estudiante.buscarEstudiantePorId(parametroBusqueda);
+                return crearModeloConEstudianteFichaMatricula(estud);
+            }
+            else{
+                return crearModeloConEstudiantesFichaMatricula(estudiante.buscarEstudiantePorComodin(parametroBusqueda));
+            }
+    }
+    
      public DefaultTableModel obtenerModeloBusquedaMatricula(String parametroBusqueda){
             if(isNumeric(parametroBusqueda)){
                 Estudiantes estud=estudiante.buscarEstudiantePorId(parametroBusqueda);
@@ -125,6 +135,32 @@ public class ControlBuscarEstudiantePanel {
         return modeloTabla;
     }
     
+    private ModeloTabla crearModeloConEstudianteFichaMatricula(Estudiantes estudiante){
+        String [] columnas=new String [] {"IDENTIFICACION", "NOMBRE ESTUDIANTE", ""};
+        boolean[] canEdit = new boolean [] {false, false, false};
+        Class[] tipos = new Class [] {java.lang.String.class, java.lang.String.class, java.lang.Object.class};
+        ModeloTabla modeloTabla= new ModeloTabla(columnas,tipos,canEdit);
+        Object [] fila= new Object[3];
+        if(estudiante!=null){
+            fila[0]=estudiante.getPersonasnumeroidentificacion();
+            StringBuilder nombre= new StringBuilder();
+            nombre.append(estudiante.getPersonas().getPrimerNombre());
+            nombre.append(" ");
+            nombre.append(estudiante.getPersonas().getSegundoNombre());
+            if(!estudiante.getPersonas().getSegundoNombre().isEmpty()){
+                nombre.append(" ");
+            }
+            nombre.append(estudiante.getPersonas().getPrimerApellido());
+            nombre.append(" ");
+            nombre.append(estudiante.getPersonas().getSegundoApellido());
+            String nombreCompleto= nombre.toString();
+            fila[1]=nombreCompleto;
+            fila[2]=crearBoton("Generar","generar");
+            modeloTabla.addRow(fila);
+        }
+        return modeloTabla;
+    }
+    
     private ModeloTabla crearModeloConEstudianteMatricula(Estudiantes estudiante){
         String [] columnas=new String [] {"IDENTIFICACION", "NOMBRE ESTUDIANTE", ""};
         boolean[] canEdit = new boolean [] {false, false, false};
@@ -175,6 +211,33 @@ public class ControlBuscarEstudiantePanel {
             fila[2]=crearBoton("Visualizar","visualizar");
             fila[3]=crearBoton("Editar","editar");
             fila[4]=crearBoton("Eliminar","eliminar");
+            modeloTabla.addRow(fila);
+        }
+        return modeloTabla;
+    }
+    
+    private ModeloTabla crearModeloConEstudiantesFichaMatricula(ArrayList<Estudiantes> estudiantes){
+        String [] columnas=new String [] {"IDENTIFICACION", "NOMBRE ESTUDIANTE", ""};
+        boolean[] canEdit = new boolean [] {false, false, false};
+        Class[] tipos = new Class [] {java.lang.String.class, java.lang.String.class, java.lang.Object.class};
+        ModeloTabla modeloTabla= new ModeloTabla(columnas,tipos,canEdit);
+        for(int i=0;i<estudiantes.size();i++){
+            Estudiantes est=estudiantes.get(i);
+            Object [] fila= new Object[3];
+            fila[0]=est.getPersonasnumeroidentificacion();
+            StringBuilder nombre= new StringBuilder();
+            nombre.append(est.getPersonas().getPrimerNombre());
+            nombre.append(" ");
+            nombre.append(est.getPersonas().getSegundoNombre());
+            if(!est.getPersonas().getSegundoNombre().isEmpty()){
+                nombre.append(" ");
+            }
+            nombre.append(est.getPersonas().getPrimerApellido());
+            nombre.append(" ");
+            nombre.append(est.getPersonas().getSegundoApellido());
+            String nombreCompleto= nombre.toString();
+            fila[1]=nombreCompleto;
+            fila[2]=crearBoton("Generar","generar");
             modeloTabla.addRow(fila);
         }
         return modeloTabla;
